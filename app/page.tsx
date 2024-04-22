@@ -2,14 +2,14 @@ import Link from 'next/link';
 import { blogPosts } from './services/blogPosts';
 
 export default async function Home() {
-  const response = await blogPosts();
+  const { data } = await blogPosts();
 
   return (
     <>
-      {!response?.data?.length ? (
+      {!data?.length ? (
         <p>there are no blogposts</p>
       ) : (
-        response?.data?.map((post) => {
+        data?.map((post) => {
           return (
             <Link href={`/${post?.attributes?.slug}`} key={post.id}>
               {post?.attributes?.title}

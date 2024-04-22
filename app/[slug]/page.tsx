@@ -1,14 +1,12 @@
-import BlockRendererClient from '@/components/BlockRenderClient';
+import BlockRendererClient from '@/app/components/BlockRenderClient';
 import { blogPosts } from '../services/blogPosts';
 
-export default async function BlogDetails(props: { params: { slug: string } }) {
-  const params = `filters[slug][$eq]=${props.params.slug}`;
+interface BlogDetailsProps {
+  params: { slug: string };
+}
 
-  const { data } = await blogPosts(params);
+export default async function BlogDetails({ params }: BlogDetailsProps) {
+  const { data } = await blogPosts(`filters[slug][$eq]=${params.slug}`);
 
-  return (
-    <>
-      <BlockRendererClient content={data[0]?.attributes.content} />
-    </>
-  );
+  return <BlockRendererClient content={data[0]?.attributes.content} />;
 }

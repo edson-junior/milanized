@@ -7,11 +7,11 @@ import {
   type BlocksContent
 } from '@strapi/blocks-react-renderer';
 
-export default function BlockRendererClient({
-  content
-}: {
+interface BlockRendererProps {
   readonly content: BlocksContent;
-}) {
+}
+
+export default function BlockRendererClient({ content }: BlockRendererProps) {
   if (!content) return null;
 
   return (

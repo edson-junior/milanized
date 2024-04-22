@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Header from '@/components/header';
+import Header from '@/app/components/header';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,13 +22,6 @@ export default function RootLayout({
         <div>
           <div className="max-w-7xl mx-auto px-4 py-4">{children}</div>
         </div>
-
-        {/* <footer>
-        © Milanized {new Date().getFullYear()} <br />
-        If you are dissatisfied with the website or any content or materials on it, your sole exclusive remedy is to discontinue your use of the website. <br />
-        The website may provide links to other websites on the Internet, the content of which is not in our control. <br />
-        Whilst every effort has been made to ensure accuracy, the publisher cannot accept responsibility for omissions and errors. If you have found material on this website which is copyrighted by others, please contact the webmaster on this matter in order to have it removed.
-        </footer> */}
       </body>
     </html>
   );

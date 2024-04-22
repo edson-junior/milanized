@@ -1,4 +1,4 @@
-import { Blogs } from '@/types';
+import { Blogs } from '@/app/types';
 
 export async function blogPosts(params: string = ''): Promise<Blogs> {
   const headers = {

@@ -14,8 +14,13 @@
     "lint": "eslint --ext ts,tsx app/",
     "prepare": "husky"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
-    "src/**/*.(ts|tsx)": [
+    "**/*.(ts|tsx)": [
       "npm run lint -- --fix --max-warnings=0"
     ]
   },

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { blogPosts } from './services/blogPosts';
+import { blogPosts } from '../services/blogPosts';
 
 export default async function Home() {
   const { data } = await blogPosts();

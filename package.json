@@ -22,7 +22,7 @@
     }
   },
   "lint-staged": {
-    "app/**/*.(ts|tsx)": [
+    "*.(ts|tsx)": [
       "npm run lint -- --fix --max-warnings=0"
     ]
   },

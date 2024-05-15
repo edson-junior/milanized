@@ -15,23 +15,21 @@ export default async function Home() {
           const featuredImage = post?.attributes.featuredImage.data?.attributes;
 
           return (
-            <>
-              <Card marginBottom="8" key={post.attributes.title}>
-                <Link href={`/${post?.attributes?.slug}`} key={post.id}>
-                  <CardBody>
-                    <Image
-                      src={featuredImage?.url}
-                      width={featuredImage?.width}
-                      height={featuredImage?.height}
-                      alt={featuredImage?.alternativeText || ''}
-                    />
-                    <Stack mt="6" spacing="3">
-                      <Heading size="md">{post?.attributes?.title}</Heading>
-                    </Stack>
-                  </CardBody>
-                </Link>
-              </Card>
-            </>
+            <Card marginBottom="8" key={post.attributes.title}>
+              <Link href={`/${post?.attributes?.slug}`} key={post.id}>
+                <CardBody>
+                  <Image
+                    src={featuredImage?.url}
+                    width={featuredImage?.width}
+                    height={featuredImage?.height}
+                    alt={featuredImage?.alternativeText || ''}
+                  />
+                  <Stack mt="6" spacing="3">
+                    <Heading size="md">{post?.attributes?.title}</Heading>
+                  </Stack>
+                </CardBody>
+              </Link>
+            </Card>
           );
         })
       )}

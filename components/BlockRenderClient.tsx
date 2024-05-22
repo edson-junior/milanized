@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { Heading, Text, UnorderedList } from '@chakra-ui/react';
+import parse from 'html-react-parser';
 
 import {
   BlocksRenderer,
@@ -26,6 +27,7 @@ export default function BlockRendererClient({ content }: BlockRendererProps) {
               width={image.width}
               height={image.height}
               alt={image.alternativeText || ''}
+              title={image.alternativeText || ''}
             />
           );
         },
@@ -58,6 +60,11 @@ export default function BlockRendererClient({ content }: BlockRendererProps) {
         list: ({ format, children }) => {
           if (format === 'unordered') {
             return <UnorderedList>{children}</UnorderedList>;
+          }
+        },
+        code: (props) => {
+          if (props?.plainText) {
+            return <>{parse(props.plainText)}</>;
           }
         }
       }}

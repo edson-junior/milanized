@@ -7,10 +7,18 @@ import Footer from '../components/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
+// TODO: make the following metadata variables dynamic
+
+const title = 'Milanized!';
+const description =
+  'Milanized is an English-language website for internationals in Italy. Visit us for news, culture, history, and hotspots.';
+
 export const metadata: Metadata = {
-  title: 'Milanized!',
-  description:
-    'Milanized is an English-language website for internationals in Italy. Visit us for news, culture, history, and hotspots.'
+  title,
+  description,
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_STRAPI_CLIENT_URL}`
+  }
 };
 
 export default function RootLayout({

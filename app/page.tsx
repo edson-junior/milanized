@@ -19,8 +19,11 @@ export default async function Home() {
           const featuredImage = post?.attributes.featuredImage.data?.attributes;
 
           return (
-            <div className="group shadow-md rounded-sm overflow-hidden" key={post.id}>
-              <Link href={`/${post?.attributes?.slug}`} className='block h-52'>
+            <div
+              className="group shadow-md rounded-sm overflow-hidden"
+              key={post.id}
+            >
+              <Link href={`/${post?.attributes?.slug}`} className="block h-52">
                 <Image
                   className="as block h-full w-full object-cover"
                   src={featuredImage?.formats.small.url}
@@ -32,10 +35,17 @@ export default async function Home() {
                 />
               </Link>
               <div className="p-4 pb-6">
-              <Link href={`/${post?.attributes?.slug}`} className='col group-hover:text-blue-700'>
-                <Heading className="text-xl block mb-4">{post?.attributes?.title}</Heading>
-              </Link>
-                <p className="text text-sm text-gray-600 line-clamp-4 align-baseline">{post?.attributes?.summary}</p>
+                <Link
+                  href={`/${post?.attributes?.slug}`}
+                  className="col group-hover:text-blue-700"
+                >
+                  <Heading className="text-xl block mb-4">
+                    {post?.attributes?.title}
+                  </Heading>
+                </Link>
+                <p className="text text-sm text-gray-600 line-clamp-4 align-baseline">
+                  {post?.attributes?.summary}
+                </p>
               </div>
             </div>
           );

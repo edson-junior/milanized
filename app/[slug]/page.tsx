@@ -1,8 +1,8 @@
 import BlockRendererClient from '@/components/BlockRenderClient';
 import { blogPosts } from '../../services/blogPosts';
-import { Heading } from '@chakra-ui/react';
 import Image from 'next/image';
 import { Metadata } from 'next';
+import Heading from '@/components/ui/heading';
 
 interface BlogDetailsProps {
   params: { slug: string };
@@ -28,7 +28,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
 
   return (
     <>
-      <Heading as="h1" size="2xl" paddingTop="3" paddingBottom="2">
+      <Heading as="h1" className="text-5xl mt-3 mb-2">
         {data[0]?.attributes?.title}
       </Heading>
 

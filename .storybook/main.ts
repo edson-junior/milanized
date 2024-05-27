@@ -11,7 +11,6 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@chromatic-com/storybook',
     '@storybook/addon-interactions',
-    '@chakra-ui/storybook-addon'
 
   ],
   framework: {
@@ -21,11 +20,6 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag'
   },
-  staticDirs: ['../public'],
-  refs: {
-    '@chakra-ui/react': {
-      disable: true,
-    },
-  }
+  staticDirs: ['../public']
 };
 export default config;

@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Open_Sans } from 'next/font/google';
 import '../styles/globals.css';
-import { Providers } from './providers';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-const inter = Inter({ subsets: ['latin'] });
+const openSans = Open_Sans({ subsets: ['latin'] });
 
 // TODO: make the following metadata variables dynamic
 
@@ -28,16 +27,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Providers>
-          <div className="min-h-screen flex flex-col justify-between">
-            <Header />
-            <div className="flex-grow">
-              <div className="max-w-7xl mx-auto px-4 py-4">{children}</div>
-            </div>
-            <Footer />
+      <body className={openSans.className}>
+        <div className="min-h-screen flex flex-col justify-between">
+          <Header />
+          <div className="flex-grow">
+            <div className="max-w-7xl mx-auto px-4 py-4">{children}</div>
           </div>
-        </Providers>
+          <Footer />
+        </div>
       </body>
     </html>
   );

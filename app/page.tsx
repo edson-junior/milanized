@@ -20,7 +20,7 @@ export default async function Home() {
 
           return (
             <div
-              className="group shadow-md rounded-sm overflow-hidden"
+              className="group shadow-md rounded-sm overflow-hidden border border-border"
               key={post.id}
             >
               <Link href={`/${post?.attributes?.slug}`} className="block h-52">
@@ -43,7 +43,7 @@ export default async function Home() {
                     {post?.attributes?.title}
                   </Heading>
                 </Link>
-                <p className="text text-sm text-gray-600 line-clamp-4 align-baseline">
+                <p className="text text-sm line-clamp-4 align-baseline">
                   {post?.attributes?.summary}
                 </p>
               </div>

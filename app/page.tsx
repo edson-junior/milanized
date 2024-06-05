@@ -37,19 +37,22 @@ export default async function Home() {
                 className="group shadow-md rounded-sm overflow-hidden border border-border"
                 key={id}
               >
-                <Link href={`/${slug}`} className="block h-52">
-                  <CldImage
-                    width="250"
-                    height="250"
-                    src={cloudinaryImage.publicID}
-                    alt={cloudinaryImage.alt}
-                    title={cloudinaryImage.alt}
-                    loading="eager"
-                    priority
-                    crop="fit"
-                    className="block h-full w-full object-cover"
-                  />
-                </Link>
+                {cloudinaryImage && (
+                  <Link href={`/${slug}`} className="block h-52">
+                    <CldImage
+                      width="250"
+                      height="250"
+                      src={cloudinaryImage.publicID}
+                      alt={cloudinaryImage.alt}
+                      title={cloudinaryImage.alt}
+                      loading="eager"
+                      priority
+                      crop="fit"
+                      className="block h-full w-full object-cover"
+                    />
+                  </Link>
+                )}
+
                 <div className="p-4 pb-6">
                   <Link
                     href={`/${slug}`}

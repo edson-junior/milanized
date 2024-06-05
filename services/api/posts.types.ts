@@ -22,6 +22,14 @@ interface Attributes {
   isFeatured: boolean;
   content: BlocksContent;
   slug: string;
+  cloudinaryImage: CloudinaryImage;
+}
+
+interface CloudinaryImage {
+  id: number;
+  publicID: string;
+  alt: string;
+  caption: string | null;
 }
 
 interface Meta {

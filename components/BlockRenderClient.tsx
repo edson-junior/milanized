@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import parse from 'html-react-parser';
 
 import {
@@ -8,6 +7,7 @@ import {
   type BlocksContent
 } from '@strapi/blocks-react-renderer';
 import Heading from './ui/heading';
+import CldImage from './CldImage';
 
 interface BlockRendererProps {
   readonly content: BlocksContent;
@@ -21,11 +21,25 @@ export default function BlockRendererClient({ content }: BlockRendererProps) {
       content={content}
       blocks={{
         image: ({ image }) => {
-          return (
-            <Image
-              src={image.url}
+          return image.caption ? (
+            <figure>
+              <CldImage
+                className="mb-2"
+                width={image.width}
+                height={image.height}
+                src={image.url}
+                alt={image.alternativeText || ''}
+                title={image.name || ''}
+              />
+              <figcaption className="text-xs italic text-gray-600 [&>a]:text-blue-700 hover:[&>a]:underline mb-4">
+                {parse(image.caption)}
+              </figcaption>
+            </figure>
+          ) : (
+            <CldImage
               width={image.width}
               height={image.height}
+              src={image.url}
               alt={image.alternativeText || ''}
               title={image.alternativeText || ''}
             />
@@ -55,12 +69,21 @@ export default function BlockRendererClient({ content }: BlockRendererProps) {
           }
         },
         paragraph: ({ children }) => {
-          return <p>{children}</p>;
+          return (
+            <p className="leading-7 [&:not(:first-child)]:mt-3">{children}</p>
+          );
         },
         list: ({ format, children }) => {
           if (format === 'unordered') {
             return <ul className="list-disc list-inside">{children}</ul>;
           }
+        },
+        link: ({ children, url }) => {
+          return (
+            <a href={url} className="text-blue-700 hover:underline">
+              {children}
+            </a>
+          );
         },
         code: (props) => {
           if (props?.plainText) {

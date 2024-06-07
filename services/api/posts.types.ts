@@ -29,6 +29,7 @@ interface CloudinaryImage {
   id: number;
   publicID: string;
   alt: string;
+  title: string;
   caption: string | null;
 }
 

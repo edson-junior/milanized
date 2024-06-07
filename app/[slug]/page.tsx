@@ -49,7 +49,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
           height="800"
           src={cloudinaryImage.publicID}
           alt={cloudinaryImage.alt}
-          title={cloudinaryImage.alt}
+          title={cloudinaryImage.title}
           loading="eager"
           priority
           crop="fit"

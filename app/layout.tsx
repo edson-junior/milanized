@@ -13,7 +13,6 @@ export const viewport: Viewport = {
 
 type RootLayoutProps = Readonly<{
   children: React.ReactNode;
-  locale: string;
 }>;
 
 export default function RootLayout({ children }: RootLayoutProps) {

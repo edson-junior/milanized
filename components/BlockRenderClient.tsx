@@ -49,20 +49,20 @@ export default function BlockRendererClient({ content }: BlockRendererProps) {
           switch (level) {
             case 1:
               return (
-                <Heading as="h1" className="text-5xl">
+                <Heading as="h1" className="text-2xl lg:text-5xl">
                   {children}
                 </Heading>
               );
             case 2:
               return (
-                <Heading as="h2" className="text-4xl py-2">
+                <Heading as="h2" className="text-xl lg:text-4xl py-0 lg:py-2">
                   {children}
                 </Heading>
               );
 
             case 3:
               return (
-                <Heading as="h3" className="text-2xl py-2">
+                <Heading as="h3" className="text-lg lg:text-2xl py-0 lg:py-2">
                   {children}
                 </Heading>
               );

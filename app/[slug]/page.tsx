@@ -50,7 +50,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
     return (
       <>
         {data[0]?.attributes?.title && (
-          <Heading as="h1" className="text-xl lg:text-5xl mt-3 mb-2">
+          <Heading as="h1" className="text-2xl lg:text-5xl mt-3 mb-2">
             {data[0]?.attributes?.title}
           </Heading>
         )}

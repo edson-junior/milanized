@@ -11,13 +11,14 @@ export const viewport: Viewport = {
   themeColor: 'system'
 };
 
-export default function RootLayout({
-  children
-}: Readonly<{
+type RootLayoutProps = Readonly<{
   children: React.ReactNode;
-}>) {
+  locale: string;
+}>;
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en-GB" suppressHydrationWarning>
       <body className={openSans.className}>
         <Providers>
           <div className="min-h-screen flex flex-col justify-between">

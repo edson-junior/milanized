@@ -22,15 +22,15 @@ interface Attributes {
   isFeatured: boolean;
   content: BlocksContent;
   slug: string;
-  cloudinaryImage: CloudinaryImage;
+  seo: SEO;
 }
 
-interface CloudinaryImage {
+interface SEO {
   id: number;
-  publicID: string;
-  alt: string;
-  title: string;
-  caption: string | null;
+  metaTitle: string;
+  metaDescription: string;
+  keywords: string;
+  preventIndexing: boolean;
 }
 
 interface Meta {

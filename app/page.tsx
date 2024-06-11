@@ -31,20 +31,22 @@ export default async function Home() {
         <p>there are no blogposts</p>
       ) : (
         posts.data?.map(
-          ({ id, attributes: { cloudinaryImage, slug, title, summary } }) => {
+          ({ id, attributes: { featuredImage, slug, title, summary } }) => {
             return (
               <div
                 className="group shadow-md rounded-sm overflow-hidden border border-border"
                 key={id}
               >
-                {cloudinaryImage && (
+                {featuredImage?.data && (
                   <Link href={`/${slug}`} className="block h-52">
                     <CldImage
                       width="250"
                       height="250"
-                      src={cloudinaryImage.publicID}
-                      alt={cloudinaryImage.alt}
-                      title={cloudinaryImage.alt}
+                      src={featuredImage.data.attributes.url}
+                      alt={featuredImage.data.attributes.alternativeText || ''}
+                      title={
+                        featuredImage.data.attributes.alternativeText || ''
+                      }
                       loading="eager"
                       priority
                       crop="fit"

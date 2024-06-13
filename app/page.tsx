@@ -1,19 +1,24 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getPosts, getPages } from '../services/api';
+import Image from 'next/image';
 import Heading from '@/components/ui/heading';
-import CldImage from '@/components/CldImage';
+import imageUrlBuilder from '@sanity/image-url';
+import { SanityImageSource } from '@sanity/image-url/lib/types/types';
+import client from '@/client';
+import { Blog, Page } from '../../backend/sanity.types';
 
-const slug = 'homepage';
+function urlFor(source: SanityImageSource) {
+  return imageUrlBuilder(client).image(source);
+}
 
 export async function generateMetadata() {
-  const homepage = await getPages(`filters[slug][$eq]=${slug}`);
+  const homepage = await getPage();
 
   const metaData: Metadata = {
-    title: homepage.data[0].attributes.title,
-    description: homepage.data[0].attributes.seo.metaDescription,
+    title: homepage.metadata?.title,
+    description: homepage.metadata?.description,
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_STRAPI_CLIENT_URL}`
+      canonical: `${process.env.NEXT_PUBLIC_CLIENT_URL}`
     }
   };
 
@@ -22,55 +27,80 @@ export async function generateMetadata() {
 
 export default async function Home() {
   const posts = await getPosts();
-  const homepage = await getPages(`filters[slug][$eq]=${slug}`);
+  const homepage = await getPage();
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-6">
-      <h1 className="absolute left-[-999em]">{`${homepage.data[0].attributes.seo.metaTitle} - ${homepage.data[0].attributes.title}`}</h1>
-      {!posts.data?.length ? (
+      <h1 className="absolute left-[-999em]">{`${homepage.metadata?.title} - ${homepage.title}`}</h1>
+      {!posts?.length ? (
         <p>there are no blogposts</p>
       ) : (
-        posts.data?.map(
-          ({ id, attributes: { featuredImage, slug, title, summary } }) => {
-            return (
-              <div
-                className="group shadow-md rounded-sm overflow-hidden border border-border"
-                key={id}
-              >
-                {featuredImage?.data && (
-                  <Link href={`/${slug}`} className="block h-52">
-                    <CldImage
-                      width="250"
-                      height="250"
-                      src={featuredImage.data.attributes.url}
-                      alt={featuredImage.data.attributes.alternativeText || ''}
-                      title={
-                        featuredImage.data.attributes.alternativeText || ''
-                      }
-                      loading="eager"
-                      priority
-                      crop="fit"
-                      className="block h-full w-full object-cover"
-                    />
-                  </Link>
-                )}
+        posts?.map(({ _id, slug, title, summary, featuredImage }) => {
+          return (
+            <Link
+              href={`/${slug}`}
+              className="group shadow-md rounded-sm overflow-hidden border border-border"
+              key={_id}
+            >
+              {featuredImage && (
+                <Image
+                  width="250"
+                  height="250"
+                  src={urlFor(featuredImage).width(600).url()}
+                  alt={featuredImage.alt || ''}
+                  title={`${featuredImage.alt} `}
+                  loading="eager"
+                  priority
+                  className="block w-full object-cover h-52"
+                />
+              )}
 
-                <div className="p-4 pb-6">
-                  <Link
-                    href={`/${slug}`}
-                    className="col group-hover:text-blue-700"
-                  >
-                    <Heading className="text-xl block mb-4">{title}</Heading>
-                  </Link>
-                  <p className="text text-sm line-clamp-4 align-baseline">
-                    {summary}
-                  </p>
-                </div>
+              <div className="p-4 pb-6">
+                <Heading className="text-xl block mb-4 group-hover:text-blue-700">
+                  {title}
+                </Heading>
+
+                <p className="text text-sm line-clamp-4 align-baseline">
+                  {summary}
+                </p>
               </div>
-            );
-          }
-        )
+            </Link>
+          );
+        })
       )}
     </div>
   );
+}
+
+async function getPage(): Promise<Page> {
+  const query = `*[_type == 'page' && metadata.slug.current == 'homepage'][0] {
+    _id,
+    title,
+    metadata {
+      'slug': slug.current,
+      title,
+      noIndex,
+      image,
+      description
+    }
+  }`;
+
+  const data = await client.fetch(query);
+
+  return data;
+}
+
+async function getPosts(): Promise<Blog[]> {
+  const query = `*[_type == 'blog'] {
+    _id,
+    title,
+    "slug": slug.current,
+    summary,
+    content,
+    featuredImage
+  }`;
+
+  const data = await client.fetch(query);
+
+  return data;
 }

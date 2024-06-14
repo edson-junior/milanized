@@ -5,7 +5,7 @@ import Heading from '@/components/ui/heading';
 import imageUrlBuilder from '@sanity/image-url';
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import client from '@/client';
-import { Blog, Page } from '../../backend/sanity.types';
+import { Blog, Page } from '@/sanity.types';
 
 function urlFor(source: SanityImageSource) {
   return imageUrlBuilder(client).image(source);

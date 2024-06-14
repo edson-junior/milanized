@@ -4,9 +4,9 @@ import Heading from '@/components/ui/heading';
 import parse from 'html-react-parser';
 import imageUrlBuilder from '@sanity/image-url';
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
-import { Blog } from '../../../backend/sanity.types';
 import client from '@/client';
 import Image from 'next/image';
+import { Blog } from '@/sanity.types';
 
 interface BlogDetailsProps {
   params: { slug: string };

@@ -23,26 +23,27 @@ export async function generateMetadata({
 
   return {
     title: data.title,
-    description: data.seo?.metaDescription,
+    description: data.metadata?.description,
     robots:
       'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
     alternates: {
       canonical: `${process.env.NEXT_PUBLIC_CLIENT_URL}/${params.slug}`
     },
-    keywords: data.seo?.keywords,
+    keywords: data.metadata?.keywords,
     openGraph: {
       url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/${params.slug}`,
       siteName: 'Milanized',
       locale: 'en_GB',
       type: 'article',
       title: data.title,
-      description: data.seo?.metaDescription,
+      description: data.metadata?.description,
       images: {
-        url: urlFor(data.featuredImage).width(280).url(),
-        secureUrl: urlFor(data.featuredImage).width(280).url(),
+        url: urlFor(data.featuredImage).width(200).url(),
+        secureUrl: urlFor(data.featuredImage).width(200).url(),
         alt: data.featuredImage.alt,
-        width: 280,
-        height: 280
+        width: 200,
+        height: 200,
+        type: 'image'
       }
     }
   };

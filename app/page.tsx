@@ -35,10 +35,10 @@ export default async function Home() {
       {!posts?.length ? (
         <p>there are no blogposts</p>
       ) : (
-        posts?.map(({ _id, slug, title, summary, featuredImage }) => {
+        posts?.map(({ _id, metadata, title, summary, featuredImage }) => {
           return (
             <Link
-              href={`/${slug}`}
+              href={`/${metadata?.slug}`}
               className="group shadow-md rounded-sm overflow-hidden border border-border"
               key={_id}
             >

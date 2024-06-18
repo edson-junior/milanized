@@ -97,7 +97,10 @@ async function getPosts(): Promise<Blog[]> {
     "slug": slug.current,
     summary,
     content,
-    featuredImage
+    featuredImage,
+    metadata {
+      'slug': slug.current
+    }
   }`;
 
   const data = await client.fetch(query);

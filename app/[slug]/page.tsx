@@ -130,13 +130,15 @@ function urlFor(source: SanityImageSource) {
 }
 
 async function getPosts(slug: string): Promise<Blog> {
-  const query = `*[_type == 'blog' && slug.current == "${slug}"][0] {
+  const query = `*[_type == 'blog' && metadata.slug.current == "${slug}"][0] {
     _id,
     title,
-    "slug": slug.current,
     summary,
     content,
-    featuredImage
+    featuredImage,
+    metadata {
+      'slug': slug.current
+    }
   }`;
 
   const data = await client.fetch(query);

@@ -28,7 +28,6 @@ const components: PortableTextComponents = {
             height="800"
             src={urlFor(value).width(800).url()}
             alt={value.alt}
-            title={value.alt}
           />
           <figcaption className="text-xs italic text-gray-600 [&>a]:text-blue-700 hover:[&>a]:underline mb-4">
             {parse(value.caption)}
@@ -41,7 +40,6 @@ const components: PortableTextComponents = {
           height="800"
           src={urlFor(value).width(800).url()}
           alt={value.alt}
-          title={value.alt}
         />
       );
     },

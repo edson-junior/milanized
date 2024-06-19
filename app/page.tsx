@@ -48,7 +48,6 @@ export default async function Home() {
                   height="250"
                   src={urlFor(featuredImage).width(600).url()}
                   alt={featuredImage.alt || ''}
-                  title={`${featuredImage.alt} `}
                   loading="eager"
                   priority
                   className="block w-full object-cover h-52"

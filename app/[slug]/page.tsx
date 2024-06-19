@@ -55,7 +55,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
   if (data) {
     return (
       <>
-        <Heading as="h1" className="text-2xl lg:text-5xl mt-3 mb-2">
+        <Heading as="h1" className="text-2xl lg:text-5xl mb-8">
           {data.title}
         </Heading>
 

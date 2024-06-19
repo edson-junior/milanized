@@ -38,11 +38,11 @@ export async function generateMetadata({
       title: data.title,
       description: data.metadata?.description,
       images: {
-        url: urlFor(data.featuredImage).width(1000).url(),
-        secureUrl: urlFor(data.featuredImage).width(1000).url(),
+        url: urlFor(data.featuredImage).width(1200).url(),
+        secureUrl: urlFor(data.featuredImage).width(1200).url(),
         alt: data.featuredImage.alt,
-        width: 1000,
-        height: 1000,
+        width: 1200,
+        height: 675,
         type: 'image'
       }
     }

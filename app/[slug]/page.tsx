@@ -72,7 +72,6 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
           <FeaturedImage featuredImage={data.featuredImage} />
         )}
 
-        <br />
         <main className="flex flex-col md:flex-row gap-8">
           <article className="flex-1 md:w-64">
             {data?.content && <BlockRendererClient value={data?.content} />}

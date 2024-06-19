@@ -91,10 +91,9 @@ async function getPage(): Promise<Page> {
 }
 
 async function getPosts(): Promise<Blog[]> {
-  const query = `*[_type == 'blog'] {
+  const query = `*[_type == 'blog' && !(_id in path('drafts.**'))] {
     _id,
     title,
-    "slug": slug.current,
     summary,
     content,
     featuredImage,

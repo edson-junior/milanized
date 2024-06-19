@@ -8,6 +8,15 @@ export default function Header() {
         <Link href="/" className="text-white font-bold uppercase text-2xl">
           Milanized!
         </Link>
+
+        <nav className="text-white">
+          <ul>
+            <li>
+              <Link href="/about">About</Link>
+            </li>
+          </ul>
+        </nav>
+
         <div className="float-left text-white">
           <ThemeSwitch />
         </div>

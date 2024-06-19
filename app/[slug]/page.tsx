@@ -38,11 +38,11 @@ export async function generateMetadata({
       title: data.title,
       description: data.metadata?.description,
       images: {
-        url: urlFor(data.featuredImage).width(200).url(),
-        secureUrl: urlFor(data.featuredImage).width(200).url(),
+        url: urlFor(data.featuredImage).width(1000).url(),
+        secureUrl: urlFor(data.featuredImage).width(1000).url(),
         alt: data.featuredImage.alt,
-        width: 200,
-        height: 200,
+        width: 1000,
+        height: 1000,
         type: 'image'
       }
     }
@@ -136,7 +136,11 @@ async function getPosts(slug: string): Promise<Blog> {
     content,
     featuredImage,
     metadata {
-      'slug': slug.current
+      'slug': slug.current,
+      slug,
+      description,
+      keywords,
+      image
     }
   }`;
 

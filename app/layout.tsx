@@ -5,9 +5,6 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Providers from '../components/Providers';
 import { GoogleTagManager } from '@next/third-parties/google';
-import Script from 'next/script';
-
-// TODO: ADD GOOGLE ANALYTICS VIA GOOGLE TAG MANAGER
 
 const openSans = Open_Sans({ subsets: ['latin'] });
 
@@ -23,11 +20,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en-GB" suppressHydrationWarning>
       <GoogleTagManager gtmId={`${process.env.GTM_ID}`} />
-
-      <Script
-        strategy="beforeInteractive"
-        src={`https://cdn-cookieyes.com/client_data/6bc53cb1ca9d7a38bbe04e8a/script.js`}
-      ></Script>
 
       <body className={openSans.className}>
         <Providers>

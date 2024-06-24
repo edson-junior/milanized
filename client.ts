@@ -5,5 +5,6 @@ export default createClient({
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION,
   token: process.env.NEXT_PUBLIC_SANITY_API_TOKEN,
-  useCdn: true
+  useCdn: true,
+  ignoreBrowserTokenWarning: true
 });

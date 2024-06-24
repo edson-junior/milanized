@@ -4,6 +4,7 @@ import '../styles/globals.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Providers from '../components/Providers';
+import { GoogleTagManager, GoogleAnalytics } from '@next/third-parties/google';
 
 const openSans = Open_Sans({ subsets: ['latin'] });
 
@@ -18,6 +19,7 @@ type RootLayoutProps = Readonly<{
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en-GB" suppressHydrationWarning>
+      <GoogleTagManager gtmId={`${process.env.GTM_ID}`} />
       <body className={openSans.className}>
         <Providers>
           <div className="min-h-screen flex flex-col justify-between">
@@ -29,6 +31,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </div>
         </Providers>
       </body>
+      <GoogleAnalytics gaId={`${process.env.GA_ID}`} />
     </html>
   );
 }

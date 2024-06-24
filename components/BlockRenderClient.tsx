@@ -54,7 +54,9 @@ const components: PortableTextComponents = {
 
   list: {
     bullet: ({ children }) => (
-      <ul className="list-disc list-inside">{children}</ul>
+      <ul className="list-disc list-outside ms-4 [&>li:not(:last-child)]:mb-4">
+        {children}
+      </ul>
     )
   },
 

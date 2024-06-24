@@ -4,7 +4,10 @@ import '../styles/globals.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Providers from '../components/Providers';
-import { GoogleTagManager, GoogleAnalytics } from '@next/third-parties/google';
+import { GoogleTagManager } from '@next/third-parties/google';
+import Script from 'next/script';
+
+// TODO: ADD GOOGLE ANALYTICS VIA GOOGLE TAG MANAGER
 
 const openSans = Open_Sans({ subsets: ['latin'] });
 
@@ -20,6 +23,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en-GB" suppressHydrationWarning>
       <GoogleTagManager gtmId={`${process.env.GTM_ID}`} />
+      <Script src="https://app.termly.io/resource-blocker/e13466d4-aa37-4837-88ec-fd21580577f8?autoBlock=on" />
       <body className={openSans.className}>
         <Providers>
           <div className="min-h-screen flex flex-col justify-between">
@@ -31,7 +35,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </div>
         </Providers>
       </body>
-      <GoogleAnalytics gaId={`${process.env.GA_ID}`} />
     </html>
   );
 }

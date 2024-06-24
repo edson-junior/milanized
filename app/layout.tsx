@@ -23,7 +23,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en-GB" suppressHydrationWarning>
       <GoogleTagManager gtmId={`${process.env.GTM_ID}`} />
-      <Script src="https://app.termly.io/resource-blocker/e13466d4-aa37-4837-88ec-fd21580577f8?autoBlock=on" />
+
+      <Script
+        strategy="beforeInteractive"
+        src={`https://cdn-cookieyes.com/client_data/6bc53cb1ca9d7a38bbe04e8a/script.js`}
+      ></Script>
+
       <body className={openSans.className}>
         <Providers>
           <div className="min-h-screen flex flex-col justify-between">

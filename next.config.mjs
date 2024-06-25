@@ -13,11 +13,6 @@ const nextConfig = {
         port: ''
       }
     ]
-  },
-  i18n: {
-    locales: ['en-GB'],
-    defaultLocale: 'en-GB',
-    localeDetection: false
   }
 };
 

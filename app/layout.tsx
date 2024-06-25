@@ -4,11 +4,9 @@ import '../styles/globals.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Providers from '../components/Providers';
-// import { GoogleTagManager } from '@next/third-parties/google';
 import Script from 'next/script';
 import parse from 'html-react-parser';
-import ContentBanner from '@/components/ContentBanner';
-// TODO : add google tag manager manually through consent banner
+import ConsentBanner from '@/components/ConsentBanner';
 
 const openSans = Open_Sans({ subsets: ['latin'] });
 
@@ -78,7 +76,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <div className="max-w-7xl mx-auto px-4 py-4">{children}</div>
           </div>
           <Footer />
-          <ContentBanner />
+          <ConsentBanner />
           {/* </div> */}
         </Providers>
       </body>

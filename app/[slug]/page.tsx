@@ -128,7 +128,7 @@ function urlFor(source: SanityImageSource) {
   return imageUrlBuilder(client).image(source);
 }
 
-async function getPosts(slug: string): Promise<Blog> {
+async function getPosts(slug: string): Promise<Blog | undefined> {
   const query = `*[_type == 'blog' && metadata.slug.current == "${slug}"][0] {
     _id,
     title,
@@ -144,7 +144,11 @@ async function getPosts(slug: string): Promise<Blog> {
     }
   }`;
 
-  const data = await client.fetch(query);
+  try {
+    const data = await client.fetch(query);
 
-  return data;
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 }

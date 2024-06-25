@@ -14,64 +14,68 @@ function urlFor(source: SanityImageSource) {
 export async function generateMetadata() {
   const homepage = await getPage();
 
-  const metaData: Metadata = {
-    title: homepage.metadata?.title,
-    description: homepage.metadata?.description,
-    alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_CLIENT_URL}`
-    }
-  };
+  if (homepage) {
+    const metaData: Metadata = {
+      title: homepage.metadata?.title,
+      description: homepage.metadata?.description,
+      alternates: {
+        canonical: `${process.env.NEXT_PUBLIC_CLIENT_URL}`
+      }
+    };
 
-  return metaData;
+    return metaData;
+  }
 }
 
 export default async function Home() {
   const posts = await getPosts();
   const homepage = await getPage();
 
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-6">
-      <h1 className="absolute left-[-999em]">{`${homepage.metadata?.title} - ${homepage.title}`}</h1>
-      {!posts?.length ? (
-        <p>there are no blogposts</p>
-      ) : (
-        posts?.map(({ _id, metadata, title, summary, featuredImage }) => {
-          return (
-            <Link
-              href={`/${metadata?.slug}`}
-              className="group shadow-md rounded-sm overflow-hidden border border-border"
-              key={_id}
-            >
-              {featuredImage && (
-                <Image
-                  width="250"
-                  height="250"
-                  src={urlFor(featuredImage).width(600).url()}
-                  alt={featuredImage.alt || ''}
-                  loading="eager"
-                  priority
-                  className="block w-full object-cover h-52"
-                />
-              )}
+  if (homepage) {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-6">
+        <h1 className="absolute left-[-999em]">{`${homepage.metadata?.title} - ${homepage.title}`}</h1>
+        {!posts?.length ? (
+          <p>there are no blogposts</p>
+        ) : (
+          posts?.map(({ _id, metadata, title, summary, featuredImage }) => {
+            return (
+              <Link
+                href={`/${metadata?.slug}`}
+                className="group shadow-md rounded-sm overflow-hidden border border-border"
+                key={_id}
+              >
+                {featuredImage && (
+                  <Image
+                    width="250"
+                    height="250"
+                    src={urlFor(featuredImage).width(600).url()}
+                    alt={featuredImage.alt || ''}
+                    loading="eager"
+                    priority
+                    className="block w-full object-cover h-52"
+                  />
+                )}
 
-              <div className="p-4 pb-6">
-                <Heading className="text-xl block mb-4 group-hover:text-blue-700">
-                  {title}
-                </Heading>
+                <div className="p-4 pb-6">
+                  <Heading className="text-xl block mb-4 group-hover:text-blue-700">
+                    {title}
+                  </Heading>
 
-                <p className="text text-sm line-clamp-4 align-baseline">
-                  {summary}
-                </p>
-              </div>
-            </Link>
-          );
-        })
-      )}
-    </div>
-  );
+                  <p className="text text-sm line-clamp-4 align-baseline">
+                    {summary}
+                  </p>
+                </div>
+              </Link>
+            );
+          })
+        )}
+      </div>
+    );
+  }
 }
 
-async function getPage(): Promise<Page> {
+async function getPage(): Promise<Page | undefined> {
   const query = `*[_type == 'page' && metadata.slug.current == 'homepage'][0] {
     _id,
     title,
@@ -84,12 +88,16 @@ async function getPage(): Promise<Page> {
     }
   }`;
 
-  const data = await client.fetch(query);
+  try {
+    const data = await client.fetch(query);
 
-  return data;
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
-async function getPosts(): Promise<Blog[]> {
+async function getPosts(): Promise<Blog[] | undefined> {
   const query = `*[_type == 'blog' && !(_id in path('drafts.**'))] {
     _id,
     title,
@@ -101,7 +109,11 @@ async function getPosts(): Promise<Blog[]> {
     }
   }`;
 
-  const data = await client.fetch(query);
+  try {
+    const data = await client.fetch(query);
 
-  return data;
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 }

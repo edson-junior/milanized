@@ -41,7 +41,7 @@ export default async function Home() {
           posts?.map(({ _id, metadata, title, summary, featuredImage }) => {
             return (
               <Link
-                href={`/${metadata?.slug}`}
+                href={`/blog/${metadata?.slug}`}
                 className="group shadow-md rounded-sm overflow-hidden border border-border"
                 key={_id}
               >

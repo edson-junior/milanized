@@ -4,8 +4,8 @@ import '../styles/globals.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Providers from '../components/Providers';
+import { GoogleTagManager } from '@next/third-parties/google';
 // TODO : add google tag manager manually through consent banner
-// import { GoogleTagManager } from '@next/third-parties/google';
 
 const openSans = Open_Sans({ subsets: ['latin'] });
 
@@ -20,8 +20,7 @@ type RootLayoutProps = Readonly<{
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en-GB" suppressHydrationWarning>
-      {/* <GoogleTagManager gtmId={`${process.env.GTM_ID}`} /> */}
-
+      <GoogleTagManager gtmId={`${process.env.GTM_ID}`} />
       <body className={openSans.className}>
         <Providers>
           <div className="min-h-screen flex flex-col justify-between">

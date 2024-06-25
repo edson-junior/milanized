@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import ThemeSwitch from './ThemeSwitch';
 
 export default function Header() {
   return (
@@ -33,9 +32,10 @@ export default function Header() {
           </ul>
         </nav>
 
-        <div className="text-white self-end ml-auto">
+        {/* darkmode is being postponed in favor of expediting the launch of the website */}
+        {/* <div className="text-white self-end ml-auto">
           <ThemeSwitch />
-        </div>
+        </div> */}
       </div>
     </header>
   );

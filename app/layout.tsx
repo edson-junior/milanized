@@ -72,14 +72,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
       <body className={openSans.className}>
         <Providers>
-          <div className="min-h-screen flex flex-col justify-between">
-            <Header />
-            <div className="flex-grow">
-              <div className="max-w-7xl mx-auto px-4 py-4">{children}</div>
-            </div>
-            <Footer />
-            <ContentBanner />
+          {/* <div className="min-h-screen flex flex-col justify-between"> */}
+          <Header />
+          <div className="flex-grow">
+            <div className="max-w-7xl mx-auto px-4 py-4">{children}</div>
           </div>
+          <Footer />
+          <ContentBanner />
+          {/* </div> */}
         </Providers>
       </body>
     </html>

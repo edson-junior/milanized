@@ -8,7 +8,7 @@ export default function Providers({ children, ...props }: ThemeProviderProps) {
   return (
     <ThemeProvider
       attribute="class"
-      defaultTheme="system"
+      defaultTheme="light"
       enableSystem
       {...props}
     >

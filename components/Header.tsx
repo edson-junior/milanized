@@ -4,16 +4,19 @@ export default function Header() {
   return (
     <header className="bg-black">
       <div className="max-w-7xl	mx-auto p-4 flex">
-        <Link href="/" className="text-white font-bold uppercase text-2xl">
+        <Link
+          href="/"
+          className="text-white font-bold uppercase text-lg lg:text-2xl"
+        >
           Milanized!
         </Link>
 
-        <nav className="text-white flex mx-4">
+        <nav className="text-white flex ml-auto">
           <ul className="flex items-center gap-2">
             <li>
-              <Link href="/">Home</Link>
+              <Link href="/articles">Articles</Link>
             </li>
-            <li className="group flex flex-row relative">
+            {/* <li className="group flex flex-row relative">
               Life in Italy
               <ul className="hidden group-hover:block absolute left-0 top-full bg-black p-6 min-w-60">
                 <li>
@@ -22,7 +25,7 @@ export default function Header() {
                   </Link>
                 </li>
               </ul>
-            </li>
+            </li> */}
             <li>
               <Link href="/about">About</Link>
             </li>

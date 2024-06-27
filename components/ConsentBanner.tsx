@@ -102,7 +102,7 @@ export default function ConsentBanner() {
                   setIsBannerHidden(true);
                 }}
               >
-                Reject All
+                Deny
               </Button>
               <Link
                 href="/privacy-policy"

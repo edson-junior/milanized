@@ -12,9 +12,11 @@ export default function Header() {
         </Link>
 
         <nav className="text-white flex ml-auto">
-          <ul className="flex items-center gap-2">
+          <ul className="flex items-center gap-2 sm:gap-6">
             <li>
-              <Link href="/articles">Articles</Link>
+              <Link className="hover:underline" href="/articles">
+                Articles
+              </Link>
             </li>
             {/* <li className="group flex flex-row relative">
               Life in Italy
@@ -27,10 +29,14 @@ export default function Header() {
               </ul>
             </li> */}
             <li>
-              <Link href="/about">About</Link>
+              <Link className="hover:underline" href="/about">
+                About
+              </Link>
             </li>
             <li>
-              <Link href="/contact">Contact</Link>
+              <Link className="hover:underline" href="/contact">
+                Contact
+              </Link>
             </li>
           </ul>
         </nav>

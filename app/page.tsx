@@ -6,6 +6,7 @@ import imageUrlBuilder from '@sanity/image-url';
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import client from '@/client';
 import { Blog, Page } from '@/sanity.types';
+import FeaturedPost from '@/components/FeaturedPost';
 
 function urlFor(source: SanityImageSource) {
   return imageUrlBuilder(client).image(source);
@@ -33,44 +34,62 @@ export default async function Home() {
 
   if (homepage) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-6">
+      <>
         <h1 className="absolute left-[-999em]">{`${homepage.metadata?.title} - ${homepage.title}`}</h1>
-        {!posts?.length ? (
-          <p>there are no blogposts</p>
-        ) : (
-          posts?.map(({ _id, metadata, title, summary, featuredImage }) => {
+        {posts
+          ?.filter((post) => post.isFeatured)
+          .map(({ _id, metadata, title, summary, featuredImage }) => {
             return (
-              <Link
-                href={`/${metadata?.slug}`}
-                className="group shadow-md rounded-sm overflow-hidden border border-border"
+              <FeaturedPost
                 key={_id}
-              >
-                {featuredImage && (
-                  <Image
-                    width="250"
-                    height="250"
-                    src={urlFor(featuredImage).width(600).url()}
-                    alt={featuredImage.alt || ''}
-                    loading="eager"
-                    priority
-                    className="block w-full object-cover h-52"
-                  />
-                )}
-
-                <div className="p-4 pb-6">
-                  <Heading className="text-xl block mb-4 group-hover:text-blue-700">
-                    {title}
-                  </Heading>
-
-                  <p className="text text-sm line-clamp-4 align-baseline">
-                    {summary}
-                  </p>
-                </div>
-              </Link>
+                metadata={metadata}
+                title={title}
+                summary={summary}
+                featuredImage={featuredImage}
+              />
             );
-          })
-        )}
-      </div>
+          })}
+        <Heading as="h2" className="text-xl lg:text-4xl py-0 lg:py-2">
+          Latest Posts
+        </Heading>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-6">
+          {!posts?.length ? (
+            <p>there are no blogposts</p>
+          ) : (
+            posts?.map(({ _id, metadata, title, summary, featuredImage }) => {
+              return (
+                <Link
+                  href={`/${metadata?.slug}`}
+                  className="group shadow-md rounded-sm overflow-hidden border border-border"
+                  key={_id}
+                >
+                  {featuredImage && (
+                    <Image
+                      width="250"
+                      height="250"
+                      src={urlFor(featuredImage).width(600).url()}
+                      alt={featuredImage.alt || ''}
+                      loading="eager"
+                      priority
+                      className="block w-full object-cover h-52"
+                    />
+                  )}
+
+                  <div className="p-4 pb-6">
+                    <Heading className="text-xl block mb-4 group-hover:text-blue-700">
+                      {title}
+                    </Heading>
+
+                    <p className="text text-sm line-clamp-4 align-baseline">
+                      {summary}
+                    </p>
+                  </div>
+                </Link>
+              );
+            })
+          )}
+        </div>
+      </>
     );
   }
 }
@@ -104,6 +123,7 @@ async function getPosts(): Promise<Blog[] | undefined> {
     summary,
     content,
     featuredImage,
+    isFeatured,
     metadata {
       'slug': slug.current
     }

@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="bg-black mt-20">
+    <footer className="bg-black">
       <div className="flex max-w-7xl	mx-auto p-4">
         <span className="text-white font-bold uppercase text-sm">
           © {new Date().getFullYear()} Milanized!

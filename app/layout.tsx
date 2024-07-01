@@ -68,11 +68,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
       </Script>
       {/* End Google Tag Manager */}
 
-      <body className={openSans.className}>
+      <body className={`${openSans.className} bg-black`}>
         <Providers>
           {/* <div className="min-h-screen flex flex-col justify-between"> */}
           <Header />
-          <div className="flex-grow">
+          <div className="flex-grow bg-white pb-20">
             <div className="max-w-7xl mx-auto px-4 py-4">{children}</div>
           </div>
           <Footer />

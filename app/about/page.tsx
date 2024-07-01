@@ -12,12 +12,14 @@ export async function generateMetadata() {
       title: homepage.metadata?.title,
       description: homepage.metadata?.description,
       alternates: {
-        canonical: `${process.env.NEXT_PUBLIC_CLIENT_URL}`
+        canonical: `${process.env.NEXT_PUBLIC_CLIENT_URL}/about`
       }
     };
 
     return metaData;
   }
+
+  return {};
 }
 
 export default async function Home() {
@@ -25,12 +27,13 @@ export default async function Home() {
 
   if (data) {
     return (
-      <div>
+      <>
         <Heading as="h1" className="text-2xl lg:text-5xl">
           {data.title}
         </Heading>
+        <p className="leading-7 mb-8">{`Allow us to introduce ourselves!`}</p>
         {data.content && <BlockRendererClient value={data.content} />}
-      </div>
+      </>
     );
   }
 }

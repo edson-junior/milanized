@@ -12,7 +12,7 @@ export async function generateMetadata() {
       title: homepage.metadata?.title,
       description: homepage.metadata?.description,
       alternates: {
-        canonical: `${process.env.NEXT_PUBLIC_CLIENT_URL}/contact`
+        canonical: `${process.env.CLIENT_URL}/contact`
       }
     };
 

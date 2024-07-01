@@ -27,11 +27,11 @@ export async function generateMetadata({
     robots:
       'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_CLIENT_URL}/${params.slug}`
+      canonical: `${process.env.CLIENT_URL}/${params.slug}`
     },
     keywords: data.metadata?.keywords,
     openGraph: {
-      url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/${params.slug}`,
+      url: `${process.env.CLIENT_URL}/${params.slug}`,
       siteName: 'Milanized',
       locale: 'en_GB',
       type: 'article',

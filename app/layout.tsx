@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Providers from '../components/Providers';
 import { GoogleTagManager } from '@next/third-parties/google';
+// import Script from 'next/script';
 
 const openSans = Open_Sans({ subsets: ['latin'] });
 
@@ -26,7 +27,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Footer />
           {/* ${process.env.NEXT_PUBLIC_GTM_ID} */}
           {/* <ConsentBanner /> */}
+          {/* TODO: ENABLE GOOGLE TAG MANAGER ONLY FOR PRODUCTION */}
+          {/* TODO: ADD COOKIEYES HERE AS IN NEXTJS TUTORIAL */}
+
           <GoogleTagManager gtmId={`${process.env.NEXT_PUBLIC_GTM_ID}`} />
+          {/* <Script
+            strategy="beforeInteractive"
+            src="https://cdn-cookieyes.com/client_data/5a63d5e2dd44002de8babff0/script.js"
+          /> */}
         </Providers>
       </body>
     </html>

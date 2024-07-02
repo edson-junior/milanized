@@ -34,7 +34,7 @@ export default async function Home() {
 
   if (homepage) {
     return (
-      <>
+      <div className="max-w-7xl mx-auto px-4 py-4">
         <h1 className="absolute left-[-999em]">{`${homepage.metadata?.title} - ${homepage.title}`}</h1>
         {posts
           ?.filter((post) => post.isFeatured)
@@ -89,7 +89,7 @@ export default async function Home() {
             })
           )}
         </div>
-      </>
+      </div>
     );
   }
 }

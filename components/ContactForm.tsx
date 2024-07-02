@@ -8,6 +8,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { CheckCircle2Icon, Loader2 } from 'lucide-react';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { useRef, useState } from 'react';
 
 const ContactSchema = z.object({
   name: z.string().min(2, {
@@ -26,25 +28,32 @@ export default function ContactForm() {
     resolver: zodResolver(ContactSchema)
   });
 
-  const contactSubmit = async (formData: z.infer<typeof ContactSchema>) => {
-    try {
-      const response = await fetch('/api/email', {
-        method: 'POST',
-        body: JSON.stringify(formData)
-      });
+  const [isValidReCAPTCHA, setIsValidReCAPTCHA] = useState(false);
 
-      if (response.status === 200) {
-        const data = await response.json();
-        console.info(data);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+  const contactSubmit = async (formData: z.infer<typeof ContactSchema>) => {
+    if (isValidReCAPTCHA) {
+      try {
+        const response = await fetch('/api/email', {
+          method: 'POST',
+          body: JSON.stringify(formData)
+        });
+
+        if (response.status === 200) {
+          const data = await response.json();
+          recaptchaRef.current?.reset();
+          console.info(data);
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
     }
   };
 
   return (
     <form onSubmit={handleSubmit(contactSubmit)}>
-      {isSubmitSuccessful && (
+      {isSubmitSuccessful && isValidReCAPTCHA && (
         <div className="success flex gap-2 group py-4 px-4 mb-4 font-semibold rounded border-green-500 border-2 bg-green-300 text-green-800">
           <CheckCircle2Icon />
           {`Your message has been sent! We'll be in touch ASAP!`}
@@ -58,6 +67,7 @@ export default function ContactForm() {
           className="w-full text-base font-medium"
           type="text"
           placeholder="John Doe"
+          id="name"
           {...register('name')}
         />
         {errors?.name && (
@@ -75,6 +85,7 @@ export default function ContactForm() {
           className="w-full text-base font-medium"
           type="email"
           placeholder="example@domain.com"
+          id="email"
           {...register('email')}
         />
         {errors?.email && (
@@ -92,6 +103,7 @@ export default function ContactForm() {
           rows={4}
           placeholder="Type your message here."
           className="w-full text-base font-medium"
+          id="message"
           {...register('message')}
         />
         {errors?.message && (
@@ -101,7 +113,17 @@ export default function ContactForm() {
         )}
       </div>
 
-      <Button disabled={isSubmitting} type="submit">
+      <ReCAPTCHA
+        // ref={recaptchaRef}
+        size="normal"
+        sitekey={`${process.env.NEXT_PUBLIC_RECAPTCHA_KEY}`}
+        className="mb-4"
+        onChange={(value) => {
+          setIsValidReCAPTCHA(Boolean(value));
+        }}
+      />
+
+      <Button disabled={!isValidReCAPTCHA || isSubmitting} type="submit">
         {isSubmitting ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />

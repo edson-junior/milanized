@@ -54,7 +54,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
 
   if (data) {
     return (
-      <>
+      <div className="max-w-7xl mx-auto px-4 py-4">
         <Heading as="h1" className="text-2xl lg:text-5xl mb-8">
           {data.title}
         </Heading>
@@ -78,7 +78,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
           </article>
           {/* TODO: sidebar goes here */}
         </main>
-      </>
+      </div>
     );
   }
 }

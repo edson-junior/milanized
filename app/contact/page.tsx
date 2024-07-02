@@ -24,13 +24,13 @@ export async function generateMetadata() {
 
 export default function Contact() {
   return (
-    <>
+    <div className="max-w-7xl mx-auto px-4 py-4">
       <Heading as="h1" className="text-2xl lg:text-5xl">
         Get in touch with us!
       </Heading>
       <p className="leading-7 mb-8">{`We'll reply as soon as possible`}</p>
       <ContactForm />
-    </>
+    </div>
   );
 }
 

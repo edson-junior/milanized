@@ -11,6 +11,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'cdn.sanity.io',
         port: ''
+      },
+      {
+        protocol: 'https',
+        hostname: 'pagead2.googlesyndication.com',
+        port: ''
       }
     ]
   }

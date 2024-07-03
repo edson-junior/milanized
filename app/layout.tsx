@@ -20,6 +20,14 @@ type RootLayoutProps = Readonly<{
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en-GB" suppressHydrationWarning>
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6855814501146859"
+          // strategy="lazyOnload"
+          crossOrigin="anonymous"
+        ></script>
+      </head>
       <body className={`${openSans.className} bg-black`}>
         <Providers>
           <Header />

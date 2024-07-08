@@ -68,6 +68,7 @@ export default function ContactForm() {
           type="text"
           placeholder="John Doe"
           id="name"
+          autoComplete="name"
           {...register('name')}
         />
         {errors?.name && (
@@ -86,6 +87,7 @@ export default function ContactForm() {
           type="email"
           placeholder="example@domain.com"
           id="email"
+          autoComplete="email"
           {...register('email')}
         />
         {errors?.email && (

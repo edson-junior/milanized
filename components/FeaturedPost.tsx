@@ -24,7 +24,7 @@ export default function FeaturedPost({
   return (
     <Link
       href={`/${metadata?.slug}`}
-      className="group block shadow-md mb-6 relative"
+      className="group block md:shadow-md mb-6 relative"
     >
       {featuredImage && (
         <Image
@@ -34,20 +34,22 @@ export default function FeaturedPost({
           alt={featuredImage.alt || ''}
           loading="eager"
           priority
-          className="block w-full object-cover h-96 sm:h-[36rem]"
+          className="block md:w-full object-cover h-38 md:h-96 lg:h-[36rem]"
         />
       )}
 
-      <div className="p-4 pb-6 absolute bottom-0 left-0 bg-white sm:w-96">
+      <div className="pt-4 md:pb-6 md:p-4 md:absolute md:bottom-0 md:left-0 bg-white md:w-96">
         {/* TODO: turn this tag into dynamic tag on sanity */}
-        <Heading className="text-sm block mb-2 text-gray-500">
+        <Heading className="hidden md:block text-sm mb-2 text-gray-500">
           LIFE IN ITALY
         </Heading>
-        <Heading className="text-xl block mb-4 group-hover:text-blue-700">
+        <Heading className="text-md md:text-xl block mb-4 group-hover:text-blue-700">
           {title}
         </Heading>
 
-        <p className="text text-sm line-clamp-4 align-baseline">{summary}</p>
+        <p className="hidden md:block text text-sm line-clamp-4 align-baseline">
+          {summary}
+        </p>
       </div>
     </Link>
   );

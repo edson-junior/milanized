@@ -49,10 +49,7 @@ export default async function Home() {
               />
             );
           })}
-        <Heading
-          as="h2"
-          className="hidden md:block text-xl lg:text-4xl py-0 lg:py-2"
-        >
+        <Heading as="h2" className="text-xl lg:text-4xl py-0 lg:py-2">
           Latest Posts
         </Heading>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-6">

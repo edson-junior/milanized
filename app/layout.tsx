@@ -40,7 +40,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <Script
         async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6855814501146859"
-        strategy="lazyOnload"
         crossOrigin="anonymous"
       />
     </html>

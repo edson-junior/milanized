@@ -117,7 +117,7 @@ async function getPage(): Promise<Page | undefined> {
 }
 
 async function getPosts(): Promise<Blog[] | undefined> {
-  const query = `*[_type == 'blog' && !(_id in path('drafts.**'))] {
+  const query = `*[_type == 'blog' && !(_id in path('drafts.**'))]|order(_createdAt desc) {
     _id,
     title,
     summary,

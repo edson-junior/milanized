@@ -10,7 +10,7 @@ import Script from 'next/script';
 const openSans = Open_Sans({ subsets: ['latin'] });
 
 export const viewport: Viewport = {
-  themeColor: 'system'
+  themeColor: 'light'
 };
 
 type RootLayoutProps = Readonly<{

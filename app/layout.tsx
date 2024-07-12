@@ -25,23 +25,19 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Header />
           <div className="flex-grow bg-white pb-20">{children}</div>
           <Footer />
-          {/* ${process.env.NEXT_PUBLIC_GTM_ID} */}
-          {/* <ConsentBanner /> */}
-          {/* TODO: ENABLE GOOGLE TAG MANAGER ONLY FOR PRODUCTION */}
-          {/* TODO: ADD COOKIEYES HERE AS IN NEXTJS TUTORIAL */}
-
-          <GoogleTagManager gtmId={`${process.env.NEXT_PUBLIC_GTM_ID}`} />
-          {/* <Script
-            strategy="beforeInteractive"
-            src="https://cdn-cookieyes.com/client_data/5a63d5e2dd44002de8babff0/script.js"
-          /> */}
         </Providers>
       </body>
-      <Script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6855814501146859"
-        crossOrigin="anonymous"
-      />
+      {process.env.NODE_ENV === 'production' && (
+        <>
+          <Script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`}
+            strategy="lazyOnload"
+            crossOrigin="anonymous"
+          />
+          <GoogleTagManager gtmId={`${process.env.NEXT_PUBLIC_GTM_ID}`} />
+        </>
+      )}
     </html>
   );
 }

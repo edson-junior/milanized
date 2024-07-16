@@ -22,17 +22,16 @@ export async function generateMetadata({
   }
 
   return {
-    title: data.title,
+    title: data.metadata?.title,
     description: data.metadata?.description,
     robots:
       'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
     alternates: {
       canonical: `${process.env.CLIENT_URL}/${params.slug}`
     },
-    keywords: data.metadata?.keywords,
     openGraph: {
       url: `${process.env.CLIENT_URL}/${params.slug}`,
-      siteName: 'Milanized',
+      siteName: 'Milanized!',
       locale: 'en_GB',
       type: 'article',
       title: data.title,
@@ -139,8 +138,8 @@ async function getPosts(slug: string): Promise<Blog | undefined> {
       'slug': slug.current,
       slug,
       description,
-      keywords,
-      image
+      image,
+      title
     }
   }`;
 

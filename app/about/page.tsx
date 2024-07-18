@@ -40,7 +40,7 @@ export default async function Home() {
             <Heading as="h1" className="text-2xl lg:text-5xl">
               {data.title}
             </Heading>
-            <p className="leading-7 mb-8">{`Allow us to introduce ourselves!`}</p>
+            <p className="leading-7 mb-8">{`Allow us to introduce ourselves! 👋`}</p>
           </div>
         </div>
         <div className="max-w-7xl mx-auto px-4 py-4">

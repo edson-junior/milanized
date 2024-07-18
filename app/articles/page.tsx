@@ -43,9 +43,9 @@ export default async function Articles() {
           page as well, each with it's own background image */}
           <div className="text-white flex align-middle h-full flex-col justify-center max-w-7xl mx-auto px-4 py-4 relative">
             <Heading as="h1" className="text-2xl lg:text-5xl">
-              Articles
+              Read our newest articles
             </Heading>
-            <p className="leading-7 mb-8">{`All our latest posts`}</p>
+            <p className="leading-7 mb-8">{`Our latest posts from old to new! 🚀`}</p>
           </div>
         </div>
         <div className="max-w-7xl mx-auto px-4 py-4">

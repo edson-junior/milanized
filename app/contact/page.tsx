@@ -36,7 +36,7 @@ export default function Contact() {
           <Heading as="h1" className="text-2xl lg:text-5xl">
             Get in touch with us!
           </Heading>
-          <p className="leading-7 mb-8">{`We'll reply as soon as possible`}</p>
+          <p className="leading-7 mb-8">{`We'll reply as soon as possible! 📨`}</p>
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-4 py-4">

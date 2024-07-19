@@ -11,8 +11,24 @@ export async function generateMetadata() {
     const metaData: Metadata = {
       title: homepage.metadata?.title,
       description: homepage.metadata?.description,
+      robots:
+        'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
       alternates: {
         canonical: `${process.env.CLIENT_URL}/privacy-policy`
+      },
+      openGraph: {
+        url: `${process.env.CLIENT_URL}/privacy-policy`,
+        title: homepage.metadata?.title,
+        description: homepage.metadata?.description,
+        type: 'website',
+        images: {
+          url: `${process.env.CLIENT_URL}/opengraph-logo.png`,
+          secureUrl: `${process.env.CLIENT_URL}/opengraph-logo.png`,
+          alt: homepage.metadata?.title,
+          width: 360,
+          height: 360,
+          type: 'image'
+        }
       }
     };
 

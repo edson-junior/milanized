@@ -12,14 +12,30 @@ function urlFor(source: SanityImageSource) {
 }
 
 export async function generateMetadata() {
-  const homepage = await getPage();
+  const articles = await getPage();
 
-  if (homepage) {
+  if (articles) {
     const metaData: Metadata = {
-      title: homepage.metadata?.title,
-      description: homepage.metadata?.description,
+      title: articles.metadata?.title,
+      description: articles.metadata?.description,
+      robots:
+        'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
       alternates: {
-        canonical: `${process.env.CLIENT_URL}`
+        canonical: `${process.env.CLIENT_URL}/articles`
+      },
+      openGraph: {
+        url: `${process.env.CLIENT_URL}/articles`,
+        title: articles.metadata?.title,
+        description: articles.metadata?.description,
+        type: 'website',
+        images: {
+          url: `${process.env.CLIENT_URL}/opengraph-logo.png`,
+          secureUrl: `${process.env.CLIENT_URL}/opengraph-logo.png`,
+          alt: articles.metadata?.title,
+          width: 360,
+          height: 360,
+          type: 'image'
+        }
       }
     };
 
@@ -29,9 +45,9 @@ export async function generateMetadata() {
 
 export default async function Articles() {
   const posts = await getPosts();
-  const homepage = await getPage();
+  const articles = await getPage();
 
-  if (homepage) {
+  if (articles) {
     return (
       <>
         <div
@@ -97,7 +113,7 @@ export default async function Articles() {
 }
 
 async function getPage(): Promise<Page | undefined> {
-  const query = `*[_type == 'page' && metadata.slug.current == 'homepage'][0] {
+  const query = `*[_type == 'page' && metadata.slug.current == 'articles'][0] {
     _id,
     title,
     metadata {
@@ -119,7 +135,7 @@ async function getPage(): Promise<Page | undefined> {
 }
 
 async function getPosts(): Promise<Blog[] | undefined> {
-  const query = `*[_type == 'blog' && !(_id in path('drafts.**'))] {
+  const query = `*[_type == 'blog' && !(_id in path('drafts.**'))]|order(_createdAt desc) {
     _id,
     title,
     summary,

@@ -39,10 +39,6 @@ export default function FeaturedPost({
       )}
 
       <div className="pt-4 md:pb-6 md:p-4 md:absolute md:bottom-0 md:left-0 bg-white md:w-96">
-        {/* TODO: turn this tag into dynamic tag on sanity */}
-        <Heading className="hidden md:block text-sm mb-2 text-gray-500">
-          LIFE IN ITALY
-        </Heading>
         <Heading className="text-md md:text-xl block mb-4 group-hover:text-blue-700">
           {title}
         </Heading>

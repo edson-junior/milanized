@@ -68,12 +68,6 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type Slug = {
-  _type: 'slug';
-  current?: string;
-  source?: string;
-};
-
 export type Page = {
   _id: string;
   _type: 'page';
@@ -136,6 +130,12 @@ export type Blog = {
   metadata?: Metadata;
   isFeatured?: boolean;
   summary?: string;
+  author?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'author';
+  };
   featuredImage?: {
     asset?: {
       _ref: string;
@@ -191,6 +191,51 @@ export type Blog = {
         _key: string;
       }
   >;
+};
+
+export type Author = {
+  _id: string;
+  _type: 'author';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  bio?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'normal';
+    listItem?: never;
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+};
+
+export type Slug = {
+  _type: 'slug';
+  current?: string;
+  source?: string;
 };
 
 export type SanityImageCrop = {
@@ -255,7 +300,6 @@ export type Metadata = {
   title?: string;
   slug?: Slug;
   description?: string;
-  keywords?: string;
   image?: {
     asset?: {
       _ref: string;

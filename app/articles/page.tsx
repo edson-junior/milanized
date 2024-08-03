@@ -82,12 +82,11 @@ export default async function Articles() {
                   >
                     {featuredImage && (
                       <Image
-                        width="250"
-                        height="250"
-                        src={urlFor(featuredImage).width(600).url()}
-                        alt={featuredImage.alt || ''}
-                        loading="eager"
+                        width={250}
+                        height={250}
                         priority
+                        src={urlFor(featuredImage).width(250).url()}
+                        alt={featuredImage.alt || ''}
                         className="block w-full object-cover h-52"
                       />
                     )}

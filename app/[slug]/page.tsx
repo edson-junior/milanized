@@ -140,7 +140,6 @@ function FeaturedImage({ featuredImage, ...props }: FeaturedImageProps) {
           height="1280"
           src={urlFor(featuredImage).width(1280).url()}
           alt={featuredImage.alt || ''}
-          loading="eager"
           priority
           className="block h-full w-full object-cover mb-2"
         />
@@ -153,11 +152,10 @@ function FeaturedImage({ featuredImage, ...props }: FeaturedImageProps) {
 
   return (
     <Image
-      width="800"
-      height="800"
+      width={800}
+      height={800}
       src={urlFor(featuredImage).width(800).url()}
       alt={featuredImage.alt || ''}
-      loading="eager"
       priority
       className="block h-full w-full object-cover"
     />

@@ -81,12 +81,11 @@ export default async function Home() {
                 >
                   {featuredImage && (
                     <Image
-                      width="250"
-                      height="250"
+                      width={250}
+                      height={250}
+                      priority
                       src={urlFor(featuredImage).width(600).url()}
                       alt={featuredImage.alt || ''}
-                      loading="eager"
-                      priority
                       className="block w-full object-cover h-38 md:h-52"
                     />
                   )}

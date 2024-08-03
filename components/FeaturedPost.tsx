@@ -28,11 +28,10 @@ export default function FeaturedPost({
     >
       {featuredImage && (
         <Image
-          width="1280"
-          height="1280"
+          width={1280}
+          height={1280}
           src={urlFor(featuredImage).width(1280).url()}
           alt={featuredImage.alt || ''}
-          loading="eager"
           priority
           className="block md:w-full object-cover h-38 md:h-96 lg:h-[36rem]"
         />

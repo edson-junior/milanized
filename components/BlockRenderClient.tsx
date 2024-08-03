@@ -24,8 +24,9 @@ const components: PortableTextComponents = {
         <figure>
           <Image
             className="mb-2"
-            width="800"
-            height="800"
+            width={800}
+            height={800}
+            priority
             src={urlFor(value).width(800).url()}
             alt={value.alt}
           />
@@ -36,8 +37,9 @@ const components: PortableTextComponents = {
       ) : (
         <Image
           className="mb-2"
-          width="800"
-          height="800"
+          width={800}
+          height={800}
+          priority
           src={urlFor(value).width(800).url()}
           alt={value.alt}
         />

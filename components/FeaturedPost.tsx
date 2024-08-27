@@ -27,14 +27,16 @@ export default function FeaturedPost({
       className="group block lg:shadow-md mb-6 relative"
     >
       {featuredImage && (
-        <Image
-          width={1280}
-          height={1280}
-          src={urlFor(featuredImage).width(1280).url()}
-          alt={featuredImage.alt || ''}
-          priority
-          className="block lg:w-full object-cover h-38 lg:h-[36rem]"
-        />
+        <div className="w-full h-52 lg:h-[36rem] relative">
+          <Image
+            fill
+            sizes="100vw"
+            src={urlFor(featuredImage).width(1280).url()}
+            alt={featuredImage.alt || ''}
+            priority
+            className="object-cover"
+          />
+        </div>
       )}
 
       <div className="pt-4 lg:pb-6 lg:p-4 lg:absolute lg:bottom-0 lg:left-0 bg-white lg:w-96">

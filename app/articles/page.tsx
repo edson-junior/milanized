@@ -69,7 +69,7 @@ export default async function Articles() {
           Articles
         </Heading>
         <p className="leading-7 mb-8">{`All our latest posts in one single place :)`}</p> */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 gap-y-6">
             {!posts?.length ? (
               <p>there are no blogposts</p>
             ) : (

@@ -65,10 +65,11 @@ export default async function Home() {
               />
             );
           })}
-        <Heading as="h2" className="text-xl lg:text-4xl py-0 lg:py-2">
+        <hr className="my-4" />
+        <Heading as="h2" className="text-xl lg:text-4xl py-2">
           Latest Posts
         </Heading>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 gap-y-6">
           {!posts?.length ? (
             <p>there are no blogposts</p>
           ) : (
@@ -76,26 +77,26 @@ export default async function Home() {
               return (
                 <Link
                   href={`/${metadata?.slug}`}
-                  className="group md:shadow-md md:rounded-sm md:overflow-hidden md:border md:border-border"
+                  className="group lg:shadow-md lg:rounded-sm lg:overflow-hidden lg:border lg:border-border"
                   key={_id}
                 >
                   {featuredImage && (
                     <Image
                       width={250}
                       height={250}
-                      priority
+                      loading="lazy"
                       src={urlFor(featuredImage).width(600).url()}
                       alt={featuredImage.alt || ''}
-                      className="block w-full object-cover h-38 md:h-52"
+                      className="hidden lg:block w-full object-cover h-38 lg:h-52"
                     />
                   )}
 
-                  <div className="pt-4 md:p-4 md:pb-6">
+                  <div className="pt-4 lg:p-4 lg:pb-6">
                     <Heading className="text-md md:text-xl block md:mb-4 group-hover:text-blue-700">
                       {title}
                     </Heading>
 
-                    <p className="hidden md:block text text-sm line-clamp-4 align-baseline">
+                    <p className="text text-sm line-clamp-4 align-baseline">
                       {summary}
                     </p>
                   </div>

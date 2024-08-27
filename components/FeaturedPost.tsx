@@ -24,7 +24,7 @@ export default function FeaturedPost({
   return (
     <Link
       href={`/${metadata?.slug}`}
-      className="group block md:shadow-md mb-6 relative"
+      className="group block lg:shadow-md mb-6 relative"
     >
       {featuredImage && (
         <Image
@@ -33,18 +33,16 @@ export default function FeaturedPost({
           src={urlFor(featuredImage).width(1280).url()}
           alt={featuredImage.alt || ''}
           priority
-          className="block md:w-full object-cover h-38 md:h-96 lg:h-[36rem]"
+          className="block lg:w-full object-cover h-38 lg:h-[36rem]"
         />
       )}
 
-      <div className="pt-4 md:pb-6 md:p-4 md:absolute md:bottom-0 md:left-0 bg-white md:w-96">
-        <Heading className="text-md md:text-xl block mb-4 group-hover:text-blue-700">
+      <div className="pt-4 lg:pb-6 lg:p-4 lg:absolute lg:bottom-0 lg:left-0 bg-white lg:w-96">
+        <Heading className="text-md lg:text-xl block mb-4 group-hover:text-blue-700">
           {title}
         </Heading>
 
-        <p className="hidden md:block text text-sm line-clamp-4 align-baseline">
-          {summary}
-        </p>
+        <p className="text text-sm line-clamp-4 align-baseline">{summary}</p>
       </div>
     </Link>
   );

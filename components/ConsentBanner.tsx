@@ -26,13 +26,13 @@ export default function ConsentBanner() {
       <div className="p-4 fixed left-0 right-0 bottom-0 text-sm">
         <div
           id="cookie-consent-banner"
-          className={`p-4 bg-white border-solid border rounded border-border flex flex-col w-full sm:w-auto ${isBannerHidden || pathname === '/privacy-policy' ? 'hidden' : ''}`}
+          className={`p-4 bg-white border-solid border rounded border-border flex flex-col w-full ${isBannerHidden || pathname === '/privacy-policy' ? 'hidden' : ''}`}
         >
           <div className="mb-4">
             <h3 className="font-bold mb-2">Cookie settings</h3>
             <p>We use cookies to deliver the best possible user experience.</p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 mb-4">
+          <div className="flex flex-col gap-4 mb-4">
             <label className="flex gap-1 cursor-pointer items-center">
               <input
                 id="consent-necessary"
@@ -70,7 +70,7 @@ export default function ConsentBanner() {
               Marketing
             </label>
           </div>
-          <div className="flex flex-col sm:flex-row gap-2 items-center">
+          <div className="flex flex-col gap-2 items-center">
             <Button
               id="btn-accept-all"
               className="cookie-consent-button btn-success"

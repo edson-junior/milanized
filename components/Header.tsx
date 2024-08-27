@@ -12,7 +12,7 @@ export default function Header() {
         </Link>
 
         <nav className="text-white flex ml-auto">
-          <ul className="flex items-center gap-2 sm:gap-6">
+          <ul className="flex items-center gap-2">
             <li>
               <Link className="hover:underline" href="/articles">
                 Articles

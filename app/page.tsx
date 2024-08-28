@@ -2,18 +2,11 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import Heading from '@/components/ui/heading';
-import imageUrlBuilder from '@sanity/image-url';
-import { SanityImageSource } from '@sanity/image-url/lib/types/types';
-import client from '@/client';
-import { Blog, Page } from '@/sanity.types';
 import FeaturedPost from '@/components/FeaturedPost';
-
-function urlFor(source: SanityImageSource) {
-  return imageUrlBuilder(client).image(source);
-}
+import { getHomePage, getPosts, urlFor } from '@/lib/sanity-utils';
 
 export async function generateMetadata() {
-  const homepage = await getPage();
+  const homepage = await getHomePage();
 
   if (homepage) {
     const metaData: Metadata = {
@@ -46,7 +39,7 @@ export async function generateMetadata() {
 
 export default async function Home() {
   const posts = await getPosts();
-  const homepage = await getPage();
+  const homepage = await getHomePage();
 
   if (homepage) {
     return (
@@ -92,7 +85,7 @@ export default async function Home() {
                   )}
 
                   <div className="pt-4 lg:p-4 lg:pb-6">
-                    <Heading className="text-md md:text-xl block md:mb-4 group-hover:text-blue-700">
+                    <Heading className="text-md lg:text-xl block lg:mb-4 group-hover:text-blue-700">
                       {title}
                     </Heading>
 
@@ -107,49 +100,5 @@ export default async function Home() {
         </div>
       </div>
     );
-  }
-}
-
-async function getPage(): Promise<Page | undefined> {
-  const query = `*[_type == 'page' && metadata.slug.current == 'homepage'][0] {
-    _id,
-    title,
-    metadata {
-      'slug': slug.current,
-      title,
-      noIndex,
-      image,
-      description
-    }
-  }`;
-
-  try {
-    const data = await client.fetch(query);
-
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-async function getPosts(): Promise<Blog[] | undefined> {
-  const query = `*[_type == 'blog' && !(_id in path('drafts.**'))]|order(_createdAt desc) {
-    _id,
-    title,
-    summary,
-    content,
-    featuredImage,
-    isFeatured,
-    metadata {
-      'slug': slug.current
-    }
-  }`;
-
-  try {
-    const data = await client.fetch(query);
-
-    return data;
-  } catch (error) {
-    console.error(error);
   }
 }

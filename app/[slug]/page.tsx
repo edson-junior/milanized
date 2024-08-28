@@ -69,7 +69,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-4">
-      <div className="flex flex-col md:flex-row gap-8">
+      <div className="flex flex-col lg:flex-row gap-8">
         <div className="max-w-md">
           <Heading as="h1" className="text-2xl lg:text-5xl mb-8">
             {data.title}
@@ -114,8 +114,8 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
         )}
       </div>
 
-      <main className="flex flex-col md:flex-row gap-8">
-        <article className="flex-1 md:w-64">
+      <main className="flex flex-col lg:flex-row gap-8">
+        <article className="flex-1 lg:w-64">
           {data?.content && <BlockRendererClient value={data?.content} />}
         </article>
       </main>

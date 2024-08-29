@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
-import client from '@/client';
 import BlockRendererClient from '@/components/BlockRenderClient';
 import Heading from '@/components/ui/heading';
-import { Page } from '@/sanity.types';
+import { getPrivacyPage } from '@/lib/sanity-utils';
 
 export async function generateMetadata() {
-  const homepage = await getPage();
+  const homepage = await getPrivacyPage();
 
   if (homepage) {
     const metaData: Metadata = {
@@ -39,7 +38,7 @@ export async function generateMetadata() {
 }
 
 export default async function PrivacyPolicy() {
-  const data = await getPage();
+  const data = await getPrivacyPage();
 
   if (data) {
     return (
@@ -63,26 +62,5 @@ export default async function PrivacyPolicy() {
         </div>
       </>
     );
-  }
-}
-
-async function getPage(): Promise<Page | undefined> {
-  const query = `*[_type == 'page' && metadata.slug.current == 'privacy-policy'][0] {
-    _id,
-    title,
-    content,
-    metadata {
-      title,
-      description,
-      'slug': slug.current,
-    }
-  }`;
-
-  try {
-    const data = await client.fetch(query);
-
-    return data;
-  } catch (error) {
-    console.error(error);
   }
 }

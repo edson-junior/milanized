@@ -2,13 +2,11 @@ import BlockRendererClient from '@/components/BlockRenderClient';
 import { Metadata } from 'next';
 import Heading from '@/components/ui/heading';
 import parse from 'html-react-parser';
-import imageUrlBuilder from '@sanity/image-url';
-import { SanityImageSource } from '@sanity/image-url/lib/types/types';
-import client from '@/client';
 import Image from 'next/image';
 import { Blog } from '@/sanity.types';
 import { HTMLAttributes } from 'react';
 import { Clock2Icon } from 'lucide-react';
+import { getPosts, urlFor } from '@/lib/sanity-utils';
 
 interface BlogDetailsProps {
   params: { slug: string };
@@ -160,38 +158,4 @@ function FeaturedImage({ featuredImage, ...props }: FeaturedImageProps) {
       className="block h-full w-full object-cover"
     />
   );
-}
-
-function urlFor(source: SanityImageSource) {
-  return imageUrlBuilder(client).image(source);
-}
-
-async function getPosts(slug: string): Promise<Blog | undefined> {
-  const query = `*[_type == 'blog' && metadata.slug.current == "${slug}"][0] {
-    _id,
-    _createdAt,
-    _updatedAt,
-    title,
-    summary,
-    content,
-    featuredImage,
-    author->,
-    "authorImage": author->image,
-    "estimatedReadingTime": round(length(pt::text(content)) / 5 / 180),
-    metadata {
-      'slug': slug.current,
-      slug,
-      description,
-      image,
-      title
-    }
-  }`;
-
-  try {
-    const data = await client.fetch(query);
-
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
 }

@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
 import Heading from '@/components/ui/heading';
-import { Page } from '@/sanity.types';
-import client from '@/client';
 import ContactForm from '@/components/ContactForm';
+import { getContactPage } from '@/lib/sanity-utils';
 
 export async function generateMetadata() {
-  const homepage = await getPage();
+  const homepage = await getContactPage();
 
   if (homepage) {
     const metaData: Metadata = {
@@ -60,27 +59,4 @@ export default function Contact() {
       </div>
     </>
   );
-}
-
-async function getPage(): Promise<Page | undefined> {
-  const query = `*[_type == 'page' && metadata.slug.current == 'contact'][0] {
-    _id,
-    title,
-    content,
-    metadata {
-      'slug': slug.current,
-      title,
-      noIndex,
-      image,
-      description
-    }
-  }`;
-
-  try {
-    const data = await client.fetch(query);
-
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
 }

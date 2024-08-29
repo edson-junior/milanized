@@ -1,12 +1,10 @@
 import type { Metadata } from 'next';
-import client from '@/client';
-import { Page } from '@/sanity.types';
 import BlockRendererClient from '@/components/BlockRenderClient';
 import Heading from '@/components/ui/heading';
-// import Image from 'next/image';
+import { getAboutPage } from '@/lib/sanity-utils';
 
 export async function generateMetadata() {
-  const homepage = await getPage();
+  const homepage = await getAboutPage();
 
   if (homepage) {
     const metaData: Metadata = {
@@ -40,7 +38,7 @@ export async function generateMetadata() {
 }
 
 export default async function Home() {
-  const data = await getPage();
+  const data = await getAboutPage();
 
   if (data) {
     return (
@@ -68,29 +66,5 @@ export default async function Home() {
         </div>
       </>
     );
-  }
-}
-
-async function getPage(): Promise<Page | undefined> {
-  const query = `*[_type == 'page' && metadata.slug.current == 'about'][0] {
-    _id,
-    title,
-    content,
-    featuredImage,
-    metadata {
-      'slug': slug.current,
-      title,
-      noIndex,
-      image,
-      description
-    }
-  }`;
-
-  try {
-    const data = await client.fetch(query);
-
-    return data;
-  } catch (error) {
-    console.error(error);
   }
 }

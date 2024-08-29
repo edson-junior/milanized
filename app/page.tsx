@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Heading from '@/components/ui/heading';
 import FeaturedPost from '@/components/FeaturedPost';
-import { getHomePage, getPosts, urlFor } from '@/lib/sanity-utils';
+import { getAllPosts, getHomePage, urlFor } from '@/lib/sanity-utils';
 
 export async function generateMetadata() {
   const homepage = await getHomePage();
@@ -38,7 +38,7 @@ export async function generateMetadata() {
 }
 
 export default async function Home() {
-  const posts = await getPosts();
+  const posts = await getAllPosts();
   const homepage = await getHomePage();
 
   if (homepage) {

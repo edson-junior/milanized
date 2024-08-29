@@ -5,14 +5,14 @@ import Heading from '@/components/ui/heading';
 import imageUrlBuilder from '@sanity/image-url';
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import client from '@/client';
-import { Blog, Page } from '@/sanity.types';
+import { getAllPosts, getArticlesPage } from '@/lib/sanity-utils';
 
 function urlFor(source: SanityImageSource) {
   return imageUrlBuilder(client).image(source);
 }
 
 export async function generateMetadata() {
-  const articles = await getPage();
+  const articles = await getArticlesPage();
 
   if (articles) {
     const metaData: Metadata = {
@@ -44,8 +44,8 @@ export async function generateMetadata() {
 }
 
 export default async function Articles() {
-  const posts = await getPosts();
-  const articles = await getPage();
+  const posts = await getAllPosts();
+  const articles = await getArticlesPage();
 
   if (articles) {
     return (
@@ -108,48 +108,5 @@ export default async function Articles() {
         </div>
       </>
     );
-  }
-}
-
-async function getPage(): Promise<Page | undefined> {
-  const query = `*[_type == 'page' && metadata.slug.current == 'articles'][0] {
-    _id,
-    title,
-    metadata {
-      'slug': slug.current,
-      title,
-      noIndex,
-      image,
-      description
-    }
-  }`;
-
-  try {
-    const data = await client.fetch(query);
-
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-async function getPosts(): Promise<Blog[] | undefined> {
-  const query = `*[_type == 'blog' && !(_id in path('drafts.**'))]|order(_createdAt desc) {
-    _id,
-    title,
-    summary,
-    content,
-    featuredImage,
-    metadata {
-      'slug': slug.current
-    }
-  }`;
-
-  try {
-    const data = await client.fetch(query);
-
-    return data;
-  } catch (error) {
-    console.error(error);
   }
 }

@@ -75,23 +75,19 @@ export default async function Articles() {
             ) : (
               posts?.map(({ _id, metadata, title, summary, featuredImage }) => {
                 return (
-                  <Link
-                    href={`/${metadata?.slug}`}
-                    className="group shadow-md rounded-sm overflow-hidden border border-border"
-                    key={_id}
-                  >
+                  <Link href={`/${metadata?.slug}`} className="group" key={_id}>
                     {featuredImage && (
                       <Image
                         width={250}
                         height={250}
                         priority
-                        src={urlFor(featuredImage).width(250).url()}
+                        src={urlFor(featuredImage).width(600).url()}
                         alt={featuredImage.alt || ''}
                         className="block w-full object-cover h-52"
                       />
                     )}
 
-                    <div className="p-4 pb-6">
+                    <div className="py-6">
                       <Heading className="text-xl block mb-4 group-hover:text-blue-700">
                         {title}
                       </Heading>

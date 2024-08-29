@@ -80,11 +80,7 @@ export default async function Home() {
                   : undefined;
 
                 return (
-                  <Link
-                    href={`/${metadata?.slug}`}
-                    className="group lg:shadow-md lg:rounded-sm lg:overflow-hidden lg:border lg:border-border"
-                    key={_id}
-                  >
+                  <Link href={`/${metadata?.slug}`} className="group" key={_id}>
                     {featuredImage && (
                       <Image
                         width={250}
@@ -96,7 +92,7 @@ export default async function Home() {
                       />
                     )}
 
-                    <div className="pt-4 lg:p-4 lg:pb-6">
+                    <div className="py-4 lg:py-6">
                       <Heading className="text-md lg:text-xl block mb-2 lg:mb-4 group-hover:text-blue-700">
                         {title}
                       </Heading>

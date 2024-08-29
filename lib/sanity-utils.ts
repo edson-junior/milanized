@@ -32,6 +32,7 @@ export async function getHomePage(): Promise<Page | undefined> {
 export async function getAllPosts(): Promise<Blog[] | undefined> {
   const query = `*[_type == 'blog' && !(_id in path('drafts.**'))]|order(_createdAt desc) {
     _id,
+    _createdAt,
     title,
     summary,
     content,

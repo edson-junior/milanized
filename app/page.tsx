@@ -66,36 +66,57 @@ export default async function Home() {
           {!posts?.length ? (
             <p>there are no blogposts</p>
           ) : (
-            posts?.map(({ _id, metadata, title, summary, featuredImage }) => {
-              return (
-                <Link
-                  href={`/${metadata?.slug}`}
-                  className="group lg:shadow-md lg:rounded-sm lg:overflow-hidden lg:border lg:border-border"
-                  key={_id}
-                >
-                  {featuredImage && (
-                    <Image
-                      width={250}
-                      height={250}
-                      loading="lazy"
-                      src={urlFor(featuredImage).width(600).url()}
-                      alt={featuredImage.alt || ''}
-                      className="hidden lg:block w-full object-cover h-38 lg:h-52"
-                    />
-                  )}
+            posts?.map(
+              ({
+                _id,
+                metadata,
+                title,
+                summary,
+                featuredImage,
+                _createdAt
+              }) => {
+                const publishedAt = _createdAt
+                  ? new Date(_createdAt)
+                  : undefined;
 
-                  <div className="pt-4 lg:p-4 lg:pb-6">
-                    <Heading className="text-md lg:text-xl block lg:mb-4 group-hover:text-blue-700">
-                      {title}
-                    </Heading>
+                return (
+                  <Link
+                    href={`/${metadata?.slug}`}
+                    className="group lg:shadow-md lg:rounded-sm lg:overflow-hidden lg:border lg:border-border"
+                    key={_id}
+                  >
+                    {featuredImage && (
+                      <Image
+                        width={250}
+                        height={250}
+                        loading="lazy"
+                        src={urlFor(featuredImage).width(600).url()}
+                        alt={featuredImage.alt || ''}
+                        className="hidden lg:block w-full object-cover h-38 lg:h-52"
+                      />
+                    )}
 
-                    <p className="text text-sm line-clamp-4 align-baseline">
-                      {summary}
-                    </p>
-                  </div>
-                </Link>
-              );
-            })
+                    <div className="pt-4 lg:p-4 lg:pb-6">
+                      <Heading className="text-md lg:text-xl block mb-2 lg:mb-4 group-hover:text-blue-700">
+                        {title}
+                      </Heading>
+
+                      <p className="text text-sm line-clamp-4 align-baseline mb-2">
+                        {summary}
+                      </p>
+
+                      <p className="lg:hidden text text-xs line-clamp-4 align-baseline text-gray-600">
+                        {new Intl.DateTimeFormat('en-GB', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        }).format(publishedAt)}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              }
+            )
           )}
         </div>
       </div>

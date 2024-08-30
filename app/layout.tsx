@@ -5,6 +5,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Providers from '../components/Providers';
 import { GoogleTagManager } from '@next/third-parties/google';
+import NextTopLoader from 'nextjs-toploader';
+import { Suspense } from 'react';
 
 const openSans = Open_Sans({ subsets: ['latin'] });
 
@@ -20,8 +22,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en-GB" suppressHydrationWarning>
       <body className={`${openSans.className} bg-black`}>
-        <Providers>
+        <NextTopLoader color="#1d4ed8" showSpinner={false} />
+        <Suspense>
           <Header />
+        </Suspense>
+        <Providers>
           <div className="flex-grow bg-white pb-20">{children}</div>
           <Footer />
         </Providers>

@@ -23,7 +23,7 @@ const components: PortableTextComponents = {
       return value.caption ? (
         <figure>
           <Image
-            className="mb-2"
+            className="w-full mb-2"
             width={800}
             height={800}
             priority

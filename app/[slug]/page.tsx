@@ -1,15 +1,14 @@
 import BlockRendererClient from '@/components/BlockRenderClient';
 import { Metadata } from 'next';
 import Heading from '@/components/ui/heading';
-import parse from 'html-react-parser';
-import Image from 'next/image';
-import { Blog } from '@/sanity.types';
-import { HTMLAttributes } from 'react';
 import { Clock2Icon } from 'lucide-react';
 import { getPosts, urlFor } from '@/lib/sanity-utils';
+import { FeaturedImage } from '@/components/FeaturedImage';
+import Sidebar from '@/components/Sidebar';
+import { Slug } from '@/sanity.types';
 
 interface BlogDetailsProps {
-  params: { slug: string };
+  params: { slug: Slug };
 }
 
 export async function generateMetadata({
@@ -67,7 +66,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-4">
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex flex-col lg:flex-row gap-8 lg:mb-8">
         <div className="max-w-md">
           <Heading as="h1" className="text-2xl lg:text-5xl mb-8">
             {data.title}
@@ -116,46 +115,8 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
         <article className="flex-1 lg:w-64">
           {data?.content && <BlockRendererClient value={data?.content} />}
         </article>
+        <Sidebar slug={params.slug} />
       </main>
     </div>
-  );
-}
-
-type FeaturedImageProps = {
-  featuredImage: Blog['featuredImage'];
-} & HTMLAttributes<HTMLElement>;
-
-function FeaturedImage({ featuredImage, ...props }: FeaturedImageProps) {
-  if (!featuredImage) {
-    return;
-  }
-
-  if (featuredImage.caption) {
-    return (
-      <figure {...props}>
-        <Image
-          width="1280"
-          height="1280"
-          src={urlFor(featuredImage).width(1280).url()}
-          alt={featuredImage.alt || ''}
-          priority
-          className="block h-full w-full object-cover mb-2"
-        />
-        <figcaption className="text-xs italic text-gray-600 [&>a]:text-blue-700 hover:[&>a]:underline mb-4">
-          {parse(featuredImage?.caption)}
-        </figcaption>
-      </figure>
-    );
-  }
-
-  return (
-    <Image
-      width={800}
-      height={800}
-      src={urlFor(featuredImage).width(800).url()}
-      alt={featuredImage.alt || ''}
-      priority
-      className="block h-full w-full object-cover"
-    />
   );
 }

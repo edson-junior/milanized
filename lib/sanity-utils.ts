@@ -1,7 +1,7 @@
 import imageUrlBuilder from '@sanity/image-url';
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import client from '@/client';
-import { Blog, Page } from '@/sanity.types';
+import { Blog, Page, Slug } from '@/sanity.types';
 
 export function urlFor(source: SanityImageSource) {
   return imageUrlBuilder(client).image(source);
@@ -52,7 +52,7 @@ export async function getAllPosts(): Promise<Blog[] | undefined> {
   }
 }
 
-export async function getPosts(slug: string): Promise<Blog | undefined> {
+export async function getPosts(slug: Slug): Promise<Blog | undefined> {
   const query = `*[_type == 'blog' && metadata.slug.current == $slug][0] {
     _id,
     _createdAt,

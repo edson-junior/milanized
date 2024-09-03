@@ -9,6 +9,20 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const links = [
+    {
+      href: '/articles',
+      text: 'Articles'
+    },
+    {
+      href: '/about',
+      text: 'About'
+    },
+    {
+      href: '/contact',
+      text: 'Contact'
+    }
+  ];
 
   useEffect(() => {
     setOpen(false);
@@ -29,29 +43,17 @@ export default function Header() {
             {open ? <X /> : <MenuIcon />}
           </button>
           <ul
-            className={`flex flex-col lg:flex-row lg:items-center gap-2 lg:flex absolute lg:static bg-black lg:z-auto left-0 w-full lg:w-auto p-4 lg:p-0 ${open ? 'top-full z-10' : 'top-[-490px] z-[-1]'}`}
+            className={`flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-8 lg:flex absolute lg:static bg-black lg:z-auto left-0 w-full lg:w-auto p-4 lg:p-0 ${open ? 'top-full z-10' : 'top-[-490px] z-[-1]'}`}
           >
-            <li>
-              <Link
-                className="block py-2 lg:p-0 hover:underline"
-                href="/articles"
-              >
-                Articles
-              </Link>
-            </li>
-            <li>
-              <Link className="block py-2 lg:p-0 hover:underline" href="/about">
-                About
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="block py-2 lg:p-0 hover:underline"
-                href="/contact"
-              >
-                Contact
-              </Link>
-            </li>
+            {links.map(({ href, text }, index) => {
+              return (
+                <li key={index}>
+                  <Link className="block py-2 hover:underline" href={href}>
+                    {text}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </div>

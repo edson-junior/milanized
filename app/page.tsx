@@ -8,65 +8,72 @@ import { getAllPosts, getHomePage, urlFor } from '@/lib/sanity-utils';
 export async function generateMetadata() {
   const homepage = await getHomePage();
 
-  if (homepage) {
-    const metaData: Metadata = {
+  if (!homepage) {
+    return {};
+  }
+
+  const metaData: Metadata = {
+    title: homepage.metadata?.title,
+    description: homepage.metadata?.description,
+    robots:
+      'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
+    alternates: {
+      canonical: `${process.env.CLIENT_URL}`
+    },
+    openGraph: {
+      url: `${process.env.CLIENT_URL}`,
       title: homepage.metadata?.title,
       description: homepage.metadata?.description,
-      robots:
-        'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
-      alternates: {
-        canonical: `${process.env.CLIENT_URL}`
-      },
-      openGraph: {
-        url: `${process.env.CLIENT_URL}`,
-        title: homepage.metadata?.title,
-        description: homepage.metadata?.description,
-        type: 'website',
-        images: {
-          url: `${process.env.CLIENT_URL}/opengraph-logo.png`,
-          secureUrl: `${process.env.CLIENT_URL}/opengraph-logo.png`,
-          alt: homepage.metadata?.title,
-          width: 360,
-          height: 360,
-          type: 'image'
-        }
+      type: 'website',
+      images: {
+        url: `${process.env.CLIENT_URL}/opengraph-logo.png`,
+        secureUrl: `${process.env.CLIENT_URL}/opengraph-logo.png`,
+        alt: homepage.metadata?.title,
+        width: 360,
+        height: 360,
+        type: 'image'
       }
-    };
+    }
+  };
 
-    return metaData;
-  }
+  return metaData;
 }
 
 export default async function Home() {
   const posts = await getAllPosts();
   const homepage = await getHomePage();
 
-  if (homepage) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 py-4">
-        <h1 className="absolute left-[-999em]">{`${homepage.metadata?.title} - ${homepage.title}`}</h1>
-        {posts
-          ?.filter((post) => post.isFeatured)
-          .map(({ _id, metadata, title, summary, featuredImage }) => {
-            return (
-              <FeaturedPost
-                key={_id}
-                metadata={metadata}
-                title={title}
-                summary={summary}
-                featuredImage={featuredImage}
-              />
-            );
-          })}
-        <hr className="my-4" />
-        <Heading as="h2" className="text-xl lg:text-4xl py-2">
-          Latest Posts
-        </Heading>
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 gap-y-6">
-          {!posts?.length ? (
-            <p>there are no blogposts</p>
-          ) : (
-            posts?.map(
+  if (!homepage) {
+    return null;
+  }
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-4">
+      <h1 className="absolute left-[-999em]">{`${homepage.metadata?.title} - ${homepage.title}`}</h1>
+      {posts
+        ?.filter((post) => post.isFeatured)
+        .map(({ _id, metadata, title, summary, featuredImage }) => {
+          return (
+            <FeaturedPost
+              key={_id}
+              metadata={metadata}
+              title={title}
+              summary={summary}
+              featuredImage={featuredImage}
+            />
+          );
+        })}
+      <hr className="my-4" />
+      <Heading as="h2" className="text-xl lg:text-4xl py-2">
+        Latest Posts
+      </Heading>
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 gap-y-6">
+        {!posts?.length ? (
+          <p>there are no blogposts</p>
+        ) : (
+          posts
+            ?.slice(0, 4)
+            .map(
               ({
                 _id,
                 metadata,
@@ -113,9 +120,8 @@ export default async function Home() {
                 );
               }
             )
-          )}
-        </div>
+        )}
       </div>
-    );
-  }
+    </div>
+  );
 }

@@ -56,7 +56,7 @@ const components: PortableTextComponents = {
 
   list: {
     bullet: ({ children }) => (
-      <ul className="list-disc list-outside ms-4">{children}</ul>
+      <ul className="list-disc list-outside ms-4 mb-6">{children}</ul>
     )
   },
 
@@ -87,7 +87,7 @@ const components: PortableTextComponents = {
         return <br />;
       }
 
-      return <p className="leading-7">{children}</p>;
+      return <p className="leading-7 [&:not(:last-child)]:mb-6">{children}</p>;
     },
     h1: ({ children }) => {
       return (
@@ -98,7 +98,7 @@ const components: PortableTextComponents = {
     },
     h2: ({ children }) => {
       return (
-        <Heading as="h2" className="text-xl lg:text-4xl py-0 lg:py-2">
+        <Heading as="h2" className="text-xl lg:text-4xl py-0 lg:py-2 mb-2">
           {children}
         </Heading>
       );

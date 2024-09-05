@@ -1,6 +1,6 @@
 import imageUrlBuilder from '@sanity/image-url';
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
-import client from '@/client';
+import client, { sanityFetch } from '@/client';
 import { Blog, Page, Slug } from '@/sanity.types';
 
 export function urlFor(source: SanityImageSource) {
@@ -21,7 +21,7 @@ export async function getHomePage(): Promise<Page | undefined> {
   }`;
 
   try {
-    const data = await client.fetch(query);
+    const data = await sanityFetch({ query });
 
     return data;
   } catch (error) {
@@ -44,7 +44,7 @@ export async function getAllPosts(): Promise<Blog[] | undefined> {
   }`;
 
   try {
-    const data = await client.fetch(query);
+    const data = await sanityFetch({ query });
 
     return data;
   } catch (error) {
@@ -74,8 +74,11 @@ export async function getPosts(slug: Slug): Promise<Blog | undefined> {
   }`;
 
   try {
-    const data = await client.fetch(query, {
-      slug
+    const data = await sanityFetch({
+      query,
+      params: {
+        slug
+      }
     });
 
     return data;
@@ -100,7 +103,7 @@ export async function getAboutPage(): Promise<Page | undefined> {
   }`;
 
   try {
-    const data = await client.fetch(query);
+    const data = await sanityFetch({ query });
 
     return data;
   } catch (error) {
@@ -122,7 +125,7 @@ export async function getArticlesPage(): Promise<Page | undefined> {
   }`;
 
   try {
-    const data = await client.fetch(query);
+    const data = await sanityFetch({ query });
 
     return data;
   } catch (error) {
@@ -145,7 +148,7 @@ export async function getContactPage(): Promise<Page | undefined> {
   }`;
 
   try {
-    const data = await client.fetch(query);
+    const data = await sanityFetch({ query });
 
     return data;
   } catch (error) {
@@ -166,7 +169,7 @@ export async function getPrivacyPage(): Promise<Page | undefined> {
   }`;
 
   try {
-    const data = await client.fetch(query);
+    const data = await sanityFetch({ query });
 
     return data;
   } catch (error) {

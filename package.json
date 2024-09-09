@@ -31,6 +31,7 @@
     "@next/third-parties": "^14.2.4",
     "@portabletext/react": "^3.1.0",
     "@portabletext/types": "^2.0.13",
+    "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@sanity/client": "^6.20.0",
@@ -53,6 +54,7 @@
     "react-hook-form": "^7.52.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
+    "vaul": "^0.9.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {

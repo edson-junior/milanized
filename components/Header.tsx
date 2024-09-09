@@ -4,6 +4,13 @@ import { MenuIcon, X } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTrigger
+} from './ui/drawer';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -28,6 +35,7 @@ export default function Header() {
     setOpen(false);
   }, [pathname, searchParams]);
 
+  // TODO: make header sticky
   return (
     <header className="bg-black">
       <div className="max-w-7xl	mx-auto p-4 flex relative">
@@ -39,11 +47,8 @@ export default function Header() {
         </Link>
 
         <nav className="text-white flex ml-auto">
-          <button onClick={() => setOpen(!open)} className="lg:hidden w-7 h-7">
-            {open ? <X /> : <MenuIcon />}
-          </button>
           <ul
-            className={`flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-8 lg:flex absolute lg:static bg-black lg:z-auto left-0 w-full lg:w-auto p-4 lg:p-0 ${open ? 'top-full z-10' : 'top-[-490px] z-[-1]'}`}
+            className={`flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-8 lg:flex absolute lg:static bg-black lg:z-auto left-0 w-full lg:w-auto p-4 lg:p-0 top-[-490px] z-[-1]`}
           >
             {links.map(({ href, text }, index) => {
               return (
@@ -56,6 +61,32 @@ export default function Header() {
             })}
           </ul>
         </nav>
+        <Drawer direction="right" open={open} onOpenChange={setOpen}>
+          <DrawerTrigger
+            className="text-white lg:hidden w-7 h-7"
+            aria-label="open menu"
+          >
+            <MenuIcon />
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerClose>
+                <X />
+              </DrawerClose>
+            </DrawerHeader>
+            <ul className="px-4">
+              {links.map(({ href, text }, index) => {
+                return (
+                  <li key={index} className="border-b border-gray-300">
+                    <Link className="block py-3 hover:underline" href={href}>
+                      {text}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </DrawerContent>
+        </Drawer>
       </div>
     </header>
   );

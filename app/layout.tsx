@@ -22,7 +22,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en-GB" suppressHydrationWarning>
       <body className={`${openSans.className} bg-black`}>
-        <NextTopLoader color="#1d4ed8" showSpinner={false} />
+        <NextTopLoader color="red" showSpinner={false} />
         <Suspense>
           <Header />
         </Suspense>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Organization, WithContext } from 'schema-dts';
 import Heading from '@/components/ui/heading';
 import FeaturedPost from '@/components/FeaturedPost';
 import { getAllPosts, getHomePage, urlFor } from '@/lib/sanity-utils';
@@ -47,8 +48,28 @@ export default async function Home() {
     return null;
   }
 
+  const jsonLd: WithContext<Organization> = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: homepage.metadata?.title,
+    url: process.env.CLIENT_URL,
+    alternateName: 'Milanized!',
+    description: homepage.metadata?.description,
+    logo: `${process.env.CLIENT_URL}/opengraph-logo.png`,
+    sameAs: [
+      'https://www.facebook.com/MilanIzedOfficial',
+      'https://www.instagram.com/milanize.me'
+    ],
+    contactPoint: [{ '@type': 'ContactPoint', contactType: 'customer support' }]
+    // TODO: add `potentialAction` when searchbar is ready
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-4">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <h1 className="absolute left-[-999em]">{`${homepage.metadata?.title} - ${homepage.title}`}</h1>
       {posts
         ?.filter((post) => post.isFeatured)

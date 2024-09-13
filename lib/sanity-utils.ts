@@ -1,7 +1,7 @@
 import imageUrlBuilder from '@sanity/image-url';
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import client, { sanityFetch } from '@/client';
-import { Blog, Page, Slug } from '@/sanity.types';
+import { Author, Blog, Page, Slug } from '@/sanity.types';
 
 export function urlFor(source: SanityImageSource) {
   return imageUrlBuilder(client).image(source);
@@ -62,6 +62,7 @@ export async function getPosts(slug: Slug): Promise<Blog | undefined> {
     content,
     featuredImage,
     author->,
+    "authorName": author->name,
     "authorImage": author->image,
     "estimatedReadingTime": round(length(pt::text(content)) / 5 / 180),
     metadata {
@@ -170,6 +171,28 @@ export async function getPrivacyPage(): Promise<Page | undefined> {
 
   try {
     const data = await sanityFetch({ query });
+
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getAuthor(slug: Slug): Promise<Author | undefined> {
+  const query = `*[_type == 'author' && slug.current == $slug][0] {
+    _id,
+    name,
+    image,
+    bio
+  }`;
+
+  try {
+    const data = await sanityFetch({
+      query,
+      params: {
+        slug
+      }
+    });
 
     return data;
   } catch (error) {

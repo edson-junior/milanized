@@ -130,12 +130,7 @@ export type Blog = {
   metadata?: Metadata;
   isFeatured?: boolean;
   summary?: string;
-  author?: {
-    _ref: string;
-    _type: 'reference';
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: 'author';
-  };
+  author?: Author;
   featuredImage?: {
     asset?: {
       _ref: string;
@@ -194,6 +189,8 @@ export type Blog = {
 };
 
 export type Author = {
+  _ref: string;
+  _weak?: boolean;
   _id: string;
   _type: 'author';
   _createdAt: string;

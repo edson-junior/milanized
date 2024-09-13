@@ -2,8 +2,7 @@
 
 import { MenuIcon, X } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
   Drawer,
   DrawerClose,
@@ -11,33 +10,43 @@ import {
   DrawerHeader,
   DrawerTrigger
 } from './ui/drawer';
+import { SiteNavigationElement, WithContext } from 'schema-dts';
+
+const links = [
+  {
+    href: '/articles',
+    text: 'Articles'
+  },
+  {
+    href: '/about',
+    text: 'About'
+  },
+  {
+    href: '/contact',
+    text: 'Contact'
+  }
+];
+
+const jsonLd: WithContext<SiteNavigationElement> = {
+  '@context': 'https://schema.org',
+  '@type': 'SiteNavigationElement',
+  name: [...links.map((item) => item.text)],
+  url: [...links.map((item) => item.href)]
+};
 
 export default function Header() {
-  const [open, setOpen] = useState(false);
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const links = [
-    {
-      href: '/articles',
-      text: 'Articles'
-    },
-    {
-      href: '/about',
-      text: 'About'
-    },
-    {
-      href: '/contact',
-      text: 'Contact'
-    }
-  ];
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname, searchParams]);
-
   // TODO: make header sticky
+  const [open, setOpen] = useState(false);
+  const closeMobileMenu = useCallback(() => {
+    setOpen(false);
+  }, []);
+
   return (
     <header className="bg-black">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="max-w-7xl	mx-auto p-4 flex relative">
         <Link
           href="/"
@@ -78,7 +87,11 @@ export default function Header() {
               {links.map(({ href, text }, index) => {
                 return (
                   <li key={index} className="border-b border-gray-300">
-                    <Link className="block py-3 hover:underline" href={href}>
+                    <Link
+                      className="block py-3 hover:underline"
+                      href={href}
+                      onClick={closeMobileMenu}
+                    >
                       {text}
                     </Link>
                   </li>

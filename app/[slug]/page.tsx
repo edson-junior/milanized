@@ -1,11 +1,12 @@
 import BlockRendererClient from '@/components/BlockRenderClient';
 import { Metadata } from 'next';
 import Heading from '@/components/ui/heading';
-import { Clock2Icon } from 'lucide-react';
+import { LuClock2 } from 'react-icons/lu';
 import { getPosts, urlFor } from '@/lib/sanity-utils';
 import { FeaturedImage } from '@/components/FeaturedImage';
 import Sidebar from '@/components/Sidebar';
 import { Slug } from '@/sanity.types';
+import { NewsArticle, WithContext } from 'schema-dts';
 
 interface BlogDetailsProps {
   params: { slug: Slug };
@@ -56,6 +57,45 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
 
   const publishedAt = data ? new Date(data?._createdAt) : undefined;
   const updatedAt = data ? new Date(data?._updatedAt) : undefined;
+  const jsonLd: WithContext<NewsArticle> = {
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
+    datePublished: `${publishedAt}`,
+    dateModified: `${updatedAt}`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${process.env.CLIENT_URL}/${params.slug}`
+    },
+    headline: data.metadata?.title,
+    author: {
+      '@type': 'Person',
+      name: data?.author?.name,
+      url: `${process.env.CLIENT_URL}/author/${data?.author?.slug?.current}`
+    },
+    image: {
+      '@type': 'ImageObject',
+      url: data.featuredImage
+        ? urlFor(data.featuredImage).width(1200).url()
+        : ''
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Milanized!',
+      logo: {
+        '@type': 'ImageObject',
+        url: data?.author?.image
+          ? urlFor(data?.author?.image).width(200).url()
+          : '',
+        width: '200',
+        height: '200'
+      },
+      sameAs: [
+        'https://www.facebook.com/MilanIzedOfficial',
+        'https://www.instagram.com/milanize.me'
+      ]
+    },
+    description: data.metadata?.description
+  };
 
   // TODO: create our own types files and not depend on typegen as much. Use typegen just to generate the files, then delete afterwards. Add it to the gitignore, even.
 
@@ -66,6 +106,10 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-4">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="flex flex-col lg:flex-row gap-8 lg:mb-8">
         <div className="max-w-md">
           <Heading as="h1" className="text-2xl lg:text-5xl mb-8">
@@ -97,7 +141,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
             )}
             {estimatedReadingTime && (
               <div className="text-xs flex items-center gap-2">
-                <Clock2Icon className="w-4" />
+                <LuClock2 className="w-4" />
                 {`${Math.ceil(estimatedReadingTime)} minute read`}
               </div>
             )}

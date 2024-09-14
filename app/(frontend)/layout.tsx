@@ -1,9 +1,9 @@
 import type { Viewport } from 'next';
 import { Open_Sans } from 'next/font/google';
-import '../styles/globals.css';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import Providers from '../components/Providers';
+import '../../styles/globals.css';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import Providers from '../../components/Providers';
 import { GoogleTagManager } from '@next/third-parties/google';
 import NextTopLoader from 'nextjs-toploader';
 import { Suspense } from 'react';

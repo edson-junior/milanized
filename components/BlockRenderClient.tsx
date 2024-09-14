@@ -22,15 +22,17 @@ const components: PortableTextComponents = {
     image: ({ value }) => {
       return value.caption ? (
         <figure>
-          <Image
-            className="w-full mb-2"
-            width={800}
-            height={800}
-            priority
-            src={urlFor(value).width(800).url()}
-            alt={value.alt}
-          />
-          <figcaption className="text-xs italic text-gray-600 [&>a]:text-blue-700 hover:[&>a]:underline mb-4">
+          <div className="w-full h-52 lg:h-[36rem] relative mb-2">
+            <Image
+              fill
+              sizes="100vw"
+              loading="lazy"
+              src={urlFor(value).width(700).url()}
+              alt={value.alt}
+              className="object-cover"
+            />
+          </div>
+          <figcaption className="text-xs italic text-gray-600 [&>a]:text-blue-700 [&>a]:underline mb-4">
             {parse(value.caption)}
           </figcaption>
         </figure>
@@ -39,7 +41,7 @@ const components: PortableTextComponents = {
           className="mb-2"
           width={800}
           height={800}
-          priority
+          loading="lazy"
           src={urlFor(value).width(800).url()}
           alt={value.alt}
         />

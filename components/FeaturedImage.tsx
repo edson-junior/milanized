@@ -16,15 +16,17 @@ export function FeaturedImage({ featuredImage, ...props }: FeaturedImageProps) {
   if (featuredImage.caption) {
     return (
       <figure {...props}>
-        <Image
-          width="1280"
-          height="1280"
-          src={urlFor(featuredImage).width(1280).url()}
-          alt={featuredImage.alt || ''}
-          priority
-          className="block h-full w-full object-cover mb-2"
-        />
-        <figcaption className="text-xs italic text-gray-600 [&>a]:text-blue-700 hover:[&>a]:underline mb-4">
+        <div className="w-full h-52 lg:h-[36rem] relative mb-2">
+          <Image
+            fill
+            priority
+            sizes="100vw"
+            src={urlFor(featuredImage).width(1280).url()}
+            alt={featuredImage.alt || ''}
+            className="object-cover"
+          />
+        </div>
+        <figcaption className="text-xs italic text-gray-600 [&>a]:text-blue-700 [&>a]:underline mb-4">
           {parse(featuredImage?.caption)}
         </figcaption>
       </figure>

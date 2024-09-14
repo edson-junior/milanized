@@ -110,8 +110,8 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="flex flex-col lg:flex-row gap-8 lg:mb-8">
-        <div className="max-w-md">
+      <div className="flex flex-col gap-8 lg:mb-8">
+        <div className="w-full">
           <Heading as="h1" className="text-2xl lg:text-5xl mb-8">
             {data.title}
           </Heading>

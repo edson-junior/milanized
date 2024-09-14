@@ -3,7 +3,6 @@ import { Open_Sans } from 'next/font/google';
 import '../../styles/globals.css';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import Providers from '../../components/Providers';
 import { GoogleTagManager } from '@next/third-parties/google';
 import NextTopLoader from 'nextjs-toploader';
 import { Suspense } from 'react';
@@ -26,10 +25,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <Suspense>
           <Header />
         </Suspense>
-        <Providers>
-          <div className="flex-grow bg-white pb-20">{children}</div>
-          <Footer />
-        </Providers>
+        <div className="flex-grow bg-white pb-20">{children}</div>
+        <Footer />
       </body>
       {process.env.NODE_ENV === 'production' && (
         <GoogleTagManager gtmId={`${process.env.NEXT_PUBLIC_GTM_ID}`} />

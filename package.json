@@ -47,7 +47,6 @@
     "next": "^14.2.4",
     "next-cloudinary": "^6.6.2",
     "next-sanity": "^9.4.7",
-    "next-themes": "^0.3.0",
     "nextjs-toploader": "^3.6.15",
     "nodemailer": "^6.9.14",
     "react": "^18",

@@ -6,7 +6,7 @@ import { getPosts, urlFor } from '@/lib/sanity-utils';
 import { FeaturedImage } from '@/components/FeaturedImage';
 import Sidebar from '@/components/Sidebar';
 import { Slug } from '@/sanity.types';
-import { NewsArticle, WithContext } from 'schema-dts';
+import { BlogPosting, WithContext } from 'schema-dts';
 
 interface BlogDetailsProps {
   params: { slug: Slug };
@@ -57,44 +57,55 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
 
   const publishedAt = data ? new Date(data?._createdAt) : undefined;
   const updatedAt = data ? new Date(data?._updatedAt) : undefined;
-  const jsonLd: WithContext<NewsArticle> = {
+  const jsonLd: WithContext<BlogPosting> = {
     '@context': 'https://schema.org',
-    '@type': 'NewsArticle',
+    '@type': 'BlogPosting',
+    '@id': `${process.env.CLIENT_URL}/${params.slug}/#BlogPosting`,
+    mainEntityOfPage: `${process.env.CLIENT_URL}/${params.slug}/`,
+    headline: data.metadata?.title,
+    name: data.metadata?.title,
+    description: data.metadata?.description,
     datePublished: `${publishedAt}`,
     dateModified: `${updatedAt}`,
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `${process.env.CLIENT_URL}/${params.slug}`
-    },
-    headline: data.metadata?.title,
+    url: `${process.env.CLIENT_URL}/${params.slug}/`,
+    inLanguage: 'en-GB',
     author: {
       '@type': 'Person',
+      '@id': `${process.env.CLIENT_URL}/author/${data?.author?.slug?.current}/#Person`,
       name: data?.author?.name,
-      url: `${process.env.CLIENT_URL}/author/${data?.author?.slug?.current}`
-    },
-    image: {
-      '@type': 'ImageObject',
-      url: data.featuredImage
-        ? urlFor(data.featuredImage).width(1200).url()
-        : ''
+      url: `${process.env.CLIENT_URL}/author/${data?.author?.slug?.current}`,
+      image: {
+        '@type': 'ImageObject',
+        '@id': data?.author?.image
+          ? urlFor(data?.author?.image).width(200).url()
+          : '',
+        url: data?.author?.image
+          ? urlFor(data?.author?.image).width(200).url()
+          : '',
+        width: '200',
+        height: '200'
+      }
     },
     publisher: {
       '@type': 'Organization',
       name: 'Milanized!',
       logo: {
         '@type': 'ImageObject',
-        url: data?.author?.image
-          ? urlFor(data?.author?.image).width(200).url()
-          : '',
-        width: '200',
-        height: '200'
+        url: `${process.env.CLIENT_URL}/opengraph-logo.png`,
+        width: '360',
+        height: '360'
       },
       sameAs: [
         'https://www.facebook.com/MilanIzedOfficial',
         'https://www.instagram.com/milanize.me'
       ]
     },
-    description: data.metadata?.description
+    image: {
+      '@type': 'ImageObject',
+      url: data.featuredImage
+        ? urlFor(data.featuredImage).width(1200).url()
+        : ''
+    }
   };
 
   // TODO: create our own types files and not depend on typegen as much. Use typegen just to generate the files, then delete afterwards. Add it to the gitignore, even.

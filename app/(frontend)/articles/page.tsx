@@ -2,14 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import Heading from '@/components/ui/heading';
-import imageUrlBuilder from '@sanity/image-url';
-import { SanityImageSource } from '@sanity/image-url/lib/types/types';
-import client from '@/client';
-import { getAllPosts, getArticlesPage } from '@/lib/sanity-utils';
-
-function urlFor(source: SanityImageSource) {
-  return imageUrlBuilder(client).image(source);
-}
+import { getAllPosts, getArticlesPage } from '@/sanity/lib/client';
+import { urlFor } from '@/sanity/lib/image';
 
 export async function generateMetadata() {
   const articles = await getArticlesPage();

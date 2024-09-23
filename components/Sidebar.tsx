@@ -1,9 +1,10 @@
 import React from 'react';
 import Heading from './ui/heading';
-import { getAllPosts, urlFor } from '@/lib/sanity-utils';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Slug } from '@/sanity.types';
+import { getAllPosts } from '@/sanity/lib/client';
+import { urlFor } from '@/sanity/lib/image';
 
 type SidebarProps = {
   slug: Slug;

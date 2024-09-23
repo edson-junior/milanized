@@ -1,8 +1,9 @@
 import Heading from '@/components/ui/heading';
 import Image from 'next/image';
-import { getAuthor, urlFor } from '@/lib/sanity-utils';
 import { Slug } from '@/sanity.types';
 import BlockRendererClient from '@/components/BlockRenderClient';
+import { getAuthor } from '@/sanity/lib/client';
+import { urlFor } from '@/sanity/lib/image';
 
 interface AuthorProps {
   params: { slug: Slug };

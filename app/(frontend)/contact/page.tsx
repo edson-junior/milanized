@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Heading from '@/components/ui/heading';
 import ContactForm from '@/components/ContactForm';
-import { getContactPage } from '@/lib/sanity-utils';
+import { getContactPage } from '@/sanity/lib/client';
 
 export async function generateMetadata() {
   const homepage = await getContactPage();

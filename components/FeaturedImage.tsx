@@ -2,7 +2,7 @@ import parse from 'html-react-parser';
 import Image from 'next/image';
 import { Blog } from '@/sanity.types';
 import { HTMLAttributes } from 'react';
-import { urlFor } from '@/lib/sanity-utils';
+import { urlFor } from '@/sanity/lib/image';
 
 type FeaturedImageProps = {
   featuredImage: Blog['featuredImage'];

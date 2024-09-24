@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import BlockRendererClient from '@/components/BlockRenderClient';
 import Heading from '@/components/ui/heading';
-import { getPrivacyPage } from '@/lib/sanity-utils';
+import { getPrivacyPage } from '@/sanity/lib/client';
 
 export async function generateMetadata() {
   const homepage = await getPrivacyPage();

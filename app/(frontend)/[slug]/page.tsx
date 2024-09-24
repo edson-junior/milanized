@@ -2,11 +2,12 @@ import BlockRendererClient from '@/components/BlockRenderClient';
 import { Metadata } from 'next';
 import Heading from '@/components/ui/heading';
 import { LuClock2 } from 'react-icons/lu';
-import { getPosts, urlFor } from '@/lib/sanity-utils';
 import { FeaturedImage } from '@/components/FeaturedImage';
 import Sidebar from '@/components/Sidebar';
 import { Slug } from '@/sanity.types';
 import { BlogPosting, WithContext } from 'schema-dts';
+import { getPostBySlug } from '@/sanity/lib/client';
+import { urlFor } from '@/sanity/lib/image';
 
 interface BlogDetailsProps {
   params: { slug: Slug };
@@ -15,7 +16,7 @@ interface BlogDetailsProps {
 export async function generateMetadata({
   params
 }: BlogDetailsProps): Promise<Metadata> {
-  const data = await getPosts(params.slug);
+  const data = await getPostBySlug(params.slug);
 
   if (!data?.featuredImage) {
     return {};
@@ -49,7 +50,7 @@ export async function generateMetadata({
 }
 
 export default async function BlogDetails({ params }: BlogDetailsProps) {
-  const data = await getPosts(params.slug);
+  const data = await getPostBySlug(params.slug);
 
   if (!data) {
     return;

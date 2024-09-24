@@ -4,7 +4,8 @@ import Image from 'next/image';
 import { Organization, WithContext } from 'schema-dts';
 import Heading from '@/components/ui/heading';
 import FeaturedPost from '@/components/FeaturedPost';
-import { getAllPosts, getHomePage, urlFor } from '@/lib/sanity-utils';
+import { getAllPosts, getHomePage } from '@/sanity/lib/client';
+import { urlFor } from '@/sanity/lib/image';
 
 export async function generateMetadata() {
   const homepage = await getHomePage();

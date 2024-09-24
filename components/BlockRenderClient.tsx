@@ -5,17 +5,11 @@ import {
   PortableTextComponents,
   PortableTextProps
 } from '@portabletext/react';
-import imageUrlBuilder from '@sanity/image-url';
-import { SanityImageSource } from '@sanity/image-url/lib/types/types';
-import client from '@/client';
 import Image from 'next/image';
 import { TypedObject } from '@portabletext/types';
 import parse from 'html-react-parser';
 import Heading from './ui/heading';
-
-function urlFor(source: SanityImageSource) {
-  return imageUrlBuilder(client).image(source);
-}
+import { urlFor } from '@/sanity/lib/image';
 
 const components: PortableTextComponents = {
   types: {

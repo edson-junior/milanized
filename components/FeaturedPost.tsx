@@ -1,19 +1,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import Heading from '@/components/ui/heading';
-import imageUrlBuilder from '@sanity/image-url';
-import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import { Blog } from '@/sanity.types';
-import client from '@/client';
+import { urlFor } from '@/sanity/lib/image';
 
 type FeaturedPostProps = Pick<
   Blog,
   'metadata' | 'title' | 'summary' | 'featuredImage'
 >;
-
-function urlFor(source: SanityImageSource) {
-  return imageUrlBuilder(client).image(source);
-}
 
 export default function FeaturedPost({
   metadata,

@@ -1,4 +1,6 @@
-export const getHomePageQuery = `*[_type == 'page' && metadata.slug.current == 'homepage'][0] {
+import groq from 'groq';
+
+export const getHomePageQuery = groq`*[_type == 'page' && metadata.slug.current == 'homepage'][0] {
   _id,
   title,
   metadata {
@@ -10,7 +12,7 @@ export const getHomePageQuery = `*[_type == 'page' && metadata.slug.current == '
   }
 }`;
 
-export const getAllPostsQuery = `*[_type == 'blog' && !(_id in path('drafts.**'))]|order(_createdAt desc) {
+export const getAllPostsQuery = groq`*[_type == 'blog' && !(_id in path('drafts.**'))]|order(_createdAt desc) {
   _id,
   _createdAt,
   title,
@@ -23,7 +25,7 @@ export const getAllPostsQuery = `*[_type == 'blog' && !(_id in path('drafts.**')
   }
 }`;
 
-export const getPostBySlugQuery = `*[_type == 'blog' && metadata.slug.current == $slug][0] {
+export const getPostBySlugQuery = groq`*[_type == 'blog' && metadata.slug.current == $slug][0] {
   _id,
   _createdAt,
   _updatedAt,
@@ -44,14 +46,14 @@ export const getPostBySlugQuery = `*[_type == 'blog' && metadata.slug.current ==
   }
 }`;
 
-export const getAuthorQuery = `*[_type == 'author' && slug.current == $slug][0] {
+export const getAuthorQuery = groq`*[_type == 'author' && slug.current == $slug][0] {
   _id,
   name,
   image,
   bio
 }`;
 
-export const getPrivacyPageQuery = `*[_type == 'page' && metadata.slug.current == 'privacy-policy'][0] {
+export const getPrivacyPageQuery = groq`*[_type == 'page' && metadata.slug.current == 'privacy-policy'][0] {
   _id,
   title,
   content,
@@ -62,7 +64,7 @@ export const getPrivacyPageQuery = `*[_type == 'page' && metadata.slug.current =
   }
 }`;
 
-export const getContactPageQuery = `*[_type == 'page' && metadata.slug.current == 'contact'][0] {
+export const getContactPageQuery = groq`*[_type == 'page' && metadata.slug.current == 'contact'][0] {
   _id,
   title,
   content,
@@ -75,7 +77,7 @@ export const getContactPageQuery = `*[_type == 'page' && metadata.slug.current =
   }
 }`;
 
-export const getArticlesPageQuery = `*[_type == 'page' && metadata.slug.current == 'articles'][0] {
+export const getArticlesPageQuery = groq`*[_type == 'page' && metadata.slug.current == 'articles'][0] {
   _id,
   title,
   metadata {
@@ -87,7 +89,7 @@ export const getArticlesPageQuery = `*[_type == 'page' && metadata.slug.current 
   }
 }`;
 
-export const getAboutPageQuery = `*[_type == 'page' && metadata.slug.current == 'about'][0] {
+export const getAboutPageQuery = groq`*[_type == 'page' && metadata.slug.current == 'about'][0] {
   _id,
   title,
   content,

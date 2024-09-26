@@ -45,7 +45,7 @@ export async function getHomePage(): Promise<Page | undefined> {
   const query = getHomePageQuery;
   const data = await sanityFetch({ query });
 
-  return data;
+  return data || {};
 }
 
 export async function getAllPosts(): Promise<Blog[] | undefined> {

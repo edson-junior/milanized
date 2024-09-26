@@ -21,7 +21,7 @@ const components: PortableTextComponents = {
               fill
               sizes="100vw"
               loading="lazy"
-              src={urlFor(value).width(700).url()}
+              src={urlFor(value).width(1280).url()}
               alt={value.alt}
               className="object-cover"
             />

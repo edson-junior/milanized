@@ -35,14 +35,16 @@ export default async function Sidebar({ slug }: SidebarProps) {
               key={_id}
             >
               {featuredImage && (
-                <Image
-                  width={100}
-                  height={100}
-                  loading="lazy"
-                  src={urlFor(featuredImage).width(200).url()}
-                  alt={featuredImage.alt || ''}
-                  className="h-[revert-layer] object-cover"
-                />
+                <div className="flex shrink-0 w-[100px] h-[100px] relative">
+                  <Image
+                    fill
+                    sizes="100vw"
+                    loading="lazy"
+                    src={urlFor(featuredImage).width(300).url()}
+                    alt={featuredImage.alt || ''}
+                    className="object-cover"
+                  />
+                </div>
               )}
 
               <div>

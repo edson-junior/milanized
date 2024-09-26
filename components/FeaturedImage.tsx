@@ -21,7 +21,7 @@ export function FeaturedImage({ featuredImage, ...props }: FeaturedImageProps) {
             fill
             priority
             sizes="100vw"
-            src={urlFor(featuredImage).width(1280).url()}
+            src={urlFor(featuredImage).width(1500).url()}
             alt={featuredImage.alt || ''}
             className="object-cover"
           />

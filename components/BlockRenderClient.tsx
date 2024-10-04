@@ -10,13 +10,14 @@ import { TypedObject } from '@portabletext/types';
 import parse from 'html-react-parser';
 import Heading from './ui/heading';
 import { urlFor } from '@/sanity/lib/image';
+import { LightbulbIcon } from 'lucide-react';
 
 const components: PortableTextComponents = {
   types: {
     image: ({ value }) => {
       return value.caption ? (
         <figure>
-          <div className="w-full h-52 lg:h-[36rem] relative mb-2">
+          <div className="w-full h-52 lg:h-[28rem] relative mb-2">
             <Image
               fill
               sizes="100vw"
@@ -47,6 +48,17 @@ const components: PortableTextComponents = {
       ) : (
         <div className="callToAction">{value.text}</div>
       );
+    },
+    messages: (props) => {
+      return (
+        <div className="border-0 border-l-4 border-spacing-2 border-green-700 bg-green-50 p-6 mb-6 [&>p:not(:last-child)]:mb-6">
+          <Heading as="strong" className="flex text-lg lg:text-xl gap-2 mb-2">
+            <LightbulbIcon />
+            <span>{props.value.title}</span>
+          </Heading>
+          <PortableText value={props.value.text} />
+        </div>
+      );
     }
   },
 
@@ -76,11 +88,7 @@ const components: PortableTextComponents = {
   block: {
     normal: ({ children, value }) => {
       if (value.children[0].marks.includes('code')) {
-        return <>{parse(value.children[0].text)}</>;
-      }
-
-      if (value.children[0].text === '') {
-        return <br />;
+        return <div>{parse(value.children[0].text)}</div>;
       }
 
       return <p className="leading-7 [&:not(:last-child)]:mb-6">{children}</p>;

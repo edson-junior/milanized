@@ -10,24 +10,24 @@ import { TypedObject } from '@portabletext/types';
 import parse from 'html-react-parser';
 import Heading from './ui/heading';
 import { urlFor } from '@/sanity/lib/image';
-import { LightbulbIcon } from 'lucide-react';
+import { LuLightbulb } from 'react-icons/lu';
 
 const components: PortableTextComponents = {
   types: {
     image: ({ value }) => {
       return value.caption ? (
         <figure>
-          <div className="w-full h-52 lg:h-[28rem] relative mb-2">
+          <div className="w-full h-52 lg:h-[28rem] relative mb-2 overflow-hidden">
             <Image
               fill
               sizes="100vw"
               loading="lazy"
               src={urlFor(value).width(1280).url()}
               alt={value.alt}
-              className="object-cover"
+              className="object-cover transition duration-500 ease-in-out transform hover:scale-110"
             />
           </div>
-          <figcaption className="text-xs italic text-gray-600 [&>a]:text-blue-700 [&>a]:underline mb-4">
+          <figcaption className="flex gap-2 text-xs italic text-gray-600 [&>a]:text-blue-700 [&>a]:underline mb-4 place-items-start">
             {parse(value.caption)}
           </figcaption>
         </figure>
@@ -53,7 +53,7 @@ const components: PortableTextComponents = {
       return (
         <div className="border-0 border-l-4 border-spacing-2 border-green-700 bg-green-50 p-6 mb-6 [&>p:not(:last-child)]:mb-6">
           <Heading as="strong" className="flex text-lg lg:text-xl gap-2 mb-2">
-            <LightbulbIcon />
+            <LuLightbulb />
             <span>{props.value.title}</span>
           </Heading>
           <PortableText value={props.value.text} />

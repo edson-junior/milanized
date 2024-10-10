@@ -121,6 +121,7 @@ export type Page = {
 };
 
 export type Blog = {
+  headings: { text: string; style: string }[];
   _id: string;
   _type: 'blog';
   _createdAt: string;

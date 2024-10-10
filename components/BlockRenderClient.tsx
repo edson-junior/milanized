@@ -3,7 +3,8 @@
 import {
   PortableText,
   PortableTextComponents,
-  PortableTextProps
+  PortableTextProps,
+  toPlainText
 } from '@portabletext/react';
 import Image from 'next/image';
 import { TypedObject } from '@portabletext/types';
@@ -11,6 +12,7 @@ import parse from 'html-react-parser';
 import Heading from './ui/heading';
 import { urlFor } from '@/sanity/lib/image';
 import { LuLightbulb } from 'react-icons/lu';
+import { slugify } from '@/lib/utils';
 
 const components: PortableTextComponents = {
   types: {
@@ -100,16 +102,24 @@ const components: PortableTextComponents = {
         </Heading>
       );
     },
-    h2: ({ children }) => {
+    h2: ({ value, children }) => {
       return (
-        <Heading as="h2" className="text-xl lg:text-4xl py-0 lg:py-2 mb-2">
+        <Heading
+          as="h2"
+          className="text-xl lg:text-4xl py-0 lg:py-2 mb-2"
+          id={slugify(toPlainText(value))}
+        >
           {children}
         </Heading>
       );
     },
-    h3: ({ children }) => {
+    h3: ({ value, children }) => {
       return (
-        <Heading as="h3" className="text-lg lg:text-2xl py-0 lg:py-2">
+        <Heading
+          as="h3"
+          className="text-lg lg:text-2xl py-0 lg:py-2"
+          id={slugify(toPlainText(value))}
+        >
           {children}
         </Heading>
       );

@@ -16,12 +16,12 @@ export function FeaturedImage({ featuredImage, ...props }: FeaturedImageProps) {
   if (featuredImage.caption) {
     return (
       <figure {...props}>
-        <div className="w-full h-52 lg:h-[36rem] relative mb-2">
+        <div className="w-full h-52 lg:h-[28rem] relative mb-2 overflow-hidden">
           <Image
             fill
             priority
             sizes="100vw"
-            src={urlFor(featuredImage).width(1500).url()}
+            src={urlFor(featuredImage).width(1280).url()}
             alt={featuredImage.alt || ''}
             className="object-cover"
           />

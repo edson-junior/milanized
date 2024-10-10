@@ -19,7 +19,7 @@ type RootLayoutProps = Readonly<{
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en-GB" suppressHydrationWarning>
+    <html lang="en-GB" className="scroll-smooth" suppressHydrationWarning>
       <body className={`${openSans.className} bg-black`}>
         <NextTopLoader color="red" showSpinner={false} />
         <Suspense>

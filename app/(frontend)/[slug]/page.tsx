@@ -3,11 +3,12 @@ import { Metadata } from 'next';
 import Heading from '@/components/ui/heading';
 import { LuClock2 } from 'react-icons/lu';
 import { FeaturedImage } from '@/components/FeaturedImage';
-import Sidebar from '@/components/Sidebar';
+// import Sidebar from '@/components/Sidebar';
 import { Slug } from '@/sanity.types';
 import { BlogPosting, WithContext } from 'schema-dts';
 import { getPostBySlug } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
+import Sidebar from '@/components/Sidebar';
 
 interface BlogDetailsProps {
   params: { slug: Slug };
@@ -118,60 +119,60 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-4">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <div className="flex flex-col gap-8 lg:mb-8">
-        <div className="w-full">
-          <Heading as="h1" className="text-2xl lg:text-5xl mb-8">
-            {data.title}
-          </Heading>
-
-          <div className="flex gap-2 flex-col">
-            {/* {authorName && <p>{authorName}</p>} */}
-            {publishedAt && (
-              <>
-                <div>
-                  {new Intl.DateTimeFormat('en-GB', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  }).format(publishedAt)}
-                </div>
-              </>
-            )}
-            {updatedAt && (
-              <div className="text-xs">
-                {'Last updated: '}
-                {new Intl.DateTimeFormat('en-GB', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                }).format(updatedAt)}
-              </div>
-            )}
-            {estimatedReadingTime && (
-              <div className="text-xs flex items-center gap-2">
-                <LuClock2 className="w-4" />
-                {`${Math.ceil(estimatedReadingTime)} minute read`}
-              </div>
-            )}
-          </div>
-        </div>
-        {data?.featuredImage && (
-          <FeaturedImage
-            className="flex flex-col lg:shrink-0 grow"
-            featuredImage={data.featuredImage}
-          />
-        )}
-      </div>
-
       <main className="flex flex-col lg:flex-row gap-8">
         <article className="flex-1 lg:w-64">
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          />
+          <div className="flex flex-col gap-8 lg:mb-8">
+            <div className="w-full">
+              <Heading as="h1" className="text-2xl lg:text-5xl mb-8">
+                {data.title}
+              </Heading>
+
+              {/* TODO: edit all other summaries before re-enableing this one again */}
+              {/* <p className="mb-8 font-bold">{data.summary}</p> */}
+
+              <div className="flex gap-2 flex-col">
+                {/* {authorName && <p>{authorName}</p>} */}
+                {publishedAt && (
+                  <div>
+                    {new Intl.DateTimeFormat('en-GB', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    }).format(publishedAt)}
+                  </div>
+                )}
+                {updatedAt && (
+                  <div className="text-xs">
+                    {'Last updated: '}
+                    {new Intl.DateTimeFormat('en-GB', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    }).format(updatedAt)}
+                  </div>
+                )}
+                {estimatedReadingTime && (
+                  <div className="text-xs flex items-center gap-2">
+                    <LuClock2 className="w-4" />
+                    {`${Math.ceil(estimatedReadingTime)} minute read`}
+                  </div>
+                )}
+              </div>
+            </div>
+            {data?.featuredImage && (
+              <FeaturedImage
+                className="flex flex-col lg:shrink-0 grow"
+                featuredImage={data.featuredImage}
+              />
+            )}
+          </div>
           {data?.content && <BlockRendererClient value={data?.content} />}
         </article>
-        <Sidebar slug={params.slug} />
+        <Sidebar slug={params.slug} headings={data.headings} />
       </main>
     </div>
   );

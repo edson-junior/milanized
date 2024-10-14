@@ -131,8 +131,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
                 {data.title}
               </Heading>
 
-              {/* TODO: edit all other summaries before re-enableing this one again */}
-              {/* <p className="mb-8 font-bold">{data.summary}</p> */}
+              <p className="mb-8 font-bold">{data.summary}</p>
 
               <div className="flex gap-2 flex-col">
                 {/* {authorName && <p>{authorName}</p>} */}

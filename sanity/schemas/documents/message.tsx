@@ -6,10 +6,18 @@ const message = defineType({
   title: 'Messages',
   fields: [
     defineField({
-      type: 'text',
+      title: 'Success, error or info messages',
       name: 'messageType',
-      title: 'success, error or info. default is info',
-      rows: 1
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Info', value: 'info' },
+          { title: 'Success', value: 'success' },
+          { title: 'Error', value: 'error' }
+        ]
+      },
+      initialValue: 'info',
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       type: 'text',

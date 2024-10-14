@@ -78,17 +78,24 @@ export default function Header() {
             <MenuIcon />
           </DrawerTrigger>
           <DrawerContent>
-            <DrawerHeader>
-              <DrawerClose>
+            <DrawerHeader className="bg-black flex mb-4">
+              <Link
+                href="/"
+                className="text-white font-bold uppercase text-lg lg:text-2xl"
+                onClick={closeMobileMenu}
+              >
+                Milanized!
+              </Link>
+              <DrawerClose className="text-white ml-auto">
                 <X />
               </DrawerClose>
             </DrawerHeader>
             <ul className="px-4">
               {links.map(({ href, text }, index) => {
                 return (
-                  <li key={index} className="border-b border-gray-300">
+                  <li key={index} className="border-b border-gray-100">
                     <Link
-                      className="block py-3 hover:underline"
+                      className="text-sm font-semibold block py-2 hover:underline"
                       href={href}
                       onClick={closeMobileMenu}
                     >

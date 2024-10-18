@@ -7,7 +7,9 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerDescription,
   DrawerHeader,
+  DrawerTitle,
   DrawerTrigger
 } from './ui/drawer';
 import { SiteNavigationElement, WithContext } from 'schema-dts';
@@ -42,12 +44,12 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="bg-black">
+    <header className="bg-black sticky w-full top-0 z-10">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="max-w-7xl	mx-auto p-4 flex relative">
+      <div className="max-w-7xl	items-center h-14 lg:h-16 self-center mx-auto px-4 flex relative">
         <Link
           href="/"
           className="text-white font-bold uppercase text-lg lg:text-2xl"
@@ -78,7 +80,11 @@ export default function Header() {
             <MenuIcon />
           </DrawerTrigger>
           <DrawerContent>
-            <DrawerHeader className="bg-black flex mb-4">
+            <DrawerTitle className="hidden">Menu</DrawerTitle>
+            <DrawerDescription className="hidden">
+              Navigation menu
+            </DrawerDescription>
+            <DrawerHeader className="bg-black h-14 flex mb-4">
               <Link
                 href="/"
                 className="text-white font-bold uppercase text-lg lg:text-2xl"

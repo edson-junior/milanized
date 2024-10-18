@@ -20,7 +20,7 @@ export default async function Sidebar({ slug, headings }: SidebarProps) {
   }
 
   return (
-    <aside className="lg:w-96 h-auto lg:h-full lg:sticky lg:top-2">
+    <aside className="lg:w-96 h-auto lg:h-full lg:sticky lg:top-20">
       {showTOC && <Toc headings={headings} />}
       <div className="block lg:hidden">
         <Heading className="block text-xl lg:text-4xl mb-4">

@@ -123,7 +123,7 @@ const components: PortableTextComponents = {
       return (
         <Heading
           as="h2"
-          className="text-xl lg:text-4xl py-0 lg:py-2 mb-2"
+          className="text-xl lg:text-4xl py-0 lg:py-2 mb-2 scroll-m-20"
           id={slugify(toPlainText(value))}
         >
           {children}

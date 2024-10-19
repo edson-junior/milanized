@@ -13,10 +13,11 @@ import {
   DrawerTrigger
 } from './ui/drawer';
 import { SiteNavigationElement, WithContext } from 'schema-dts';
+import ReadingBar from './ReadingBar';
 
 const links = [
   {
-    href: '/articles',
+    href: '/blog',
     text: 'Articles'
   },
   {
@@ -114,6 +115,7 @@ export default function Header() {
           </DrawerContent>
         </Drawer>
       </div>
+      <ReadingBar />
     </header>
   );
 }

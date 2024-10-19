@@ -36,7 +36,7 @@ export default async function Sidebar({ slug, headings }: SidebarProps) {
 
             return (
               <Link
-                href={`/${metadata?.slug}`}
+                href={`/blog/${metadata?.slug}`}
                 className="group flex flex-row gap-4"
                 key={_id}
               >

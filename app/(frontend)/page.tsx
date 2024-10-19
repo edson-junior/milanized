@@ -109,7 +109,11 @@ export default async function Home() {
                   : undefined;
 
                 return (
-                  <Link href={`/${metadata?.slug}`} className="group" key={_id}>
+                  <Link
+                    href={`/blog/${metadata?.slug}`}
+                    className="group"
+                    key={_id}
+                  >
                     {featuredImage && (
                       <Image
                         width={250}

@@ -17,7 +17,7 @@ export default function FeaturedPost({
 }: FeaturedPostProps) {
   return (
     <Link
-      href={`/${metadata?.slug}`}
+      href={`/blog/${metadata?.slug}`}
       className="group block lg:shadow-md mb-6 relative"
     >
       {featuredImage && (

@@ -15,10 +15,10 @@ export async function generateMetadata() {
       robots:
         'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
       alternates: {
-        canonical: `${process.env.CLIENT_URL}/articles`
+        canonical: `${process.env.CLIENT_URL}/blog`
       },
       openGraph: {
-        url: `${process.env.CLIENT_URL}/articles`,
+        url: `${process.env.CLIENT_URL}/blog`,
         title: articles.metadata?.title,
         description: articles.metadata?.description,
         type: 'website',
@@ -69,7 +69,11 @@ export default async function Articles() {
             ) : (
               posts?.map(({ _id, metadata, title, summary, featuredImage }) => {
                 return (
-                  <Link href={`/${metadata?.slug}`} className="group" key={_id}>
+                  <Link
+                    href={`/blog/${metadata?.slug}`}
+                    className="group"
+                    key={_id}
+                  >
                     {featuredImage && (
                       <Image
                         width={250}

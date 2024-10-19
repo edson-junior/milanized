@@ -21,8 +21,20 @@ type RootLayoutProps = Readonly<{
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en-GB" className="scroll-smooth" suppressHydrationWarning>
+      {process.env.NODE_ENV === 'production' && (
+        <head>
+          <Script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`}
+            crossOrigin="anonymous"
+            strategy="lazyOnload"
+          />
+          <GoogleTagManager gtmId={`${process.env.NEXT_PUBLIC_GTM_ID}`} />
+        </head>
+      )}
+
       <body className={`${openSans.className} bg-black`}>
-        <NextTopLoader color="red" showSpinner={false} />
+        <NextTopLoader color="#b91c1c" showSpinner={false} />
         <Suspense>
           <Header />
         </Suspense>
@@ -30,14 +42,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <Footer />
       </body>
       {process.env.NODE_ENV === 'production' && (
-        <>
-          <Script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`}
-            crossOrigin="anonymous"
-          />
-          <GoogleTagManager gtmId={`${process.env.NEXT_PUBLIC_GTM_ID}`} />
-        </>
+        <GoogleTagManager gtmId={`${process.env.NEXT_PUBLIC_GTM_ID}`} />
       )}
     </html>
   );

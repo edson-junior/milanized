@@ -30,7 +30,7 @@ const components: PortableTextComponents = {
               className="object-cover transition duration-500 ease-in-out transform hover:scale-110"
             />
           </div>
-          <figcaption className="flex gap-2 text-xs italic text-gray-600 [&>a]:text-blue-700 [&>a]:underline mb-4 place-items-start">
+          <figcaption className="text-xs italic text-gray-600 [&>a]:text-blue-700 [&>a]:underline mb-4 place-items-start">
             {parse(value.caption)}
           </figcaption>
         </figure>

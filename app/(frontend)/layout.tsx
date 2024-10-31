@@ -6,7 +6,8 @@ import Footer from '../../components/Footer';
 import { GoogleTagManager } from '@next/third-parties/google';
 import NextTopLoader from 'nextjs-toploader';
 import { Suspense } from 'react';
-// import Script from 'next/script';
+import ConsentBanner from '@/components/ConsentBanner';
+import { cookies } from 'next/headers';
 
 const openSans = Open_Sans({ subsets: ['latin'] });
 
@@ -18,7 +19,10 @@ type RootLayoutProps = Readonly<{
   children: React.ReactNode;
 }>;
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({ children }: RootLayoutProps) {
+  const cookieStore = cookies();
+  const consentCookie = cookieStore.get('consentCookie');
+
   return (
     <html lang="en-GB" className="scroll-smooth" suppressHydrationWarning>
       {/* {process.env.NODE_ENV === 'production' && (
@@ -39,10 +43,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
         </Suspense>
         <div className="flex-grow bg-white pb-20">{children}</div>
         <Footer />
+        {!consentCookie?.name && <ConsentBanner />}
       </body>
-      {process.env.NODE_ENV === 'production' && (
-        <GoogleTagManager gtmId={`${process.env.NEXT_PUBLIC_GTM_ID}`} />
-      )}
+      {process.env.NODE_ENV === 'production' &&
+        consentCookie?.value === 'true' && (
+          <GoogleTagManager gtmId={`${process.env.NEXT_PUBLIC_GTM_ID}`} />
+        )}
     </html>
   );
 }

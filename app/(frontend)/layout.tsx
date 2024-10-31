@@ -6,7 +6,7 @@ import Footer from '../../components/Footer';
 import { GoogleTagManager } from '@next/third-parties/google';
 import NextTopLoader from 'nextjs-toploader';
 import { Suspense } from 'react';
-import Script from 'next/script';
+// import Script from 'next/script';
 
 const openSans = Open_Sans({ subsets: ['latin'] });
 
@@ -21,7 +21,7 @@ type RootLayoutProps = Readonly<{
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en-GB" className="scroll-smooth" suppressHydrationWarning>
-      {process.env.NODE_ENV === 'production' && (
+      {/* {process.env.NODE_ENV === 'production' && (
         <head>
           <Script
             async
@@ -29,9 +29,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
             crossOrigin="anonymous"
             strategy="lazyOnload"
           />
-          <GoogleTagManager gtmId={`${process.env.NEXT_PUBLIC_GTM_ID}`} />
         </head>
-      )}
+      )} */}
 
       <body className={`${openSans.className} bg-black`}>
         <NextTopLoader color="#b91c1c" showSpinner={false} />

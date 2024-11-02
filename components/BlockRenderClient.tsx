@@ -93,11 +93,7 @@ const components: PortableTextComponents = {
         ? 'noreferrer noopener'
         : undefined;
       return (
-        <a
-          href={value.href}
-          rel={rel}
-          className="text-blue-700 hover:underline"
-        >
+        <a href={value.href} rel={rel} className="text-blue-700 underline">
           {children}
         </a>
       );
@@ -134,7 +130,7 @@ const components: PortableTextComponents = {
       return (
         <Heading
           as="h3"
-          className="text-lg lg:text-2xl py-0 lg:py-2"
+          className="text-lg lg:text-2xl py-0 lg:py-2 scroll-m-20"
           id={slugify(toPlainText(value))}
         >
           {children}

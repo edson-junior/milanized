@@ -23,7 +23,7 @@ const components: PortableTextComponents = {
           <div className="w-full h-52 lg:h-[28rem] relative mb-2 overflow-hidden">
             <Image
               fill
-              sizes="100vw"
+              sizes="(min-width: 1340px) 832px, (min-width: 1040px) calc(85.71vw - 299px), calc(100vw - 32px)"
               loading="lazy"
               src={urlFor(value).width(1280).url()}
               alt={value.alt}

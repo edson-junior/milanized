@@ -24,7 +24,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   const consentCookie = cookieStore.get('consentCookie');
 
   return (
-    <html lang="en-GB" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en-GB" className="lg:scroll-smooth" suppressHydrationWarning>
       {/* {process.env.NODE_ENV === 'production' && (
         <head>
           <Script

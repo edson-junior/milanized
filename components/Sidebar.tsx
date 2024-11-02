@@ -44,7 +44,7 @@ export default async function Sidebar({ slug, headings }: SidebarProps) {
                   <div className="flex shrink-0 w-[100px] h-[100px] relative">
                     <Image
                       fill
-                      sizes="100vw"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       loading="lazy"
                       src={urlFor(featuredImage).width(300).url()}
                       alt={featuredImage.alt || ''}

@@ -24,7 +24,7 @@ export default function FeaturedPost({
         <div className="w-full h-52 lg:h-[36rem] relative">
           <Image
             fill
-            sizes="100vw"
+            sizes="(min-width: 1360px) 1248px, calc(94.23vw - 15px)"
             src={urlFor(featuredImage).width(1280).url()}
             alt={featuredImage.alt || ''}
             priority

@@ -10,6 +10,7 @@ import { z } from 'zod';
 import { CheckCircle2Icon, Loader2 } from 'lucide-react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useRef, useState } from 'react';
+import { useCookies } from 'react-cookie';
 
 const ContactSchema = z.object({
   name: z.string().min(2, {
@@ -27,6 +28,8 @@ export default function ContactForm() {
   } = useForm<z.infer<typeof ContactSchema>>({
     resolver: zodResolver(ContactSchema)
   });
+
+  const [cookies] = useCookies(['consentCookie']);
 
   const [isValidReCAPTCHA, setIsValidReCAPTCHA] = useState(false);
 
@@ -115,15 +118,17 @@ export default function ContactForm() {
         )}
       </div>
 
-      <ReCAPTCHA
-        // ref={recaptchaRef}
-        size="normal"
-        sitekey={`${process.env.NEXT_PUBLIC_RECAPTCHA_KEY}`}
-        className="mb-4"
-        onChange={(value) => {
-          setIsValidReCAPTCHA(Boolean(value));
-        }}
-      />
+      {cookies.consentCookie === true && (
+        <ReCAPTCHA
+          // ref={recaptchaRef}
+          size="normal"
+          sitekey={`${process.env.NEXT_PUBLIC_RECAPTCHA_KEY}`}
+          className="mb-4"
+          onChange={(value) => {
+            setIsValidReCAPTCHA(Boolean(value));
+          }}
+        />
+      )}
 
       <Button disabled={!isValidReCAPTCHA || isSubmitting} type="submit">
         {isSubmitting ? (

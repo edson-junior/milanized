@@ -29,10 +29,10 @@ export async function generateMetadata({
     robots:
       'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
     alternates: {
-      canonical: `${process.env.CLIENT_URL}/${params.slug}`
+      canonical: `${process.env.CLIENT_URL}/blog/${params.slug}`
     },
     openGraph: {
-      url: `${process.env.CLIENT_URL}/${params.slug}`,
+      url: `${process.env.CLIENT_URL}/blog/${params.slug}`,
       siteName: 'Milanized!',
       locale: 'en_GB',
       type: 'article',
@@ -62,14 +62,14 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
   const jsonLd: WithContext<BlogPosting> = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
-    '@id': `${process.env.CLIENT_URL}/${params.slug}/#BlogPosting`,
-    mainEntityOfPage: `${process.env.CLIENT_URL}/${params.slug}/`,
+    '@id': `${process.env.CLIENT_URL}/blog/${params.slug}/#BlogPosting`,
+    mainEntityOfPage: `${process.env.CLIENT_URL}/blog/${params.slug}/`,
     headline: data.metadata?.title,
     name: data.metadata?.title,
     description: data.metadata?.description,
     datePublished: `${publishedAt}`,
     dateModified: `${updatedAt}`,
-    url: `${process.env.CLIENT_URL}/${params.slug}/`,
+    url: `${process.env.CLIENT_URL}/blog/${params.slug}/`,
     inLanguage: 'en-GB',
     author: {
       '@type': 'Person',

@@ -98,14 +98,14 @@ const components: PortableTextComponents = {
         </a>
       );
     }
+    // TODO: test this `code` mark
+    // code: ({ text }) => {
+    //   return <div>{parse(text)}</div>;
+    // }
   },
 
   block: {
-    normal: ({ children, value }) => {
-      if (value.children[0].marks.includes('code')) {
-        return <div>{parse(value.children[0].text)}</div>;
-      }
-
+    normal: ({ children }) => {
       return <p className="leading-7 [&:not(:last-child)]:mb-6">{children}</p>;
     },
     h1: ({ children }) => {

@@ -144,16 +144,17 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
                     }).format(publishedAt)}
                   </div>
                 )}
-                {updatedAt && (
-                  <div className="text-xs">
-                    {'Last updated: '}
-                    {new Intl.DateTimeFormat('en-GB', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    }).format(updatedAt)}
-                  </div>
-                )}
+                {updatedAt &&
+                  publishedAt?.getDate() !== updatedAt?.getDate() && (
+                    <div className="text-xs">
+                      {'Last updated: '}
+                      {new Intl.DateTimeFormat('en-GB', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      }).format(updatedAt)}
+                    </div>
+                  )}
                 {estimatedReadingTime && (
                   <div className="text-xs flex items-center gap-2">
                     <LuClock2 className="w-4" />

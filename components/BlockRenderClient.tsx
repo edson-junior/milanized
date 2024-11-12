@@ -89,11 +89,32 @@ const components: PortableTextComponents = {
 
   marks: {
     link: ({ children, value }) => {
-      const rel = !value.href.startsWith('/')
-        ? 'noreferrer noopener'
-        : undefined;
+      const { blank, href } = value;
+
+      if (blank) {
+        return (
+          <a
+            href={href}
+            target="_blank" // read https://css-tricks.com/use-target_blank/
+            rel="noreferrer noopener"
+            className="text-blue-700 underline"
+          >
+            {children}
+          </a>
+        );
+      }
+
       return (
-        <a href={value.href} rel={rel} className="text-blue-700 underline">
+        <a href={href} className="text-blue-700 underline">
+          {children}
+        </a>
+      );
+    },
+    internalLink: ({ value, children }) => {
+      const { slug = {} } = value;
+      const href = `/blog/${slug.current}`;
+      return (
+        <a href={href} className="text-blue-700 underline">
           {children}
         </a>
       );

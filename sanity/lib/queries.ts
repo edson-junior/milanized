@@ -31,7 +31,13 @@ export const getPostBySlugQuery = groq`*[_type == 'blog' && metadata.slug.curren
   _updatedAt,
   title,
   summary,
-  content,
+  content[]{
+    ...,
+    markDefs[]{
+      ...,
+      _type == "internalLink" => { "slug": @.reference-> metadata.slug },
+    }
+  },
   featuredImage,
   author->,
   'headings': content[style in ['h2', 'h3', 'h4', 'h5', 'h6']] {

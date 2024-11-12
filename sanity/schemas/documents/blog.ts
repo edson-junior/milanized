@@ -1,3 +1,4 @@
+import { LuExternalLink, LuLink } from 'react-icons/lu';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export default defineType({
@@ -52,7 +53,45 @@ export default defineType({
       type: 'array',
       of: [
         {
-          type: 'block'
+          type: 'block',
+          marks: {
+            annotations: [
+              {
+                name: 'link',
+                type: 'object',
+                title: 'External link',
+                icon: LuExternalLink,
+                fields: [
+                  {
+                    name: 'href',
+                    type: 'url',
+                    title: 'URL'
+                  },
+                  {
+                    title: 'Open in new tab',
+                    name: 'blank',
+                    description:
+                      'Read https://css-tricks.com/use-target_blank/',
+                    type: 'boolean'
+                  }
+                ]
+              },
+              {
+                name: 'internalLink',
+                type: 'object',
+                title: 'Internal link',
+                icon: LuLink,
+                fields: [
+                  {
+                    name: 'reference',
+                    type: 'reference',
+                    title: 'Reference',
+                    to: [{ type: 'blog' }, { type: 'page' }]
+                  }
+                ]
+              }
+            ]
+          }
         },
         {
           type: 'image',

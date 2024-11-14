@@ -11,9 +11,8 @@ import { TypedObject } from '@portabletext/types';
 import parse from 'html-react-parser';
 import Heading from './ui/heading';
 import { urlFor } from '@/sanity/lib/image';
-import { LuLightbulb } from 'react-icons/lu';
+import { LuInfo, LuLightbulb } from 'react-icons/lu';
 import { slugify } from '@/lib/utils';
-import { InfoIcon } from 'lucide-react';
 
 const components: PortableTextComponents = {
   types: {
@@ -71,7 +70,7 @@ const components: PortableTextComponents = {
               as="strong"
               className="flex items-center text-lg lg:text-xl gap-1 mb-2"
             >
-              <InfoIcon />
+              <LuInfo />
               <span>{props.value.title}</span>
             </Heading>
           )}

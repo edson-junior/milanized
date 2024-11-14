@@ -1,6 +1,5 @@
 'use client';
 
-import { MenuIcon, X } from 'lucide-react';
 import Link from 'next/link';
 import { useCallback, useState } from 'react';
 import {
@@ -14,6 +13,7 @@ import {
 } from './ui/drawer';
 import { SiteNavigationElement, WithContext } from 'schema-dts';
 import ReadingBar from './ReadingBar';
+import { LuMenu, LuX } from 'react-icons/lu';
 
 const links = [
   {
@@ -78,7 +78,7 @@ export default function Header() {
             className="text-white lg:hidden w-7 h-7"
             aria-label="open menu"
           >
-            <MenuIcon />
+            <LuMenu size={24} />
           </DrawerTrigger>
           <DrawerContent>
             <DrawerTitle className="hidden">Menu</DrawerTitle>
@@ -94,7 +94,7 @@ export default function Header() {
                 Milanized!
               </Link>
               <DrawerClose className="text-white ml-auto">
-                <X />
+                <LuX size={24} />
               </DrawerClose>
             </DrawerHeader>
             <ul className="px-4">

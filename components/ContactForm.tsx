@@ -7,10 +7,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { CheckCircle2Icon, Loader2 } from 'lucide-react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useRef, useState } from 'react';
 import { useCookies } from 'react-cookie';
+import { LuCheckCircle2, LuLoader2 } from 'react-icons/lu';
 
 const ContactSchema = z.object({
   name: z.string().min(2, {
@@ -58,7 +58,7 @@ export default function ContactForm() {
     <form onSubmit={handleSubmit(contactSubmit)}>
       {isSubmitSuccessful && isValidReCAPTCHA && (
         <div className="success flex gap-2 group py-4 px-4 mb-4 font-semibold rounded border-green-500 border-2 bg-green-300 text-green-800">
-          <CheckCircle2Icon />
+          <LuCheckCircle2 size={24} />
           {`Your message has been sent! We'll be in touch ASAP!`}
         </div>
       )}
@@ -133,7 +133,7 @@ export default function ContactForm() {
       <Button disabled={!isValidReCAPTCHA || isSubmitting} type="submit">
         {isSubmitting ? (
           <>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            <LuLoader2 className="mr-2 h-4 w-4 animate-spin" />
             Please wait
           </>
         ) : (

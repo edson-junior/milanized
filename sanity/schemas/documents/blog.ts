@@ -99,12 +99,14 @@ export default defineType({
             {
               type: 'text',
               name: 'alt',
-              title: 'Alternative text'
+              title: 'Alternative text',
+              rows: 1
             },
             {
               type: 'text',
               name: 'caption',
-              title: 'Caption of the image'
+              title: 'Caption of the image',
+              rows: 1
             }
           ]
         },

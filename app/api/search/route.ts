@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     const queryString = request.nextUrl.searchParams.get('query');
 
     const getSearchResults = groq`
-      *[_type in ["blog"] && !(_id in path('drafts.**')) && (title match $queryString + '*' || summary match $queryString + '*')] | order(publishedAt desc) {
+      *[_type in ["blog"] && !(_id in path('drafts.**')) && (title match $queryString + '*' || summary match $queryString + '*' || content[].children[].text match $queryString + '*')] | order(publishedAt desc) {
         _id,
         _createdAt,
         title,

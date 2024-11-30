@@ -6,11 +6,12 @@ import { getAuthor } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 
 interface AuthorProps {
-  params: { slug: Slug };
+  params: Promise<{ slug: Slug }>;
 }
 
 export default async function Author({ params }: AuthorProps) {
-  const author = await getAuthor(params.slug);
+  const { slug } = await params;
+  const author = await getAuthor(slug);
 
   if (!author) {
     return null;

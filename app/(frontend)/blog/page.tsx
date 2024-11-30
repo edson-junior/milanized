@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import Image from 'next/image';
-import Heading from '@/components/ui/heading';
 import { getAllPosts, getArticlesPage } from '@/sanity/lib/client';
-import { urlFor } from '@/sanity/lib/image';
 import Hero from '@/components/Hero';
+import { Suspense } from 'react';
+import Paginated from './Paginated';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export async function generateMetadata() {
   const articles = await getArticlesPage();
@@ -40,57 +39,41 @@ export async function generateMetadata() {
 
 export default async function Articles() {
   const posts = await getAllPosts();
+  const itemsPerPage = 8;
   const articles = await getArticlesPage();
 
-  if (articles) {
-    return (
-      <>
-        {articles?.title && (
-          <Hero
-            title={articles?.title}
-            subtitle="Our latest posts from old to new! 🚀"
-          />
-        )}
+  return (
+    <>
+      {articles?.title && (
+        <Hero
+          title={articles?.title}
+          subtitle="Our latest posts from old to new! 🚀"
+        />
+      )}
 
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 gap-y-6">
-            {!posts?.length ? (
-              <p>there are no blogposts</p>
-            ) : (
-              posts?.map(({ _id, metadata, title, summary, featuredImage }) => {
-                return (
-                  <Link
-                    href={`/blog/${metadata?.slug}`}
-                    className="group"
-                    key={_id}
-                  >
-                    {featuredImage && (
-                      <Image
-                        width={250}
-                        height={250}
-                        priority
-                        src={urlFor(featuredImage).width(600).url()}
-                        alt={featuredImage.alt || ''}
-                        className="block w-full object-cover h-52"
-                      />
-                    )}
-
-                    <div className="py-6">
-                      <Heading className="text-xl block mb-4 group-hover:text-blue-700">
-                        {title}
-                      </Heading>
-
-                      <p className="text text-sm line-clamp-4 align-baseline">
-                        {summary}
-                      </p>
-                    </div>
-                  </Link>
-                );
-              })
-            )}
+      <Suspense
+        fallback={
+          <div className="max-w-7xl mx-auto px-4 py-4">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 gap-y-6">
+              {Array.from({ length: itemsPerPage ?? 6 }).map((_, i) => (
+                <div key={i} className="flex flex-col">
+                  <Skeleton className="h-[200px]" />
+                  <div className="space-y-2 mt-8">
+                    <Skeleton className="h-4 w-[250px]" />
+                    <Skeleton className="h-4 w-[200px]" />
+                  </div>
+                  <div className="space-y-2 mt-8">
+                    <Skeleton className="h-4 w-[250px]" />
+                    <Skeleton className="h-4 w-[200px]" />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </>
-    );
-  }
+        }
+      >
+        <Paginated posts={posts} itemsPerPage={itemsPerPage} />
+      </Suspense>
+    </>
+  );
 }

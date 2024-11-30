@@ -7,6 +7,7 @@ import { GoogleTagManager } from '@next/third-parties/google';
 import NextTopLoader from 'nextjs-toploader';
 import ConsentBanner from '@/components/ConsentBanner';
 import { cookies } from 'next/headers';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 const openSans = Open_Sans({ subsets: ['latin'] });
 
@@ -38,7 +39,10 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       <body className={`${openSans.className} bg-black`}>
         <NextTopLoader color="#b91c1c" showSpinner={false} />
         <Header />
-        <div className="flex-grow bg-white pb-20">{children}</div>
+
+        <div className="flex-grow bg-white pb-20">
+          <NuqsAdapter>{children}</NuqsAdapter>
+        </div>
         <Footer />
         {!consentCookie?.name && <ConsentBanner />}
       </body>

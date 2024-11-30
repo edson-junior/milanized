@@ -12,7 +12,7 @@ import {
   DialogTitle
 } from '@/components/ui/dialog';
 import { GoogleTagManager } from '@next/third-parties/google';
-import { useMediaQuery } from '@/hooks/use-media-query';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import {
   Drawer,
   DrawerContent,

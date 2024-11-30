@@ -3,7 +3,6 @@ import { Metadata } from 'next';
 import Heading from '@/components/ui/heading';
 import { LuClock2 } from 'react-icons/lu';
 import { FeaturedImage } from '@/components/FeaturedImage';
-// import Sidebar from '@/components/Sidebar';
 import { Slug } from '@/sanity.types';
 import { BlogPosting, WithContext } from 'schema-dts';
 import { getPostBySlug } from '@/sanity/lib/client';

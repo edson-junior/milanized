@@ -48,6 +48,7 @@ export async function getHomePage(): Promise<Page | undefined> {
   return data || {};
 }
 
+// TODO: add limit to how many posts I get as a param
 export async function getAllPosts(): Promise<Blog[] | undefined> {
   const query = getAllPostsQuery;
   const data = await sanityFetch({ query });

@@ -42,7 +42,7 @@ export function usePagination({
     buttonClassName,
     prevClassName,
     nextClassName,
-    prev = 'Prev',
+    prev = 'Previous',
     next = 'Next',
     hidePage,
     onClick = () => {},

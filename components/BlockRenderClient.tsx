@@ -13,6 +13,7 @@ import Heading from './ui/heading';
 import { urlFor } from '@/sanity/lib/image';
 import { LuInfo, LuLightbulb } from 'react-icons/lu';
 import { slugify } from '@/lib/utils';
+import { InstagramEmbed } from 'react-social-media-embed';
 
 const components: PortableTextComponents = {
   types: {
@@ -77,6 +78,9 @@ const components: PortableTextComponents = {
           <PortableText value={props.value.text} />
         </div>
       );
+    },
+    instagramPost: ({ value }) => {
+      return <InstagramEmbed url={value.url} />;
     }
   },
 

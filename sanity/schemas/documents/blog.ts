@@ -110,6 +110,7 @@ export default defineType({
             }
           ]
         },
+        { type: 'instagramPost' },
         defineArrayMember({
           type: 'messages'
         })

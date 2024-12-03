@@ -4,7 +4,8 @@ import blog from './documents/blog';
 import page from './documents/page';
 import metadata from './objects/metadata';
 import message from './documents/message';
+import instagramPost from './documents/instagramPost';
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [blog, page, metadata, author, message]
+  types: [blog, page, metadata, author, message, instagramPost]
 };

@@ -5,8 +5,20 @@ import page from './documents/page';
 import metadata from './objects/metadata';
 import message from './documents/message';
 import instagramPost from './documents/instagramPost';
+import links from './objects/links';
+import linksList from './objects/links-list';
 import category from './documents/category';
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [blog, category, page, metadata, author, message, instagramPost]
+  types: [
+    blog,
+    category,
+    page,
+    metadata,
+    author,
+    message,
+    instagramPost,
+    links,
+    linksList
+  ]
 };

@@ -41,6 +41,11 @@ export default defineType({
           lists: []
         }
       ]
+    }),
+    defineField({
+      name: 'social',
+      type: 'array',
+      of: [{ type: 'link' }]
     })
   ],
   preview: {

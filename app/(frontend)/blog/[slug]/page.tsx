@@ -7,8 +7,11 @@ import { Slug } from '@/sanity.types';
 import { BlogPosting, WithContext } from 'schema-dts';
 import { getPostBySlug } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
+import Image from 'next/image';
 import Sidebar from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
+import { PortableText } from 'next-sanity';
+import Link from 'next/link';
 
 interface BlogDetailsProps {
   params: { slug: Slug };
@@ -110,10 +113,6 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
     }
   };
 
-  // TODO: create our own types files and not depend on typegen as much. Use typegen just to generate the files, then delete afterwards. Add it to the gitignore, even.
-
-  // author name will be re-enabled when author page is created
-  // const authorName = data?.author.name;
   // @ts-expect-error: sanity's typegen doesn't create expanded refence types
   const estimatedReadingTime = data.estimatedReadingTime;
 
@@ -202,6 +201,33 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
               </div>
             </div>
           </div>
+          {data?.author && (
+            <div className="flex flex-col items-center">
+              {data?.author?.image && (
+                <Link
+                  className="inline-block"
+                  href={`/author/${data?.author?.slug?.current}`}
+                >
+                  <Image
+                    className="block rounded-full overflow-hidden"
+                    width={100}
+                    height={100}
+                    src={urlFor(data?.author?.image).width(100).url()}
+                    alt={data?.author?.name || ''}
+                  />
+                </Link>
+              )}
+
+              <div className="text-center">
+                <Link href={`/author/${data?.author?.slug?.current}`}>
+                  {data?.author?.name}
+                </Link>
+                {data?.author?.bio && (
+                  <PortableText value={data?.author?.bio} />
+                )}
+              </div>
+            </div>
+          )}
         </article>
         <Sidebar slug={params.slug} headings={data.headings} />
       </main>

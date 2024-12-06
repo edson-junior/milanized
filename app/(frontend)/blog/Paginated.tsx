@@ -30,7 +30,7 @@ export default function Paginated({
     <div className="max-w-7xl mx-auto px-4 py-4">
       <div
         id="blog-list"
-        className="grid grid-cols-1 lg:grid-cols-4 gap-4 gap-y-6"
+        className="grid grid-cols-1 lg:grid-cols-4 gap-4 gap-y-6 lg:min-h-[800px] scroll-m-20"
       >
         {!paginatedItems?.length ? (
           <p>there are no blogposts</p>

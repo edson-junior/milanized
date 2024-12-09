@@ -12,6 +12,7 @@ import Sidebar from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
 import { PortableText } from 'next-sanity';
 import Link from 'next/link';
+import CTA from '@/components/CTA';
 
 interface BlogDetailsProps {
   params: { slug: Slug };
@@ -225,6 +226,17 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
                 {data?.author?.bio && (
                   <PortableText value={data?.author?.bio} />
                 )}
+                {data.author.social.map((item, i) => {
+                  return (
+                    <CTA
+                      className="text-blue-700 underline"
+                      link={item}
+                      key={i}
+                    >
+                      {item.label}
+                    </CTA>
+                  );
+                })}
               </div>
             </div>
           )}

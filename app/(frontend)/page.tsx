@@ -74,27 +74,39 @@ export default async function Home() {
       <h1 className="absolute left-[-999em]">{`${homepage.metadata?.title} - ${homepage.title}`}</h1>
       {posts
         ?.filter((post) => post.isFeatured)
-        .map(({ _id, metadata, title, summary, featuredImage }) => {
-          return (
-            <FeaturedPost
-              key={_id}
-              metadata={metadata}
-              title={title}
-              summary={summary}
-              featuredImage={featuredImage}
-            />
-          );
-        })}
+        .map(
+          ({
+            _id,
+            metadata,
+            title,
+            summary,
+            featuredImage,
+            author,
+            _createdAt
+          }) => {
+            return (
+              <FeaturedPost
+                key={_id}
+                metadata={metadata}
+                title={title}
+                summary={summary}
+                featuredImage={featuredImage}
+                author={author}
+                _createdAt={_createdAt}
+              />
+            );
+          }
+        )}
       <hr className="my-4" />
       <Heading as="h2" className="text-xl lg:text-4xl py-2">
         Latest Posts
       </Heading>
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 gap-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 gap-y-6">
         {!posts?.length ? (
           <p>there are no blogposts</p>
         ) : (
           posts
-            ?.slice(0, 4)
+            ?.slice(0, 6)
             .map(
               ({
                 _id,
@@ -102,7 +114,8 @@ export default async function Home() {
                 title,
                 summary,
                 featuredImage,
-                _createdAt
+                _createdAt,
+                author
               }) => {
                 const publishedAt = _createdAt
                   ? new Date(_createdAt)
@@ -134,12 +147,16 @@ export default async function Home() {
                         {summary}
                       </p>
 
-                      <p className="lg:hidden text text-xs line-clamp-4 align-baseline text-gray-600">
-                        {new Intl.DateTimeFormat('en-GB', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        }).format(publishedAt)}
+                      <p className="text text-xs align-baseline">
+                        <strong>{author?.name}</strong>
+                        <span>{` - `}</span>
+                        <span className="text-gray-600">
+                          {new Intl.DateTimeFormat('en-GB', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          }).format(publishedAt)}
+                        </span>
                       </p>
                     </div>
                   </Link>

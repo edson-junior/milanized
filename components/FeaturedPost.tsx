@@ -6,22 +6,26 @@ import { urlFor } from '@/sanity/lib/image';
 
 type FeaturedPostProps = Pick<
   Blog,
-  'metadata' | 'title' | 'summary' | 'featuredImage'
+  'metadata' | 'title' | 'summary' | 'featuredImage' | 'author' | '_createdAt'
 >;
 
 export default function FeaturedPost({
   metadata,
   title,
   summary,
-  featuredImage
+  featuredImage,
+  author,
+  _createdAt
 }: FeaturedPostProps) {
+  const publishedAt = new Date(_createdAt);
+
   return (
     <Link
       href={`/blog/${metadata?.slug}`}
-      className="group block lg:shadow-md mb-6 relative"
+      className="mb-12 relative group grid items-center gap-x-8 gap-y-4 md:grid-cols-2"
     >
       {featuredImage && (
-        <div className="w-full h-52 lg:h-[36rem] relative">
+        <figure className="max-md:full-bleed relative aspect-video overflow-hidden bg-ink/5">
           <Image
             fill
             sizes="(min-width: 1360px) 1248px, calc(94.23vw - 15px)"
@@ -30,15 +34,28 @@ export default function FeaturedPost({
             priority
             className="object-cover"
           />
-        </div>
+        </figure>
       )}
 
-      <div className="pt-4 lg:pb-6 lg:p-4 lg:absolute lg:bottom-0 lg:left-0 bg-white lg:w-96">
-        <Heading className="text-md lg:text-xl block mb-4 group-hover:text-blue-700">
+      <div className="max-w-lg space-y-4">
+        <Heading className="text-md lg:text-4xl block mb-4 group-hover:text-blue-700">
           {title}
         </Heading>
 
-        <p className="text text-sm line-clamp-4 align-baseline">{summary}</p>
+        <p className="text-sm lg:text-lg line-clamp-4 align-baseline">
+          {summary}
+        </p>
+        <p className="text-sm">
+          <strong>{author?.name}</strong>
+          <span>{` - `}</span>
+          <span className="text-gray-600">
+            {new Intl.DateTimeFormat('en-GB', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            }).format(publishedAt)}
+          </span>
+        </p>
       </div>
     </Link>
   );

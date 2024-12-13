@@ -48,16 +48,24 @@ export async function getHomePage(): Promise<Page | undefined> {
   return data || {};
 }
 
+interface AllPostsProps {
+  limit?: number;
+  removeSlug?: string;
+  removeFeatured?: string | boolean;
+}
+
 export async function getAllPosts({
   limit = 99999,
-  removeSlug = ''
-} = {}): Promise<Blog[] | undefined> {
+  removeSlug = '',
+  removeFeatured = ''
+}: AllPostsProps = {}): Promise<Blog[] | undefined> {
   const query = getAllPostsQuery;
   const data = await sanityFetch({
     query,
     params: {
       limit,
-      removeSlug
+      removeSlug,
+      removeFeatured
     }
   });
 

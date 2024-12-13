@@ -40,7 +40,7 @@ export async function generateMetadata() {
 }
 
 export default async function Home() {
-  const posts = await getAllPosts({ limit: 6 });
+  const posts = await getAllPosts({ limit: 6, removeFeatured: true });
   const homepage = await getHomePage();
 
   if (!homepage) {
@@ -74,13 +74,12 @@ export default async function Home() {
       <Heading as="h2" className="text-xl lg:text-4xl py-2">
         Latest Posts
       </Heading>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 gap-y-6">
-        {!posts?.length ? (
-          <p>there are no blogposts</p>
-        ) : (
-          <PostList posts={posts} />
-        )}
-      </div>
+
+      {!posts?.length ? (
+        <p>there are no blogposts</p>
+      ) : (
+        <PostList posts={posts} />
+      )}
     </div>
   );
 }

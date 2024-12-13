@@ -39,7 +39,7 @@ export async function generateMetadata() {
 
 export default async function Articles() {
   const posts = await getAllPosts();
-  const itemsPerPage = 8;
+  const itemsPerPage = 6;
   const articles = await getArticlesPage();
 
   return (

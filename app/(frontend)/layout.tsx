@@ -41,7 +41,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <NextTopLoader color="#b91c1c" showSpinner={false} />
         <Header />
 
-        <div className="flex-grow bg-white pt-8 pb-20">
+        <div className="flex-grow bg-white pb-20">
           <NuqsAdapter>{children}</NuqsAdapter>
         </div>
         <Footer />

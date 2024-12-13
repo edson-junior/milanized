@@ -1,22 +1,36 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import Heading from '@/components/ui/heading';
-import { Blog } from '@/sanity.types';
 import { urlFor } from '@/sanity/lib/image';
-
-type FeaturedPostProps = Pick<
-  Blog,
-  'metadata' | 'title' | 'summary' | 'featuredImage' | 'author' | '_createdAt'
->;
-
-export default function FeaturedPost({
-  metadata,
+import { sanityFetch } from '@/sanity/lib/client';
+import groq from 'groq';
+import { Blog } from '@/sanity.types';
+const query = groq`*[_type == 'blog' && !(_id in path('drafts.**')) && isFeatured]|order(_createdAt desc) [0...1] [0] {
+  _id,
+  _createdAt,
+  _publishedAt,
   title,
   summary,
   featuredImage,
-  author,
-  _createdAt
-}: FeaturedPostProps) {
+  author-> {
+    name,
+  },
+  metadata {
+    'slug': slug.current
+  }
+}`;
+
+export default async function FeaturedPost() {
+  const data: Blog | undefined = await sanityFetch({
+    query
+  });
+
+  if (!data) {
+    return null;
+  }
+
+  const { _createdAt, metadata, featuredImage, title, summary, author } = data;
+
   const publishedAt = new Date(_createdAt);
 
   return (
@@ -41,7 +55,6 @@ export default function FeaturedPost({
         <Heading className="text-md lg:text-4xl block mb-4 group-hover:text-blue-700">
           {title}
         </Heading>
-
         <p className="text-sm lg:text-lg line-clamp-4 align-baseline">
           {summary}
         </p>

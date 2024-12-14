@@ -4,6 +4,7 @@ import Hero from '@/components/Hero';
 import { Suspense } from 'react';
 import Paginated from './Paginated';
 import { Skeleton } from '@/components/ui/skeleton';
+import FilterList from '@/components/FilterList';
 
 export async function generateMetadata() {
   const articles = await getArticlesPage();
@@ -50,6 +51,8 @@ export default async function Articles() {
           subtitle="Our latest posts from old to new! 🚀"
         />
       )}
+
+      <FilterList />
 
       <Suspense
         fallback={

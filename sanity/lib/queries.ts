@@ -20,6 +20,7 @@ export const getAllPostsQuery = groq`*[_type == 'blog' && !(_id in path('drafts.
   content,
   featuredImage,
   isFeatured,
+  categories[]->,
   author-> {
     name,
   },

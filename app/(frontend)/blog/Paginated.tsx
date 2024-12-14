@@ -2,7 +2,7 @@
 
 import { usePagination } from '@/hooks/usePagination';
 import { Blog } from '@/sanity.types';
-import PostList from '@/components/PostList';
+import List from './List';
 
 export default function Paginated({
   posts,
@@ -28,11 +28,7 @@ export default function Paginated({
       {!paginatedItems?.length ? (
         <p>there are no blogposts</p>
       ) : (
-        <PostList
-          id="blog-list"
-          className="lg:min-h-[800px] scroll-m-20"
-          posts={paginatedItems}
-        />
+        <List posts={paginatedItems} />
       )}
 
       <Pagination

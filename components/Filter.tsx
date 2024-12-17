@@ -1,9 +1,8 @@
 'use client';
 
-import { cn } from '@/lib/utils';
-import css from './FilterList.module.css';
 import { usePageState } from '@/hooks/usePagination';
 import { useCategory } from './store';
+import { Button } from './ui/button';
 
 export default function Filter({
   label,
@@ -16,20 +15,14 @@ export default function Filter({
   const { setPage } = usePageState();
 
   return (
-    <button
-      className={cn(
-        css.filter,
-        '!py-1',
-        category === value
-          ? 'action *:text-white/50'
-          : 'ghost border border-transparent'
-      )}
+    <Button
+      variant={category === value ? 'default' : 'ghost'}
       onClick={() => {
         setCategory(value);
         setPage(1);
       }}
     >
       {label || value}
-    </button>
+    </Button>
   );
 }

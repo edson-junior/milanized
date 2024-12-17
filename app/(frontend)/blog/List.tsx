@@ -9,15 +9,6 @@ export default function List({
 }: {
   posts: Blog[];
 } & React.ComponentProps<'ul'>) {
-  const { category } = useCategory();
-  const filterPosts = (posts: Blog[]) => {
-    return posts.filter(
-      (post) =>
-        category === 'All' ||
-        post.categories?.some(({ slug }) => slug?.current === category)
-    );
-  };
-
   const filtered = filterPosts(posts);
 
   if (!filtered.length) {
@@ -27,8 +18,19 @@ export default function List({
   return (
     <PostList
       id="blog-list"
-      className="lg:min-h-[800px] scroll-m-20"
+      className="lg:min-h-[800px] scroll-m-36"
       posts={filtered}
     />
+  );
+}
+
+export function filterPosts(posts: Blog[]) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { category } = useCategory();
+
+  return posts.filter(
+    (post) =>
+      category === 'All' ||
+      post.categories?.some(({ slug }) => slug?.current === category)
   );
 }

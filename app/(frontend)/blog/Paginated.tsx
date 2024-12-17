@@ -2,17 +2,17 @@
 
 import { usePagination } from '@/hooks/usePagination';
 import { Blog } from '@/sanity.types';
-import List from './List';
+import List, { filterPosts } from './List';
 
 export default function Paginated({
   posts,
   itemsPerPage = 8
 }: {
-  posts: Blog[] | undefined;
+  posts: Blog[];
   itemsPerPage?: number;
 }) {
   const { paginatedItems, Pagination } = usePagination({
-    items: posts,
+    items: filterPosts(posts),
     itemsPerPage
   });
 
@@ -24,7 +24,7 @@ export default function Paginated({
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-4">
+    <div className="max-w-7xl mx-auto px-4">
       {!paginatedItems?.length ? (
         <p>there are no blogposts</p>
       ) : (

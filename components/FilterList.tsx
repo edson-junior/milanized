@@ -1,7 +1,5 @@
 import { groq } from 'next-sanity';
 import { Key, Suspense } from 'react';
-import css from './FilterList.module.css';
-import { cn } from '@/lib/utils';
 import { sanityFetch } from '@/sanity/lib/client';
 import Filter from './Filter';
 
@@ -16,18 +14,12 @@ export default async function FilterList() {
   if (!categories) return null;
 
   return (
-    <fieldset>
+    <fieldset className="max-w-7xl mx-auto px-4 mb-6">
       <legend className="sr-only">Filter by category</legend>
 
-      <div
-        className={cn(
-          css.list,
-          'filtering group flex flex-wrap gap-1 max-sm:justify-center'
-        )}
-      >
+      <div className="filtering group flex flex-wrap gap-1 max-sm:justify-between">
         <Suspense>
-          <Filter label="All categories" />
-
+          <Filter label="All" />
           {categories?.map(
             (
               category: {

@@ -1,9 +1,11 @@
+import { VscMultipleWindows } from 'react-icons/vsc';
 import { defineField, defineType } from 'sanity';
 
 export default defineType({
   name: 'page',
   title: 'Page',
   type: 'document',
+  icon: VscMultipleWindows,
   fields: [
     defineField({
       name: 'title',

@@ -1,9 +1,11 @@
+import { LuUser } from 'react-icons/lu';
 import { defineField, defineType } from 'sanity';
 
 export default defineType({
   name: 'author',
   title: 'Author',
   type: 'document',
+  icon: LuUser,
   fields: [
     defineField({
       name: 'name',

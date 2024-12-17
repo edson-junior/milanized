@@ -48,10 +48,26 @@ export async function getHomePage(): Promise<Page | undefined> {
   return data || {};
 }
 
-// TODO: add limit to how many posts I get as a param
-export async function getAllPosts(): Promise<Blog[] | undefined> {
+interface AllPostsProps {
+  limit?: number;
+  removeSlug?: string;
+  removeFeatured?: string | boolean;
+}
+
+export async function getAllPosts({
+  limit = 99999,
+  removeSlug = '',
+  removeFeatured = ''
+}: AllPostsProps = {}): Promise<Blog[] | undefined> {
   const query = getAllPostsQuery;
-  const data = await sanityFetch({ query });
+  const data = await sanityFetch({
+    query,
+    params: {
+      limit,
+      removeSlug,
+      removeFeatured
+    }
+  });
 
   return data || [];
 }

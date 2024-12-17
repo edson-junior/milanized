@@ -1,10 +1,11 @@
-import { LuExternalLink, LuLink } from 'react-icons/lu';
+import { LuExternalLink, LuLink, LuNewspaper } from 'react-icons/lu';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export default defineType({
   name: 'blog',
   title: 'Blog',
   type: 'document',
+  icon: LuNewspaper,
   fields: [
     defineField({
       name: 'title',
@@ -29,6 +30,16 @@ export default defineType({
       title: 'Author',
       type: 'reference',
       to: { type: 'author' }
+    }),
+    defineField({
+      name: 'categories',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'category' }]
+        }
+      ]
     }),
     defineField({
       name: 'featuredImage',

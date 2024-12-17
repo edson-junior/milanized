@@ -120,7 +120,18 @@ export type Page = {
   >;
 };
 
+export interface Category {
+  _createdAt: Date;
+  _rev: string;
+  _type: string;
+  _id: string;
+  title: string;
+  _updatedAt: Date;
+  slug: Slug;
+}
+
 export type Blog = {
+  categories: Category[];
   headings: { text: string; style: string }[];
   _id: string;
   _type: 'blog';

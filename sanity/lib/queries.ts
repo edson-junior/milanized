@@ -12,7 +12,7 @@ export const getHomePageQuery = groq`*[_type == 'page' && metadata.slug.current 
   }
 }`;
 
-export const getAllPostsQuery = groq`*[_type == 'blog' && !(_id in path('drafts.**'))]|order(_createdAt desc) {
+export const getAllPostsQuery = groq`*[_type == 'blog' && !(_id in path('drafts.**')) && metadata.slug.current != $removeSlug && !(isFeatured == $removeFeatured)] | order(_createdAt desc) [0...$limit] {
   _id,
   _createdAt,
   title,
@@ -20,6 +20,10 @@ export const getAllPostsQuery = groq`*[_type == 'blog' && !(_id in path('drafts.
   content,
   featuredImage,
   isFeatured,
+  categories[]->,
+  author-> {
+    name,
+  },
   metadata {
     'slug': slug.current
   }

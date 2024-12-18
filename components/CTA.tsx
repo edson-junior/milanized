@@ -4,9 +4,9 @@ import { ComponentProps } from 'react';
 interface Link {
   _key: string;
   _type: string;
-  internal: string;
-  external: string;
-  blank: boolean;
+  internal?: string;
+  external?: string;
+  blank?: boolean;
   label: string;
   type: string;
 }

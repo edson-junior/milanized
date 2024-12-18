@@ -11,8 +11,8 @@ import Image from 'next/image';
 import Sidebar from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
 import { PortableText } from 'next-sanity';
-import Link from 'next/link';
 import CTA from '@/components/CTA';
+import { FaFacebookSquare, FaInstagram } from 'react-icons/fa';
 
 interface BlogDetailsProps {
   params: { slug: Slug };
@@ -134,7 +134,22 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
               <p className="mb-8 font-bold">{data.summary}</p>
 
               <div className="flex gap-2 flex-col">
-                {/* {authorName && <p>{authorName}</p>} */}
+                <div className="flex gap-2">
+                  {data?.author?.image && (
+                    <Image
+                      className="block rounded-full overflow-hidden"
+                      width={24}
+                      height={24}
+                      src={urlFor(data?.author?.image).width(30).url()}
+                      alt={data?.author?.name || ''}
+                    />
+                  )}
+
+                  <strong className="inline-flex font-bold">
+                    {data?.author?.name}
+                  </strong>
+                </div>
+
                 {publishedAt && (
                   <div>
                     {new Intl.DateTimeFormat('en-GB', {
@@ -171,7 +186,52 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
             )}
           </div>
           {data?.content && <BlockRendererClient value={data?.content} />}
-          <hr className="mb-8" />
+          {data?.author && (
+            <div className="flex flex-col lg:flex-row items-center lg:items-start border shadow-sm p-6 mb-8 gap-6">
+              {/* TODO: turn this into a link when author page is complete */}
+              {data?.author?.image && (
+                <figure
+                // href={`/author/${data?.author?.slug?.current}`}
+                >
+                  <Image
+                    className="block rounded-full overflow-hidden"
+                    width={100}
+                    height={100}
+                    src={urlFor(data?.author?.image).width(100).url()}
+                    alt={data?.author?.name || ''}
+                  />
+                </figure>
+              )}
+
+              <div className="text-center text-sm lg:text-left">
+                {/* TODO: turn this into a link when author page is complete */}
+                <strong
+                  className="inline-flex font-bold mb-4"
+                  // href={`/author/${data?.author?.slug?.current}`}
+                >
+                  {data?.author?.name}
+                </strong>
+                {data?.author?.bio && (
+                  <PortableText value={data?.author?.bio} />
+                )}
+                <div className="flex justify-center text-lg lg:justify-start items-center gap-2 mt-4">
+                  {data.author.social.map((item, i) => {
+                    return (
+                      <CTA link={item} key={i} aria-label={item.label}>
+                        {item.label.toLowerCase() === 'instagram' ? (
+                          <FaInstagram />
+                        ) : item.label.toLowerCase() === 'facebook' ? (
+                          <FaFacebookSquare />
+                        ) : (
+                          item.label
+                        )}
+                      </CTA>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          )}
           <div className="max-w-screen-lg rounded border-0 border-l-4 border-spacing-2 border-green-700 bg-green-50 p-6 mb-6">
             <div className="max-w-screen-sm">
               <Heading
@@ -202,44 +262,6 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
               </div>
             </div>
           </div>
-          {data?.author && (
-            <div className="flex flex-col items-center">
-              {data?.author?.image && (
-                <Link
-                  className="inline-block"
-                  href={`/author/${data?.author?.slug?.current}`}
-                >
-                  <Image
-                    className="block rounded-full overflow-hidden"
-                    width={100}
-                    height={100}
-                    src={urlFor(data?.author?.image).width(100).url()}
-                    alt={data?.author?.name || ''}
-                  />
-                </Link>
-              )}
-
-              <div className="text-center">
-                <Link href={`/author/${data?.author?.slug?.current}`}>
-                  {data?.author?.name}
-                </Link>
-                {data?.author?.bio && (
-                  <PortableText value={data?.author?.bio} />
-                )}
-                {data.author.social.map((item, i) => {
-                  return (
-                    <CTA
-                      className="text-blue-700 underline"
-                      link={item}
-                      key={i}
-                    >
-                      {item.label}
-                    </CTA>
-                  );
-                })}
-              </div>
-            </div>
-          )}
         </article>
         <Sidebar slug={params.slug} headings={data.headings} />
       </main>

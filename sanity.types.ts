@@ -239,7 +239,17 @@ export type Author = {
     _type: 'block';
     _key: string;
   }>;
+  social: Social[];
 };
+
+export interface Social {
+  external: string;
+  blank: boolean;
+  _type: string;
+  label: string;
+  _key: string;
+  type: string;
+}
 
 export type Slug = {
   _type: 'slug';

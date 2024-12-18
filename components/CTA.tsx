@@ -2,12 +2,12 @@ import Link from 'next/link';
 import { ComponentProps } from 'react';
 
 interface Link {
+  _key: string;
+  _type: string;
   internal: string;
   external: string;
   blank: boolean;
-  _type: string;
   label: string;
-  _key: string;
   type: string;
 }
 
@@ -21,8 +21,6 @@ export default function CTA({ link, className, children, ...rest }: CTAProps) {
     children,
     ...rest
   };
-
-  console.log(link);
 
   if (link?.type === 'internal' && link.internal) {
     return <Link href={link.internal} {...props} />;

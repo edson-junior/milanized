@@ -36,14 +36,16 @@ export default function PostList({
           return (
             <Link href={`/blog/${metadata?.slug}`} className="group" key={_id}>
               {featuredImage && (
-                <Image
-                  width={250}
-                  height={250}
-                  loading="lazy"
-                  src={urlFor(featuredImage).width(600).url()}
-                  alt={featuredImage.alt || ''}
-                  className="block w-full object-cover h-52"
-                />
+                <figure className="relative aspect-video overflow-hidden bg-neutral-50">
+                  <Image
+                    width={250}
+                    height={250}
+                    loading="lazy"
+                    src={urlFor(featuredImage).width(600).url()}
+                    alt={featuredImage.alt || ''}
+                    className="object-cover w-full aspect-video transition duration-200 ease-in-out transform group-hover:scale-110 group-hover:brightness-110"
+                  />
+                </figure>
               )}
 
               <div className="py-6">

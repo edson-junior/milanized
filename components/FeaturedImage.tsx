@@ -16,14 +16,14 @@ export function FeaturedImage({ featuredImage, ...props }: FeaturedImageProps) {
   if (featuredImage.caption) {
     return (
       <figure {...props}>
-        <div className="w-full h-52 lg:h-[28rem] relative mb-2 overflow-hidden">
+        <div className="w-full aspect-video relative mb-2 overflow-hidden">
           <Image
             fill
             priority
             sizes="(min-width: 1340px) 832px, (min-width: 1040px) calc(85.71vw - 299px), calc(100vw - 32px)"
             src={urlFor(featuredImage).width(1280).url()}
             alt={featuredImage.alt || ''}
-            className="object-cover"
+            className="object-cover transition duration-200 ease-in-out transform hover:scale-110 hover:brightness-110"
           />
         </div>
         <figcaption className="text-xs italic text-gray-600 [&>a]:text-blue-700 [&>a]:underline mb-4">

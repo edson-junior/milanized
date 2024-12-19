@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { SiteNavigationElement, WithContext } from 'schema-dts';
-import ReadingBar from '../ReadingBar';
 import MobileNavigation from './MobileNavigation';
 import DesktopNavigation from './DesktopNavigation';
 import SearchBar from './SearchBar';
@@ -48,7 +47,6 @@ export default function Header() {
         </div>
         <MobileNavigation />
       </div>
-      <ReadingBar />
     </header>
   );
 }

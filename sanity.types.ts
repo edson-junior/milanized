@@ -198,6 +198,7 @@ export type Blog = {
         _key: string;
       }
   >;
+  relatedArticles: Blog[];
 };
 
 export type Author = {

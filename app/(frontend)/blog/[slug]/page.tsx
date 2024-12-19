@@ -8,11 +8,12 @@ import { BlogPosting, WithContext } from 'schema-dts';
 import { getPostBySlug } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import Image from 'next/image';
-import Sidebar from '@/components/Sidebar';
-import { Button } from '@/components/ui/button';
 import { PortableText } from 'next-sanity';
 import CTA from '@/components/CTA';
 import { FaFacebookSquare, FaInstagram } from 'react-icons/fa';
+import PostList from '@/components/PostList';
+import Toc from '@/components/Toc';
+import SupportUsBanner from '@/components/SupportUsBanner';
 
 interface BlogDetailsProps {
   params: { slug: Slug };
@@ -120,150 +121,138 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
   return (
     <div className="max-w-7xl mx-auto px-4 py-4">
       <main className="flex flex-col lg:flex-row gap-8">
-        <article className="flex-1 lg:w-64">
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-          />
-          <div className="flex flex-col gap-8 lg:mb-8">
-            <div className="w-full">
-              <Heading as="h1" className="text-2xl lg:text-5xl mb-8">
-                {data.title}
-              </Heading>
+        <div className="flex-1 lg:w-64">
+          <article>
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <div className="flex flex-col gap-8 lg:mb-8">
+              <div className="w-full">
+                <Heading as="h1" className="text-2xl lg:text-5xl mb-8">
+                  {data.title}
+                </Heading>
 
-              <p className="mb-8 font-bold">{data.summary}</p>
+                <p className="mb-8 font-bold">{data.summary}</p>
 
-              <div className="flex gap-2 flex-col">
-                <div className="flex gap-2">
-                  {data?.author?.image && (
-                    <Image
-                      className="block rounded-full overflow-hidden"
-                      width={24}
-                      height={24}
-                      src={urlFor(data?.author?.image).width(30).url()}
-                      alt={data?.author?.name || ''}
-                    />
-                  )}
+                <div className="flex gap-2 flex-col">
+                  <div className="flex gap-2">
+                    {data?.author?.image && (
+                      <Image
+                        className="block rounded-full overflow-hidden"
+                        width={24}
+                        height={24}
+                        src={urlFor(data?.author?.image).width(30).url()}
+                        alt={data?.author?.name || ''}
+                      />
+                    )}
 
-                  <strong className="inline-flex font-bold">
-                    {data?.author?.name}
-                  </strong>
-                </div>
-
-                {publishedAt && (
-                  <div>
-                    {new Intl.DateTimeFormat('en-GB', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    }).format(publishedAt)}
+                    <strong className="inline-flex font-bold">
+                      {data?.author?.name}
+                    </strong>
                   </div>
-                )}
-                {updatedAt &&
-                  publishedAt?.getDate() !== updatedAt?.getDate() && (
-                    <div className="text-xs">
-                      {'Last updated: '}
+
+                  {publishedAt && (
+                    <div>
                       {new Intl.DateTimeFormat('en-GB', {
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric'
-                      }).format(updatedAt)}
+                      }).format(publishedAt)}
                     </div>
                   )}
-                {estimatedReadingTime && (
-                  <div className="text-xs flex items-center gap-2">
-                    <LuClock2 className="w-4" />
-                    {`${Math.ceil(estimatedReadingTime)} minute read`}
-                  </div>
-                )}
-              </div>
-            </div>
-            {data?.featuredImage && (
-              <FeaturedImage
-                className="flex flex-col lg:shrink-0 grow"
-                featuredImage={data.featuredImage}
-              />
-            )}
-          </div>
-          {data?.content && <BlockRendererClient value={data?.content} />}
-          {data?.author && (
-            <div className="flex flex-col lg:flex-row items-center lg:items-start border shadow-sm p-6 mb-8 gap-6">
-              {/* TODO: turn this into a link when author page is complete */}
-              {data?.author?.image && (
-                <figure
-                // href={`/author/${data?.author?.slug?.current}`}
-                >
-                  <Image
-                    className="block rounded-full overflow-hidden"
-                    width={100}
-                    height={100}
-                    src={urlFor(data?.author?.image).width(100).url()}
-                    alt={data?.author?.name || ''}
-                  />
-                </figure>
-              )}
-
-              <div className="text-center text-sm lg:text-left">
-                {/* TODO: turn this into a link when author page is complete */}
-                <strong
-                  className="inline-flex font-bold mb-4"
-                  // href={`/author/${data?.author?.slug?.current}`}
-                >
-                  {data?.author?.name}
-                </strong>
-                {data?.author?.bio && (
-                  <PortableText value={data?.author?.bio} />
-                )}
-                <div className="flex justify-center text-lg lg:justify-start items-center gap-2 mt-4">
-                  {data.author.social.map((item, i) => {
-                    return (
-                      <CTA link={item} key={i} aria-label={item.label}>
-                        {item.label.toLowerCase() === 'instagram' ? (
-                          <FaInstagram />
-                        ) : item.label.toLowerCase() === 'facebook' ? (
-                          <FaFacebookSquare />
-                        ) : (
-                          item.label
-                        )}
-                      </CTA>
-                    );
-                  })}
+                  {updatedAt &&
+                    publishedAt?.getDate() !== updatedAt?.getDate() && (
+                      <div className="text-xs">
+                        {'Last updated: '}
+                        {new Intl.DateTimeFormat('en-GB', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        }).format(updatedAt)}
+                      </div>
+                    )}
+                  {estimatedReadingTime && (
+                    <div className="text-xs flex items-center gap-2">
+                      <LuClock2 className="w-4" />
+                      {`${Math.ceil(estimatedReadingTime)} minute read`}
+                    </div>
+                  )}
                 </div>
               </div>
+              {data?.featuredImage && (
+                <FeaturedImage
+                  className="flex flex-col lg:shrink-0 grow"
+                  featuredImage={data.featuredImage}
+                />
+              )}
             </div>
-          )}
-          <div className="max-w-screen-lg rounded border-0 border-l-4 border-spacing-2 border-green-700 bg-green-50 p-6 mb-6">
-            <div className="max-w-screen-sm">
-              <Heading
-                as="strong"
-                className="block text-lg lg:text-2xl py-0 lg:py-2 mb-2 scroll-m-20"
-              >
-                If you enjoyed our content, please consider supporting us!
-              </Heading>
-
-              <p>
-                With your support, we are able to continue creating
-                high-quality, informative content, plus new features and future
-                updates such that this website continues to grow.
-              </p>
-              <div className="flex flex-wrap items-center mt-8">
-                <Button
-                  asChild
-                  className="bg-green-700 action max-sm:w-full hover:bg-green-700/80"
-                >
-                  <a
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    href="https://buymeacoffee.com/milanized"
+            {data?.content && <BlockRendererClient value={data?.content} />}
+            {data?.author && (
+              <div className="flex flex-col lg:flex-row items-center lg:items-start border shadow-sm p-6 mb-8 gap-6">
+                {/* TODO: turn this into a link when author page is complete */}
+                {data?.author?.image && (
+                  <figure
+                  // href={`/author/${data?.author?.slug?.current}`}
                   >
-                    Support us! ❤️
-                  </a>
-                </Button>
+                    <Image
+                      className="block rounded-full overflow-hidden"
+                      width={100}
+                      height={100}
+                      src={urlFor(data?.author?.image).width(100).url()}
+                      alt={data?.author?.name || ''}
+                    />
+                  </figure>
+                )}
+
+                <div className="text-center text-sm lg:text-left">
+                  {/* TODO: turn this into a link when author page is complete */}
+                  <strong
+                    className="inline-flex font-bold mb-4"
+                    // href={`/author/${data?.author?.slug?.current}`}
+                  >
+                    {data?.author?.name}
+                  </strong>
+                  {data?.author?.bio && (
+                    <PortableText value={data?.author?.bio} />
+                  )}
+                  <div className="flex justify-center text-lg lg:justify-start items-center gap-2 mt-4">
+                    {data.author.social.map((item, i) => {
+                      return (
+                        <CTA link={item} key={i} aria-label={item.label}>
+                          {item.label.toLowerCase() === 'instagram' ? (
+                            <FaInstagram />
+                          ) : item.label.toLowerCase() === 'facebook' ? (
+                            <FaFacebookSquare />
+                          ) : (
+                            item.label
+                          )}
+                        </CTA>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </article>
-        <Sidebar slug={params.slug} headings={data.headings} />
+            )}
+          </article>
+          {data.relatedArticles && (
+            <section>
+              <Heading
+                as="h2"
+                className="text-xl lg:text-4xl py-0 lg:py-2 mb-2 scroll-m-20"
+              >
+                Related Articles
+              </Heading>
+              <PostList className="gap-4 mb-8" posts={data.relatedArticles} />
+            </section>
+          )}
+          <SupportUsBanner />
+        </div>
+        {data.headings && (
+          <aside className="lg:w-96 h-auto lg:h-full lg:sticky lg:top-20">
+            <Toc headings={data.headings} />
+          </aside>
+        )}
       </main>
     </div>
   );

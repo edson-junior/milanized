@@ -48,9 +48,15 @@ export const getPostBySlugQuery = groq`*[_type == 'blog' && metadata.slug.curren
     style,
     'text': pt::text(@)
   },
-  "authorName": author->name,
-  "authorImage": author->image,
   "estimatedReadingTime": round(length(pt::text(content)) / 5 / 180),
+  relatedArticles[]-> {
+    _id,
+    summary,
+    author->,
+    _createdAt,
+    featuredImage,
+    title
+  },
   metadata {
     'slug': slug.current,
     slug,

@@ -126,6 +126,12 @@ export default defineType({
           type: 'messages'
         })
       ]
+    }),
+    defineField({
+      title: 'Related Articles',
+      name: 'relatedArticles',
+      type: 'array',
+      of: [{ type: 'reference', to: { type: 'blog' } }]
     })
   ],
   preview: {

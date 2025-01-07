@@ -22,15 +22,7 @@ export default function PostList({
       {...props}
     >
       {posts.map(
-        ({
-          _id,
-          metadata,
-          title,
-          summary,
-          featuredImage,
-          _createdAt,
-          author
-        }) => {
+        ({ _id, metadata, title, summary, featuredImage, _createdAt }) => {
           const publishedAt = _createdAt ? new Date(_createdAt) : undefined;
 
           return (
@@ -58,8 +50,6 @@ export default function PostList({
                 </p>
 
                 <p className="text text-xs align-baseline">
-                  <strong>{author?.name}</strong>
-                  <span>{` - `}</span>
                   <span className="text-gray-600">
                     {new Intl.DateTimeFormat('en-GB', {
                       year: 'numeric',

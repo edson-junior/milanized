@@ -29,7 +29,7 @@ export default async function FeaturedPost() {
     return null;
   }
 
-  const { _createdAt, metadata, featuredImage, title, summary, author } = data;
+  const { _createdAt, metadata, featuredImage, title, summary } = data;
 
   const publishedAt = new Date(_createdAt);
 
@@ -59,8 +59,6 @@ export default async function FeaturedPost() {
           {summary}
         </p>
         <p className="text-sm">
-          <strong>{author?.name}</strong>
-          <span>{` - `}</span>
           <span className="text-gray-600">
             {new Intl.DateTimeFormat('en-GB', {
               year: 'numeric',

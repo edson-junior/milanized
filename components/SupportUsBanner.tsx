@@ -3,7 +3,7 @@ import Heading from './ui/heading';
 
 export default function SupportUsBanner() {
   return (
-    <section className="max-w-screen-lg rounded border-0 border-l-4 border-spacing-2 border-green-700 bg-green-50 p-6 mb-6">
+    <section className="max-w-screen-lg border-0 border-l-4 border-spacing-2 border-green-700 bg-green-50 p-6 mb-6">
       <div className="max-w-screen-sm">
         <Heading
           as="strong"

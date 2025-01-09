@@ -32,6 +32,11 @@ export default defineType({
       to: { type: 'author' }
     }),
     defineField({
+      name: 'publishDate',
+      type: 'date'
+      // validation: (Rule) => Rule.required()
+    }),
+    defineField({
       name: 'categories',
       type: 'array',
       of: [

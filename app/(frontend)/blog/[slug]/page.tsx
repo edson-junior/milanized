@@ -62,8 +62,10 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
     return;
   }
 
-  const publishedAt = data ? new Date(data?._createdAt) : undefined;
-  const updatedAt = data ? new Date(data?._updatedAt) : undefined;
+  const publishedAt = data
+    ? new Date(data?.publishDate || data._createdAt)
+    : undefined;
+  const updatedAt = data ? new Date(data._updatedAt) : undefined;
   const jsonLd: WithContext<BlogPosting> = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',

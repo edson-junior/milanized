@@ -87,7 +87,7 @@ function processSlug({
   if (external) return external;
 
   if (internal) {
-    const segment = _type === 'blog.post' ? '/blog/' : '/';
+    const segment = _type === 'blog' ? '/blog/' : '/';
     const path = internal === 'index' ? null : internal;
 
     return [segment, path, params].filter(Boolean).join('');

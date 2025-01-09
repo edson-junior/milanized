@@ -1,4 +1,6 @@
-User-agent: *
-
-Disallow:
+User-Agent: *
+Disallow: /studio
 Disallow: /api/
+Disallow: /*.json*
+
+sitemap: https://milanized.com/sitemap.xml

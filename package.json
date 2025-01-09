@@ -39,6 +39,7 @@
     "@types/react-google-recaptcha": "^2.1.9",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "cssnano": "^7.0.6",
     "framer-motion": "^11.1.7",
     "html-react-parser": "^5.1.10",
     "next": "^14.2.4",

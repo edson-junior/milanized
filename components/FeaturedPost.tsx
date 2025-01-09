@@ -42,8 +42,8 @@ export default async function FeaturedPost() {
         <figure className="max-md:full-bleed relative aspect-video overflow-hidden">
           <Image
             fill
-            sizes="(min-width: 1360px) 1248px, calc(94.23vw - 15px)"
-            src={urlFor(featuredImage).width(1280).url()}
+            sizes="(min-width: 1360px) 608px, (min-width: 780px) 44.64vw, calc(100vw - 32px)"
+            src={urlFor(featuredImage).width(800).url()}
             alt={featuredImage.alt || ''}
             priority
             className="object-cover transition duration-200 ease-in-out transform group-hover:scale-110 group-hover:brightness-110"

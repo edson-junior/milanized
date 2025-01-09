@@ -28,7 +28,7 @@ const jsonLd: WithContext<SiteNavigationElement> = {
 
 export default function Header() {
   return (
-    <header className="bg-black sticky w-full top-0 z-10">
+    <header className="bg-black sticky w-full top-0 z-10 border-b border-white/15">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

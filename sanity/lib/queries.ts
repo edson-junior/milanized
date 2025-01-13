@@ -107,8 +107,6 @@ export const getArticlesPageQuery = groq`*[_type == 'page' && metadata.slug.curr
   metadata {
     'slug': slug.current,
     title,
-    noIndex,
-    image,
     description
   }
 }`;

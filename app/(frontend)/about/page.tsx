@@ -14,7 +14,10 @@ export async function generateMetadata() {
       robots:
         'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
       alternates: {
-        canonical: `${process.env.CLIENT_URL}/about`
+        canonical: `${process.env.CLIENT_URL}/about`,
+        types: {
+          'application/rss+xml': `${process.env.CLIENT_URL}/blog/rss.xml`
+        }
       },
       openGraph: {
         url: `${process.env.CLIENT_URL}/about`,

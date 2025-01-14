@@ -68,41 +68,36 @@ export default async function Home() {
   };
 
   return (
-    <>
-      <div className="group block w-full bg-neutral-950">
-        <div className="text-white flex align-middle h-full flex-col max-w-7xl mx-auto px-4 pt-14 lg:pt-20 pb-14 lg:pb-20 relative">
-          <div className="max-w-screen-sm">
-            <span className="block text-gray-400 mb-4">
-              Come explore Milan with us
-            </span>
-            <Heading
-              as="h1"
-              className="text-3xl lg:text-6xl mb-8 lg:mb-4 lg:leading-[1.2]"
-            >
-              We will be delighted to be your guide!
-            </Heading>
-          </div>
-          <div>
-            <p className="leading-7 lg:leading-normal mb-8 lg:m-0">
-              Milanized! is an online guide to everything Milan, created by and
-              for (not only) internationals who chose this amazing city as their
-              base.
-            </p>
-            <p className="leading-7 lg:leading-normal mb-8">
-              Find the resources you need for the perfect trip, look up
-              information on life in Milan in general, and immerse yourself in
-              Italian culture.
-            </p>
-            <Button
-              asChild
-              size="lg"
-              className="text-md py-4 px-8 bg-blue-600 hover:bg-blue-700 h-auto"
-            >
-              <Link href="/blog">Start exploring</Link>
-            </Button>
-          </div>
+    <main>
+      <section className="bg-neutral-950">
+        <div className="text-white h-full flex-col max-w-7xl mx-auto px-4 pt-14 lg:pt-20 pb-14 lg:pb-20 relative">
+          <h1 className="text-gray-400 mb-4">Come explore Milan with us</h1>
+          <Heading
+            as="strong"
+            className="inline-block text-3xl lg:text-6xl mb-8 lg:mb-4 lg:leading-[1.2] max-w-screen-sm"
+          >
+            We will be delighted to be your guide!
+          </Heading>
+
+          <p className="leading-7 lg:leading-normal mb-8 lg:m-0">
+            Milanized! is an online guide to everything Milan, created by and
+            for (not only) internationals who chose this amazing city as their
+            base.
+          </p>
+          <p className="leading-7 lg:leading-normal mb-8">
+            Find the resources you need for the perfect trip, look up
+            information on life in Milan in general, and immerse yourself in
+            Italian culture.
+          </p>
+          <Button
+            asChild
+            size="lg"
+            className="text-md py-4 px-8 bg-blue-600 hover:bg-blue-700 h-auto"
+          >
+            <Link href="/blog">Start exploring</Link>
+          </Button>
         </div>
-      </div>
+      </section>
 
       <div className="max-w-7xl mx-auto p-4 lg:pt-12">
         <script
@@ -121,6 +116,6 @@ export default async function Home() {
           <PostList posts={posts} />
         )}
       </div>
-    </>
+    </main>
   );
 }

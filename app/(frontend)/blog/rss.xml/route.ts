@@ -1,7 +1,6 @@
 import { Blog, Page } from '@/sanity.types';
 import { sanityFetch } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
-import { Feed } from 'feed';
 import groq from 'groq';
 
 interface RSSProps {
@@ -45,8 +44,6 @@ export async function GET() {
     );
   }
 
-  const url = `${process.env.CLIENT_URL}`;
-
   if (!blog?.metadata?.title || !blog.metadata?.slug) {
     return new Response(
       'Missing either a `metadata?.slug` or a `metadata?.title`',
@@ -54,47 +51,49 @@ export async function GET() {
     );
   }
 
-  const feed = new Feed({
-    title: 'Milanized!',
-    description:
-      'Milanized! is an English-language site that helps internationals navigate life in Italy. Visit us for awesome tips.',
-    link: url,
-    id: url,
-    copyright: `© ${new Date().getFullYear()} Milanized!`,
-    favicon: `${process.env.CLIENT_URL}/favicon.ico`,
-    image: `${process.env.CLIENT_URL}/opengraph-logo.png`,
-    language: 'en',
-    generator: process.env.CLIENT_URL
-  });
+  const generateRss = () => {
+    return `
+      <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+        <channel>
+          <atom:link href="${process.env.CLIENT_URL}" rel="self" type="application/rss+xml"/>
+          <title>Milanized!</title>
+          <link>${process.env.CLIENT_URL}</link>
+          <description>Milanized! is an English-language site that helps internationals navigate life in Italy. Visit us for awesome tips.</description>
+          <generator>${process.env.CLIENT_URL}</generator>
+          <language>en</language>
+          <copyright>${`© ${new Date().getFullYear()} Milanized!`}</copyright>
+          ${itemsList.join('')}
+        </channel>
+      </rss>
+    `;
+  };
 
-  posts.map((post) => {
+  const itemsList = posts.map((post) => {
     const url = `${process.env.CLIENT_URL}/blog/${post.metadata?.slug}`;
     const publishedAt = post?.publishDate ? post?.publishDate : post._createdAt;
     const imageUrl = post.featuredImage
       ? urlFor(post.featuredImage).width(1200).url()
       : undefined;
 
-    return feed.addItem({
-      title: post.metadata?.title || '',
-      description: post.metadata?.description,
-      id: url,
-      link: url,
-      published: new Date(publishedAt),
-      date: new Date(post._createdAt),
-      author: [{ name: `${post?.author?.name}` }],
-      enclosure: {
-        url: imageUrl
-          ? `${imageUrl.split('?')[0]}?${encodeURIComponent(imageUrl.split('?')[1])}`
-          : '',
-        length: 500,
-        type: 'image/jpg'
-      }
-    });
+    return `
+      <item>
+        <title><![CDATA[${post.metadata?.title}]]></title>
+        <link>${url}</link>
+        <guid>${url}</guid>
+        <pubDate>${new Date(publishedAt).toUTCString()}</pubDate>
+        <description><![CDATA[${post.metadata?.description}]]></description>
+        <enclosure length="500" type="image/jpg" url="${
+          imageUrl
+            ? `${imageUrl.split('?')[0]}?${encodeURIComponent(imageUrl.split('?')[1])}`
+            : ''
+        }"/>
+      </item>
+    `;
   });
 
-  return new Response(feed.rss2(), {
+  return new Response(generateRss(), {
     headers: {
-      'Content-Type': 'application/atom+xml; charset=utf-8'
+      'Content-Type': 'text/xml; charset=UTF-8'
     }
   });
 }

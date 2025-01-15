@@ -1,6 +1,6 @@
 import { FaFacebookSquare, FaInstagram } from 'react-icons/fa';
 import Link from 'next/link';
-import { LuHeart } from 'react-icons/lu';
+import { LuHeart, LuRss } from 'react-icons/lu';
 
 const links = [
   {
@@ -17,6 +17,11 @@ const links = [
     href: 'https://buymeacoffee.com/milanized',
     text: 'Buy me a Coffee',
     icon: <LuHeart />
+  },
+  {
+    href: `${process.env.NEXT_PUBLIC_CLIENT_URL}/blog/rss.xml`,
+    text: 'RSS Feed',
+    icon: <LuRss />
   }
 ];
 

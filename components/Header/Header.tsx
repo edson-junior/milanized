@@ -6,15 +6,15 @@ import SearchBar from './SearchBar';
 
 export const links = [
   {
-    href: `${process.env.CLIENT_URL}/blog`,
+    href: `${process.env.NEXT_PUBLIC_CLIENT_URL}/blog`,
     text: 'Articles'
   },
   {
-    href: `${process.env.CLIENT_URL}/about`,
+    href: `${process.env.NEXT_PUBLIC_CLIENT_URL}/about`,
     text: 'About'
   },
   {
-    href: `${process.env.CLIENT_URL}/contact`,
+    href: `${process.env.NEXT_PUBLIC_CLIENT_URL}/contact`,
     text: 'Contact'
   }
 ];

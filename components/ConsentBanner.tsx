@@ -3,16 +3,7 @@
 import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle
-} from '@/components/ui/dialog';
 import { GoogleTagManager } from '@next/third-parties/google';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import {
   Drawer,
   DrawerContent,
@@ -30,7 +21,6 @@ const opts = {
 export default function ConsentBanner() {
   const [open, setOpen] = useState(true);
   const [cookies, setCookie] = useCookies(['consentCookie']);
-  const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const handleAcceptCookies = () => {
     setCookie('consentCookie', true, opts);
@@ -42,45 +32,11 @@ export default function ConsentBanner() {
     setOpen(false);
   };
 
-  if (isDesktop) {
-    return (
-      <>
-        <Dialog open={open} onOpenChange={setOpen}>
-          <DialogContent
-            className="[&>button]:hidden"
-            onInteractOutside={(e) => {
-              e.preventDefault();
-            }}
-            onEscapeKeyDown={(e) => {
-              e.preventDefault();
-            }}
-          >
-            <DialogHeader className="text-left">
-              <DialogTitle>We use cookies!</DialogTitle>
-              <DialogDescription>
-                This website uses cookies to enhance the user experience.
-              </DialogDescription>
-            </DialogHeader>
-            <DialogFooter className="pt-2 gap-4">
-              <Button variant="outline" onClick={handleRejectCookies}>
-                Deny
-              </Button>
-              <Button onClick={handleAcceptCookies}>Accept Cookies</Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-        {cookies.consentCookie && (
-          <GoogleTagManager gtmId={`${process.env.NEXT_PUBLIC_GTM_ID}`} />
-        )}
-      </>
-    );
-  }
-
   return (
     <>
-      <Drawer open={open} onOpenChange={setOpen}>
+      <Drawer open={open} modal={false} onOpenChange={setOpen}>
         <DrawerContent
-          className="[&>button]:hidden [&>.rounded-full.bg-muted]:hidden rounded-none"
+          className="[&>button]:hidden [&>.rounded-full.bg-muted]:hidden lg:max-w-[368px] lg:mb-8 lg:ml-4 bg-transparent rounded-none"
           onInteractOutside={(e) => {
             e.preventDefault();
           }}
@@ -88,18 +44,26 @@ export default function ConsentBanner() {
             e.preventDefault();
           }}
         >
-          <DrawerHeader className="text-left">
-            <DrawerTitle>We use cookies!</DrawerTitle>
-            <DrawerDescription>
-              This website uses cookies to enhance the user experience.
-            </DrawerDescription>
-          </DrawerHeader>
-          <DrawerFooter className="pt-2 gap-4">
-            <Button variant="outline" onClick={handleRejectCookies}>
-              Deny
-            </Button>
-            <Button onClick={handleAcceptCookies}>Accept Cookies</Button>
-          </DrawerFooter>
+          <div className="lg:rounded-md border-t lg:border border-gray-300 bg-white shadow-md">
+            <DrawerHeader className="text-left">
+              <DrawerTitle hidden>We use cookies!</DrawerTitle>
+              <DrawerDescription className="text-gray-600">
+                This website uses cookies to enhance the user experience.
+              </DrawerDescription>
+            </DrawerHeader>
+            <DrawerFooter className="pt-2 flex-col-reverse lg:flex-row gap-4 lg:flex-wrap">
+              <Button
+                className="lg:flex-auto"
+                variant="outline"
+                onClick={handleRejectCookies}
+              >
+                Deny
+              </Button>
+              <Button className="lg:flex-auto" onClick={handleAcceptCookies}>
+                Accept
+              </Button>
+            </DrawerFooter>
+          </div>
         </DrawerContent>
       </Drawer>
       {cookies.consentCookie && (

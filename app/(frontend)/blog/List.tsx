@@ -15,13 +15,7 @@ export default function List({
     return <div>No posts found...</div>;
   }
 
-  return (
-    <PostList
-      id="blog-list"
-      className="lg:min-h-[800px] scroll-m-36"
-      posts={filtered}
-    />
-  );
+  return <PostList id="blog-list" className="scroll-m-36" posts={filtered} />;
 }
 
 export function filterPosts(posts: Blog[]) {

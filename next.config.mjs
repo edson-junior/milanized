@@ -13,6 +13,16 @@ const nextConfig = {
         port: ''
       }
     ]
+  },
+  async redirects() {
+    return [
+      {
+        source:
+          '/blog/essential-tips-for-moving-to-italy-things-to-know-before-moving',
+        destination: '/blog/how-to-move-to-italy',
+        permanent: true
+      }
+    ];
   }
 };
 

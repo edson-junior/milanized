@@ -3,6 +3,7 @@ import Heading from './ui/heading';
 import { PortableText } from '@portabletext/react';
 import { PortableTextTypes } from '@/sanity.types';
 import { cn } from '@/lib/utils';
+import { PortableComponents } from './BlockRenderClient';
 
 interface CallOutMessageProps {
   title: string;
@@ -30,7 +31,8 @@ export default function CallOutMessage({
       >
         <span>{title}</span>
       </Heading>
-      <PortableText value={text} />
+
+      <PortableText value={text} components={PortableComponents} />
     </div>
   );
 }

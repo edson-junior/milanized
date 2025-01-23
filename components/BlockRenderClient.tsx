@@ -14,8 +14,20 @@ import { urlFor } from '@/sanity/lib/image';
 import { slugify } from '@/lib/utils';
 import { InstagramEmbed } from 'react-social-media-embed';
 import CallOutMessage from './CallOutMessage';
+import { TableRow } from '@sanity/table';
+import Table from './Table';
 
-const components: PortableTextComponents = {
+export interface Table {
+  rows?: TableRow[];
+  title?: string;
+}
+
+export interface TableValueProps {
+  table?: Table;
+  caption?: string;
+}
+
+export const PortableComponents: PortableTextComponents = {
   types: {
     image: ({ value }) => {
       return value.caption ? (
@@ -57,6 +69,9 @@ const components: PortableTextComponents = {
     },
     instagramPost: ({ value }) => {
       return <InstagramEmbed url={value.url} />;
+    },
+    tableRichText: ({ value }) => {
+      return <Table value={value} />;
     }
   },
 
@@ -76,7 +91,7 @@ const components: PortableTextComponents = {
             href={href}
             target="_blank" // read https://css-tricks.com/use-target_blank/
             rel="noreferrer noopener"
-            className="text-blue-700 underline"
+            className="text-blue-700 underline hover:no-underline"
           >
             {children}
           </a>
@@ -84,7 +99,7 @@ const components: PortableTextComponents = {
       }
 
       return (
-        <a href={href} className="text-blue-700 underline">
+        <a href={href} className="text-blue-700 underline hover:no-underline">
           {children}
         </a>
       );
@@ -93,7 +108,7 @@ const components: PortableTextComponents = {
       const { slug = {} } = value;
       const href = `/blog/${slug.current}`;
       return (
-        <a href={href} className="text-blue-700 underline">
+        <a href={href} className="text-blue-700 underline hover:no-underline">
           {children}
         </a>
       );
@@ -143,5 +158,5 @@ const components: PortableTextComponents = {
 export default function BlockRendererClient({
   value
 }: PortableTextProps<TypedObject>) {
-  return <PortableText value={value} components={components} />;
+  return <PortableText value={value} components={PortableComponents} />;
 }

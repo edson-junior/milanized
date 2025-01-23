@@ -127,6 +127,7 @@ export default defineType({
           ]
         },
         { type: 'instagramPost' },
+        { type: 'tableRichText' },
         defineArrayMember({
           type: 'messages'
         })

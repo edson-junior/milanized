@@ -8,6 +8,7 @@ import instagramPost from './documents/instagramPost';
 import links from './objects/links';
 import linksList from './objects/links-list';
 import category from './documents/category';
+import table from './documents/table';
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -18,6 +19,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     author,
     message,
     instagramPost,
+    table,
     links,
     linksList
   ]

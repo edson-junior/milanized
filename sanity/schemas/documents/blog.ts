@@ -1,6 +1,41 @@
 import { LuExternalLink, LuLink, LuNewspaper } from 'react-icons/lu';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
+export const externalLinks = {
+  name: 'link',
+  type: 'object',
+  title: 'External link',
+  icon: LuExternalLink,
+  fields: [
+    {
+      name: 'href',
+      type: 'url',
+      title: 'URL'
+    },
+    {
+      title: 'Open in new tab',
+      name: 'blank',
+      description: 'Read https://css-tricks.com/use-target_blank/',
+      type: 'boolean'
+    }
+  ]
+};
+
+export const internalLinks = {
+  name: 'internalLink',
+  type: 'object',
+  title: 'Internal link',
+  icon: LuLink,
+  fields: [
+    {
+      name: 'reference',
+      type: 'reference',
+      title: 'Reference',
+      to: [{ type: 'blog' }, { type: 'page' }]
+    }
+  ]
+};
+
 export default defineType({
   name: 'blog',
   title: 'Blog',
@@ -71,42 +106,7 @@ export default defineType({
         {
           type: 'block',
           marks: {
-            annotations: [
-              {
-                name: 'link',
-                type: 'object',
-                title: 'External link',
-                icon: LuExternalLink,
-                fields: [
-                  {
-                    name: 'href',
-                    type: 'url',
-                    title: 'URL'
-                  },
-                  {
-                    title: 'Open in new tab',
-                    name: 'blank',
-                    description:
-                      'Read https://css-tricks.com/use-target_blank/',
-                    type: 'boolean'
-                  }
-                ]
-              },
-              {
-                name: 'internalLink',
-                type: 'object',
-                title: 'Internal link',
-                icon: LuLink,
-                fields: [
-                  {
-                    name: 'reference',
-                    type: 'reference',
-                    title: 'Reference',
-                    to: [{ type: 'blog' }, { type: 'page' }]
-                  }
-                ]
-              }
-            ]
+            annotations: [externalLinks, internalLinks]
           }
         },
         {

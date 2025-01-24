@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity';
+import { externalLinks, internalLinks } from './blog';
 
 const message = defineType({
   name: 'messages',
@@ -28,7 +29,14 @@ const message = defineType({
     defineField({
       name: 'text',
       type: 'array',
-      of: [{ type: 'block' }]
+      of: [
+        {
+          type: 'block',
+          marks: {
+            annotations: [externalLinks, internalLinks]
+          }
+        }
+      ]
     })
   ]
 });

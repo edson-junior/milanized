@@ -1,10 +1,12 @@
 import { defineType, defineField } from 'sanity';
 import { externalLinks, internalLinks } from './blog';
+import { LuMessageSquare } from 'react-icons/lu';
 
 const message = defineType({
   name: 'messages',
   type: 'object',
   title: 'Messages',
+  icon: LuMessageSquare,
   fields: [
     defineField({
       title: 'Success, error or info messages',

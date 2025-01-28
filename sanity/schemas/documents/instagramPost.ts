@@ -1,10 +1,12 @@
 import { defineField, defineType } from 'sanity';
 import InstagramPreview from '../previews/instagramPost';
+import { LuInstagram } from 'react-icons/lu';
 
 export default defineType({
   name: 'instagramPost',
   title: 'Instagram Post',
   type: 'object',
+  icon: LuInstagram,
   fields: [
     defineField({
       name: 'url',

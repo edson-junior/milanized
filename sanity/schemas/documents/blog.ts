@@ -1,4 +1,4 @@
-import { LuExternalLink, LuLink, LuNewspaper } from 'react-icons/lu';
+import { LuExternalLink, LuImage, LuLink, LuNewspaper } from 'react-icons/lu';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export const externalLinks = {
@@ -111,6 +111,7 @@ export default defineType({
         },
         {
           type: 'image',
+          icon: LuImage,
           fields: [
             {
               type: 'text',

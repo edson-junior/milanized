@@ -2,6 +2,16 @@
 
 import { Blog } from '@/sanity.types';
 import { useQueryState, parseAsInteger } from 'nuqs';
+import { ReactNode } from 'react';
+import {
+  Pagination as PaginationComponent,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious
+} from '@/components/ui/pagination';
 
 type PaginationProps = React.ComponentProps<'div'> &
   Partial<{
@@ -39,9 +49,9 @@ export function usePagination({
   const totalPages = Math.ceil(items.length / itemsPerPage);
 
   const Pagination = ({
-    buttonClassName,
-    prevClassName,
-    nextClassName,
+    // buttonClassName,
+    // prevClassName,
+    // nextClassName,
     prev = 'Previous',
     next = 'Next',
     hidePage,
@@ -50,36 +60,125 @@ export function usePagination({
   }: PaginationProps) => {
     if ((atStart && atEnd) || !paginatedItems?.length) return null;
 
+    const renderPageNumbers = () => {
+      const items: ReactNode[] = [];
+      const maxVisiblePages = 5;
+
+      if (totalPages <= maxVisiblePages) {
+        for (let i = 1; i <= totalPages; i++) {
+          items.push(
+            <PaginationItem
+              key={i}
+              onClick={() => {
+                setPage(i);
+                onClick();
+              }}
+              className={`${page === i && 'text-red-50'}`}
+            >
+              <PaginationLink href="#" isActive={page === i}>
+                {i}
+              </PaginationLink>
+            </PaginationItem>
+          );
+        }
+      } else {
+        items.push(
+          <PaginationItem
+            onClick={() => {
+              setPage(1);
+              onClick();
+            }}
+            className={`${page === 1 && 'text-red-50'}`}
+          >
+            <PaginationLink href="#">1</PaginationLink>
+          </PaginationItem>
+        );
+
+        if (page > 3) {
+          items.push(
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+          );
+        }
+
+        const start = Math.max(2, page - 1);
+        const end = Math.min(totalPages - 1, page + 1);
+
+        for (let i = start; i <= end; i++) {
+          items.push(
+            <button
+              onClick={() => {
+                setPage(i);
+                onClick();
+              }}
+              className={`${page === i && 'text-red-50'}`}
+            >
+              {i}
+            </button>
+          );
+        }
+
+        if (page < totalPages - 2) {
+          items.push(
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+          );
+        }
+
+        items.push(
+          <button
+            onClick={() => {
+              setPage(totalPages);
+              onClick();
+            }}
+            className={`${page === totalPages && 'text-red-50'}`}
+          >
+            {totalPages}
+          </button>
+        );
+      }
+
+      return items;
+    };
+
     return (
-      <nav {...props}>
-        <button
-          className={prevClassName || buttonClassName}
-          onClick={() => {
-            onPrev();
-            onClick();
-          }}
-          disabled={atStart}
-        >
-          {prev}
-        </button>
+      <PaginationComponent {...props}>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              href="#"
+              aria-disabled={page === 1}
+              tabIndex={page === 1 ? -1 : undefined}
+              className={page === 1 ? 'hidden' : undefined}
+              onClick={() => {
+                onPrev();
+                onClick();
+              }}
+            >
+              {prev}
+            </PaginationPrevious>
+          </PaginationItem>
 
-        {!hidePage && (
-          <span>
-            {currentPage} of {totalPages}
-          </span>
-        )}
+          {!hidePage && renderPageNumbers()}
 
-        <button
-          className={nextClassName || buttonClassName}
-          onClick={() => {
-            onNext();
-            onClick();
-          }}
-          disabled={atEnd}
-        >
-          {next}
-        </button>
-      </nav>
+          <PaginationItem>
+            <PaginationNext
+              href="#"
+              aria-disabled={page === totalPages}
+              tabIndex={page === totalPages ? -1 : undefined}
+              className={page === totalPages ? 'hidden' : undefined}
+              onClick={() => {
+                onNext();
+                onClick();
+              }}
+            >
+              {next}
+            </PaginationNext>
+          </PaginationItem>
+        </PaginationContent>
+      </PaginationComponent>
     );
   };
 

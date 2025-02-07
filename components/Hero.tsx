@@ -1,4 +1,4 @@
-import React, { ComponentProps, ReactNode } from 'react';
+import { ComponentProps, ReactNode } from 'react';
 import Heading from './ui/heading';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';

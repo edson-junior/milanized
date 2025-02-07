@@ -1,4 +1,3 @@
-import React from 'react';
 import Heading from './ui/heading';
 import { PortableText } from '@portabletext/react';
 import { PortableTextTypes } from '@/sanity.types';

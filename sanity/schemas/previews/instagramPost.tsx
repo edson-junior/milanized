@@ -1,6 +1,3 @@
-// schemas/previews/instagramPost.js
-
-import React from 'react';
 import { InstagramEmbed } from 'react-social-media-embed';
 import { PreviewProps } from 'sanity';
 

@@ -12,12 +12,12 @@ import parse from 'html-react-parser';
 import Heading from './ui/heading';
 import { urlFor } from '@/sanity/lib/image';
 import { slugify } from '@/lib/utils';
-import { InstagramEmbed } from 'react-social-media-embed';
 import CallOutMessage from './CallOutMessage';
 import { TableRow } from '@sanity/table';
 import Table from './Table';
 import CTACollection from './CTACollection';
 import GygWidget from './GygWidget';
+import dynamic from 'next/dynamic';
 
 export interface Table {
   rows?: TableRow[];
@@ -68,6 +68,16 @@ export const PortableComponents: PortableTextComponents = {
       return <CallOutMessage {...value} />;
     },
     instagramPost: ({ value }) => {
+      const InstagramEmbed = dynamic(
+        () =>
+          import('react-social-media-embed').then(
+            (module) => module.InstagramEmbed
+          ),
+        {
+          ssr: false
+        }
+      );
+
       return <InstagramEmbed url={value.url} />;
     },
     tableRichText: ({ value }) => {

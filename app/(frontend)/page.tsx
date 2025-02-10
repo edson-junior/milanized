@@ -76,7 +76,7 @@ export default async function Home() {
             as="strong"
             className="inline-block text-3xl lg:text-6xl mb-8 lg:mb-4 lg:leading-[1.2] max-w-screen-sm"
           >
-            We will be delighted to be your guide!
+            We are delighted to be your guide!
           </Heading>
 
           <p className="leading-7 lg:leading-normal mb-8 lg:m-0">

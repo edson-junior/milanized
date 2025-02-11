@@ -192,6 +192,14 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
                 />
               )}
             </div>
+            {data.hasAffiliateLinks && (
+              <p>
+                This post might have affiliate links that help us write the
+                articles you love, at no extra cost to you.{' '}
+                <a href="#">Read our statement.</a>
+              </p>
+            )}
+
             {data?.content && <BlockRendererClient value={data?.content} />}
             {data?.author && (
               <div className="flex flex-col lg:flex-row items-center lg:items-start border shadow-sm p-6 mb-8 gap-6">

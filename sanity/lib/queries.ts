@@ -35,6 +35,7 @@ export const getPostBySlugQuery = groq`*[_type == 'blog' && metadata.slug.curren
   _updatedAt,
   title,
   summary,
+  hasAffiliateLinks,
   content[]{
     ...,
     markDefs[]{

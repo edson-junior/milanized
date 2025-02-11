@@ -136,6 +136,7 @@ export type Blog = {
   title?: string;
   metadata?: Metadata;
   isFeatured?: boolean;
+  hasAffiliateLinks?: boolean;
   summary?: string;
   author?: Author;
   featuredImage?: {

@@ -56,6 +56,10 @@ export default defineType({
       type: 'boolean'
     }),
     defineField({
+      name: 'hasAffiliateLinks',
+      type: 'boolean'
+    }),
+    defineField({
       name: 'summary',
       type: 'text',
       validation: (rule) => rule.required().min(10).max(170)

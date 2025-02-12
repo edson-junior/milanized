@@ -14,6 +14,7 @@ import { FaFacebookSquare, FaInstagram } from 'react-icons/fa';
 import PostList from '@/components/PostList';
 import Toc from '@/components/Toc';
 import SupportUsBanner from '@/components/SupportUsBanner';
+import Link from 'next/link';
 
 interface BlogDetailsProps {
   params: { slug: Slug };
@@ -193,11 +194,21 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
               )}
             </div>
             {data.hasAffiliateLinks && (
-              <p>
-                This post might have affiliate links that help us write the
-                articles you love, at no extra cost to you.{' '}
-                <a href="#">Read our statement.</a>
-              </p>
+              <>
+                <p className="text-xs leading-5 font-bold mb-8">
+                  This post might have affiliate links that help us keep the
+                  lights on, at no extra cost to you.{' '}
+                  <Link
+                    href="/disclaimer"
+                    target="_blank"
+                    className="text-blue-700 underline hover:no-underline"
+                  >
+                    Read our statement
+                  </Link>
+                  .
+                </p>
+                <hr className="mb-8 border-black w-10 mx-auto" />
+              </>
             )}
 
             {data?.content && <BlockRendererClient value={data?.content} />}

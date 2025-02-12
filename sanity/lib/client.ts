@@ -8,6 +8,7 @@ import {
   getArticlesPageQuery,
   getAuthorQuery,
   getContactPageQuery,
+  getDisclaimerPageQuery,
   getHomePageQuery,
   getPostBySlugQuery,
   getPrivacyPageQuery
@@ -86,6 +87,13 @@ export async function getPostBySlug(slug: Slug): Promise<Blog | undefined> {
 
 export async function getAboutPage(): Promise<Page | undefined> {
   const query = getAboutPageQuery;
+  const data = await sanityFetch({ query });
+
+  return data || {};
+}
+
+export async function getDisclaimerPage(): Promise<Page | undefined> {
+  const query = getDisclaimerPageQuery;
   const data = await sanityFetch({ query });
 
   return data || {};

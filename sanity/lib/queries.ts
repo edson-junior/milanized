@@ -125,3 +125,17 @@ export const getAboutPageQuery = groq`*[_type == 'page' && metadata.slug.current
     description
   }
 }`;
+
+export const getDisclaimerPageQuery = groq`*[_type == 'page' && metadata.slug.current == 'affiliate-link-disclaimer'][0] {
+  _id,
+  title,
+  content,
+  featuredImage,
+  metadata {
+    'slug': slug.current,
+    title,
+    noIndex,
+    image,
+    description
+  }
+}`;

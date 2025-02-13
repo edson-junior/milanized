@@ -42,10 +42,12 @@ export default function Toc({
   }, [headings]);
 
   return (
-    <div className="hidden lg:block mb-6">
-      <Heading className="block text-lg">Table of contents</Heading>
+    <nav className="hidden lg:block mb-6">
+      <Heading as="h2" className="block text-lg">
+        In this article
+      </Heading>
 
-      <ol className="anim-fade-to-b mt-2 leading-tight">
+      <ul className="anim-fade-to-b mt-2 leading-tight">
         {headings?.map(({ text, style }, index) => (
           <li
             className="border-l transition-all text-sm"
@@ -67,7 +69,7 @@ export default function Toc({
             </a>
           </li>
         ))}
-      </ol>
-    </div>
+      </ul>
+    </nav>
   );
 }

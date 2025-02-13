@@ -262,12 +262,16 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
           {data.relatedArticles && (
             <section>
               <Heading
-                as="h2"
+                as="h3"
                 className="text-xl lg:text-4xl py-0 lg:py-2 mb-2 scroll-m-20"
               >
                 Related Articles
               </Heading>
-              <PostList className="gap-4 mb-8" posts={data.relatedArticles} />
+              <PostList
+                variant="col"
+                className="gap-8 mb-8"
+                posts={data.relatedArticles}
+              />
             </section>
           )}
           <SupportUsBanner />

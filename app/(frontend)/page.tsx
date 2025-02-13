@@ -6,6 +6,8 @@ import { getAllPosts, getHomePage } from '@/sanity/lib/client';
 import PostList from '@/components/PostList';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import Hero from '@/components/Hero';
+import { FaFacebookSquare, FaInstagram } from 'react-icons/fa';
 
 export async function generateMetadata() {
   const homepage = await getHomePage();
@@ -106,6 +108,40 @@ export default async function Home() {
         />
         <FeaturedPost />
         <hr className="my-4" />
+        <Heading as="h2" className="text-xl lg:text-4xl py-2">
+          Most Popular Posts
+        </Heading>
+        <PostList posts={homepage.mostRead} />
+      </div>
+      <Hero
+        title="Connect with us"
+        subtitle="and stay up to date with our latest content"
+        className="[&>div]:items-center lg:h-96"
+        bgImage="/images/gae-aulenti-landscape.jpg"
+      >
+        <div className="flex gap-4">
+          <Button
+            asChild
+            className="bg-rose-600 hover:bg-rose-700 lg:text-lg lg:px-8 lg:py-6"
+          >
+            <Link href="https://www.instagram.com/milanize.me" target="_blank">
+              <FaInstagram /> Instagram
+            </Link>
+          </Button>
+          <Button
+            asChild
+            className="bg-blue-600 hover:bg-blue-700 lg:text-lg lg:px-8 lg:py-6"
+          >
+            <Link
+              href="https://www.facebook.com/MilanIzedOfficial"
+              target="_blank"
+            >
+              <FaFacebookSquare /> Facebook
+            </Link>
+          </Button>
+        </div>
+      </Hero>
+      <div className="max-w-7xl mx-auto p-4 lg:pt-12">
         <Heading as="h2" className="text-xl lg:text-4xl py-2">
           Latest Posts
         </Heading>

@@ -38,6 +38,13 @@ export default defineType({
           ]
         }
       ]
+    }),
+    defineField({
+      title: 'Most Read',
+      name: 'mostRead',
+      type: 'array',
+      of: [{ type: 'reference', to: { type: 'blog' } }],
+      hidden: ({ parent }) => parent?.title?.toLowerCase() !== 'homepage'
     })
   ],
   preview: {

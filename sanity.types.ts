@@ -77,6 +77,7 @@ export type Page = {
   title?: string;
   metadata?: Metadata;
   content?: PortableTextTypes;
+  mostRead: Blog[];
 };
 
 export type PortableTextTypes = Array<

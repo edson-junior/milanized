@@ -3,6 +3,17 @@ import groq from 'groq';
 export const getHomePageQuery = groq`*[_type == 'page' && metadata.slug.current == 'homepage'][0] {
   _id,
   title,
+  mostRead[]-> {
+    _id,
+    summary,
+    author->,
+    _createdAt,
+    featuredImage,
+    title,
+    metadata {
+      'slug': slug.current,
+    }
+  },
   metadata {
     'slug': slug.current,
     title,

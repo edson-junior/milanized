@@ -16,7 +16,7 @@ export function FeaturedImage({ featuredImage, ...props }: FeaturedImageProps) {
   if (featuredImage.caption) {
     return (
       <figure {...props}>
-        <div className="w-full aspect-video relative mb-2 overflow-hidden">
+        <div className="w-full aspect-video relative mb-2 overflow-hidden rounded-md">
           <Image
             fill
             priority

@@ -39,14 +39,14 @@ export default async function FeaturedPost() {
       className="mb-12 relative group grid items-center gap-x-8 gap-y-4 md:grid-cols-2"
     >
       {featuredImage && (
-        <figure className="max-md:full-bleed relative aspect-video overflow-hidden">
+        <figure className="max-md:full-bleed relative aspect-video overflow-hidden rounded-md">
           <Image
             fill
             sizes="(min-width: 1360px) 608px, (min-width: 780px) 44.64vw, calc(100vw - 32px)"
             src={urlFor(featuredImage).width(800).url()}
             alt={featuredImage.alt || ''}
             priority
-            className="object-cover transition duration-200 ease-in-out transform group-hover:scale-110 group-hover:brightness-110"
+            className="object-cover transition duration-200 ease-in-out transform group-hover:scale-110"
           />
         </figure>
       )}

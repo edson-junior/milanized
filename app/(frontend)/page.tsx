@@ -116,7 +116,7 @@ export default async function Home() {
       <Hero
         title="Connect with us"
         subtitle="and stay up to date with our latest content"
-        className="[&>div]:items-center lg:h-96"
+        className="[&>div]:items-center h-80 lg:h-96 lg:bg-bottom"
         bgImage="/images/gae-aulenti-landscape.jpg"
       >
         <div className="flex gap-4">

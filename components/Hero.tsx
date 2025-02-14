@@ -18,7 +18,7 @@ export default function Hero({
   return (
     <div
       className={cn(
-        'group block shadow-md mb-6 relative bg-no-repeat w-full h-52 lg:h-80 bg-cover bg-bottom bg-blend-darken before:block before:w-full before:h-full before:absolute before:bg-black/70',
+        'group block shadow-md mb-6 relative bg-no-repeat w-full h-52 lg:h-80 bg-cover bg-center bg-blend-darken before:block before:w-full before:h-full before:absolute before:bg-black/70',
         className
       )}
       style={{

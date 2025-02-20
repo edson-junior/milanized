@@ -145,7 +145,18 @@ export const PortableComponents: PortableTextComponents = {
       return (
         <Heading
           as="h3"
-          className="text-lg lg:text-2xl py-0 lg:py-2 scroll-m-20"
+          className="text-lg lg:text-2xl py-0 lg:py-2 mb-2 scroll-m-20"
+          id={slugify(toPlainText(value))}
+        >
+          {children}
+        </Heading>
+      );
+    },
+    h4: ({ value, children }) => {
+      return (
+        <Heading
+          as="h4"
+          className="text-md lg:text-xl py-0 lg:py-2 mb-2 scroll-m-20"
           id={slugify(toPlainText(value))}
         >
           {children}

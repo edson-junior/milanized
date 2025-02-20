@@ -15,9 +15,6 @@ import {
 
 type PaginationProps = React.ComponentProps<'div'> &
   Partial<{
-    buttonClassName: string;
-    prevClassName: string;
-    nextClassName: string;
     prev: React.ReactNode;
     next: React.ReactNode;
     hidePage: boolean;
@@ -49,9 +46,6 @@ export function usePagination({
   const totalPages = Math.ceil(items.length / itemsPerPage);
 
   const Pagination = ({
-    // buttonClassName,
-    // prevClassName,
-    // nextClassName,
     prev = 'Previous',
     next = 'Next',
     hidePage,

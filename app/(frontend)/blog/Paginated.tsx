@@ -33,7 +33,6 @@ export default function Paginated({
 
       <Pagination
         className="flex items-center justify-center gap-4 bg-canvas p-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] [&_span]:tabular-nums"
-        buttonClassName="hover:underline disabled:opacity-20"
         onClick={scrollToList}
       />
     </div>

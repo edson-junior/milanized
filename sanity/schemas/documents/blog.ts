@@ -142,6 +142,24 @@ export default defineType({
         }),
         defineArrayMember({
           type: 'ctas'
+        }),
+        defineField({
+          name: 'gygSnippet',
+          title: 'GYG Snippet',
+          type: 'object',
+          fields: [
+            {
+              type: 'text',
+              name: 'title',
+              title: 'Title',
+              rows: 1
+            },
+            {
+              type: 'code',
+              name: 'snippet',
+              title: 'Snippet'
+            }
+          ]
         })
       ]
     }),

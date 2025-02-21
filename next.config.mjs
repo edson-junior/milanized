@@ -11,6 +11,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'cdn.sanity.io',
         port: ''
+      },
+      {
+        protocol: 'https',
+        hostname: 'widgets.tiqets.com',
+        port: ''
       }
     ]
   },

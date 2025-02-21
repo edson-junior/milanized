@@ -17,6 +17,7 @@ import CallOutMessage from './CallOutMessage';
 import { TableRow } from '@sanity/table';
 import Table from './Table';
 import CTACollection from './CTACollection';
+import GygWidget from './GygWidget';
 
 export interface Table {
   rows?: TableRow[];
@@ -69,6 +70,9 @@ export const PortableComponents: PortableTextComponents = {
     },
     tableRichText: ({ value }) => {
       return <Table value={value} />;
+    },
+    gygSnippet: ({ value }) => {
+      return <GygWidget {...value} />;
     }
   },
 

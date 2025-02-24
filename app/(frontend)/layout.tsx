@@ -8,7 +8,6 @@ import NextTopLoader from 'nextjs-toploader';
 import ConsentBanner from '@/components/ConsentBanner';
 import { cookies } from 'next/headers';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
-import Script from 'next/script';
 
 const openSans = Open_Sans({ subsets: ['latin'] });
 
@@ -26,17 +25,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 
   return (
     <html lang="en-GB" className="lg:scroll-smooth" suppressHydrationWarning>
-      {process.env.NODE_ENV === 'production' && (
-        <head>
-          <Script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`}
-            crossOrigin="anonymous"
-            strategy="lazyOnload"
-          />
-        </head>
-      )}
-
       <body className={`${openSans.className} bg-black`}>
         <NextTopLoader color="#b91c1c" showSpinner={false} />
         <Header />

@@ -73,7 +73,7 @@ export default async function Search({ searchParams }: SearchPageProps) {
   return (
     <>
       <Hero
-        title={`Search results for: ${searchString}`}
+        mainTitle={`Search results for: ${searchString}`}
         subtitle={`Not what you're looking for? Give it another go! `}
       />
       <div className="max-w-7xl mx-auto px-4 py-4">

@@ -50,7 +50,7 @@ export default async function Articles() {
     <>
       {articles?.title && (
         <Hero
-          title={articles?.title}
+          mainTitle={articles?.title}
           subtitle="Our latest posts from old to new! 🚀"
         />
       )}

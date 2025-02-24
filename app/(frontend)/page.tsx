@@ -114,7 +114,11 @@ export default async function Home() {
         <PostList posts={homepage.mostRead} />
       </div>
       <Hero
-        title="Connect with us"
+        mainTitle={
+          <Heading as="h2" className="text-2xl lg:text-5xl">
+            Connect with us
+          </Heading>
+        }
         subtitle="and stay up to date with our latest content"
         className="[&>div]:items-center h-80 lg:h-96 lg:bg-bottom"
         bgImage="/images/gae-aulenti-landscape.jpg"

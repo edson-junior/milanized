@@ -49,7 +49,7 @@ export default async function Home() {
       <>
         {data.title && (
           <Hero
-            title={data.title}
+            mainTitle={data.title}
             subtitle="Allow us to introduce ourselves! 👋"
           />
         )}

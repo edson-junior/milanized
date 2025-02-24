@@ -47,7 +47,7 @@ export default async function Contact() {
     <>
       {contact?.title && (
         <Hero
-          title={contact.title}
+          mainTitle={contact.title}
           subtitle="We'll reply as soon as possible! 📨"
         />
       )}

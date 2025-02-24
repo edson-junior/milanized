@@ -1,17 +1,18 @@
-import React, { HTMLAttributes } from 'react';
+import React, { ComponentProps, ReactNode } from 'react';
 import Heading from './ui/heading';
 import { cn } from '@/lib/utils';
 
-interface HeroProps extends HTMLAttributes<HTMLElement> {
-  title: string;
-  subtitle?: string;
-  bgImage?: string;
-}
+type HeroProps = ComponentProps<'div'> &
+  Partial<{
+    mainTitle: string | ReactNode;
+    subtitle?: string;
+    bgImage?: string;
+  }>;
 
 export default function Hero({
   className,
   children,
-  title,
+  mainTitle,
   subtitle,
   bgImage = '/images/duomo-di-milano-by-night.jpeg'
 }: HeroProps) {
@@ -26,9 +27,13 @@ export default function Hero({
       }}
     >
       <div className="text-white flex align-middle h-full flex-col justify-center max-w-7xl mx-auto px-4 py-4 relative">
-        <Heading as="h1" className="text-2xl lg:text-5xl">
-          {title}
-        </Heading>
+        {typeof mainTitle === 'string' && (
+          <Heading as="h1" className="text-2xl lg:text-5xl">
+            {mainTitle}
+          </Heading>
+        )}
+
+        {typeof mainTitle !== 'string' && mainTitle}
         {subtitle && <p className="leading-7 mb-8">{subtitle}</p>}
         {children}
       </div>

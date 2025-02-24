@@ -48,7 +48,7 @@ export default async function Home() {
       <>
         {data.title && (
           <Hero
-            title={data.title}
+            mainTitle={data.title}
             subtitle="We use affiliate links. Learn what this means for you 😉"
           />
         )}

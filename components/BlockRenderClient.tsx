@@ -48,7 +48,7 @@ export const PortableComponents: PortableTextComponents = {
         </figure>
       ) : (
         <Image
-          className="mb-2 object-cover transition duration-200 ease-in-out transform hover:scale-110 hover:brightness-110"
+          className="mb-2 object-cover transition duration-200 ease-in-out transform hover:scale-110"
           width={1280}
           height={1280}
           loading="lazy"

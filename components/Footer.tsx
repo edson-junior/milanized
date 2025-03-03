@@ -1,4 +1,5 @@
-import { FaFacebookSquare, FaInstagram } from 'react-icons/fa';
+import { FaFacebookSquare, FaInstagram, FaPinterest } from 'react-icons/fa';
+import { FaThreads } from 'react-icons/fa6';
 import Link from 'next/link';
 import { LuHeart, LuRss } from 'react-icons/lu';
 
@@ -12,6 +13,16 @@ const links = [
     href: 'https://www.instagram.com/milanize.me',
     text: 'Instagram',
     icon: <FaInstagram />
+  },
+  {
+    href: 'https://www.threads.net/@milanize.me',
+    text: 'Threads',
+    icon: <FaThreads />
+  },
+  {
+    href: 'https://www.pinterest.com/milanizedofficial/',
+    text: 'Pinterest',
+    icon: <FaPinterest />
   },
   {
     href: 'https://buymeacoffee.com/milanized',

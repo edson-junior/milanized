@@ -2,13 +2,20 @@ import Link from 'next/link';
 import { ComponentProps } from 'react';
 
 interface Link {
-  _key: string;
   _type: string;
-  internal?: string;
+  internal?: Internal | null;
   external?: string;
   blank?: boolean;
   label: string;
   type: string;
+}
+
+interface Internal {
+  metadata: Metadata;
+}
+
+interface Metadata {
+  slug: string;
 }
 
 interface CTAProps extends ComponentProps<'a'> {
@@ -23,7 +30,12 @@ export default function CTA({ link, className, children, ...rest }: CTAProps) {
   };
 
   if (link?.type === 'internal' && link.internal) {
-    return <Link href={link.internal} {...props} />;
+    return (
+      <Link
+        href={`${process.env.NEXT_PUBLIC_CLIENT_URL}/blog/${link.internal.metadata.slug}`}
+        {...props}
+      />
+    );
   }
 
   if (link?.type === 'external' && link.external) {

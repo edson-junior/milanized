@@ -9,6 +9,8 @@ import links from './objects/links';
 import linksList from './objects/links-list';
 import category from './documents/category';
 import table from './documents/table';
+import cta from './objects/cta';
+import ctasList from './objects/ctas-list';
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -21,6 +23,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     instagramPost,
     table,
     links,
-    linksList
+    linksList,
+    cta,
+    ctasList
   ]
 };

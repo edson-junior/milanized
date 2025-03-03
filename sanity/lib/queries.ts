@@ -52,6 +52,17 @@ export const getPostBySlugQuery = groq`*[_type == 'blog' && metadata.slug.curren
     markDefs[]{
       ...,
       _type == "internalLink" => { "slug": @.reference-> metadata.slug },
+    },
+    ctas[]{
+      ...,
+      link {
+        ...,
+        internal-> {
+          metadata {
+            'slug': slug.current
+          }
+        }
+      }
     }
   },
   featuredImage,

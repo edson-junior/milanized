@@ -131,12 +131,17 @@ export default defineType({
             }
           ]
         },
-        { type: 'instagramPost' },
+        defineArrayMember({
+          type: 'instagramPost'
+        }),
         defineArrayMember({
           type: 'tableRichText'
         }),
         defineArrayMember({
           type: 'messages'
+        }),
+        defineArrayMember({
+          type: 'ctas'
         })
       ]
     }),

@@ -16,6 +16,7 @@ import { InstagramEmbed } from 'react-social-media-embed';
 import CallOutMessage from './CallOutMessage';
 import { TableRow } from '@sanity/table';
 import Table from './Table';
+import CTACollection from './CTACollection';
 
 export interface Table {
   rows?: TableRow[];
@@ -57,12 +58,8 @@ export const PortableComponents: PortableTextComponents = {
         />
       );
     },
-    callToAction: ({ value, isInline }) => {
-      return isInline ? (
-        <a href={value.url}>{value.text}</a>
-      ) : (
-        <div className="callToAction">{value.text}</div>
-      );
+    ctas: ({ value }) => {
+      return <CTACollection {...value} />;
     },
     messages: ({ value }) => {
       return <CallOutMessage {...value} />;

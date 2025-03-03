@@ -31,7 +31,7 @@ export default defineType({
     defineField({
       name: INTERNAL_LINK,
       type: 'reference',
-      to: [{ type: 'blog' }, { type: 'page' }],
+      to: [{ type: 'blog' }],
       hidden: ({ parent }) => parent?.type !== INTERNAL_LINK
     }),
     defineField({

@@ -4,7 +4,7 @@ import { LuInstagram } from 'react-icons/lu';
 
 export default defineType({
   name: 'instagramPost',
-  title: 'Instagram Post',
+  title: 'Instagram',
   type: 'object',
   icon: LuInstagram,
   fields: [

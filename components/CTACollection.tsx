@@ -42,7 +42,7 @@ export default function CTACollection({ ctas }: CTAsProps) {
           variant={cta.style}
           className={cn(
             cta.style === 'default' && 'bg-emerald-500 hover:bg-emerald-700',
-            'rounded-lg font-semibold py-6 w-72'
+            'rounded-lg font-semibold py-6 w-full lg:w-72'
           )}
           key={cta._key}
         >

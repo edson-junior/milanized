@@ -28,7 +28,7 @@ export default function GygWidget({ title, snippet }: GygWidgetProps) {
         {title}
       </Heading>
 
-      <div className="-mx-3">{parse(snippet.code)}</div>
+      <div className="-mx-3 mb-8">{parse(snippet.code)}</div>
 
       <Script defer src="https://widgets.tiqets.com/loader.js"></Script>
     </>

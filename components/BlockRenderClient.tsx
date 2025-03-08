@@ -78,7 +78,9 @@ export const PortableComponents: PortableTextComponents = {
 
   list: {
     bullet: ({ children }) => (
-      <ul className="list-disc list-outside ms-4 mb-6">{children}</ul>
+      <ul className="flex flex-col list-disc gap-2 list-outside ms-4 mb-6">
+        {children}
+      </ul>
     )
   },
 

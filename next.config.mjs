@@ -26,6 +26,11 @@ const nextConfig = {
           '/blog/essential-tips-for-moving-to-italy-things-to-know-before-moving',
         destination: '/blog/how-to-move-to-italy',
         permanent: true
+      },
+      {
+        source: '/blog/the-pros-and-cons-of-having-a-car-in-milan',
+        destination: '/blog/driving-in-milan',
+        permanent: true
       }
     ];
   }

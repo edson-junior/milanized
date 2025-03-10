@@ -13,7 +13,6 @@ import CTA from '@/components/CTA';
 import { FaFacebookSquare, FaInstagram } from 'react-icons/fa';
 import PostList from '@/components/PostList';
 import Toc from '@/components/Toc';
-import SupportUsBanner from '@/components/SupportUsBanner';
 import Link from 'next/link';
 
 interface BlogDetailsProps {
@@ -274,7 +273,6 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
               />
             </section>
           )}
-          <SupportUsBanner />
         </div>
         {data.headings && (
           <aside className="lg:w-96 h-auto lg:h-full lg:sticky lg:top-20">

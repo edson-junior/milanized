@@ -33,7 +33,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           <NuqsAdapter>{children}</NuqsAdapter>
         </div>
         <Footer />
-        {!consentCookie?.name && <ConsentBanner />}
+        {process.env.NODE_ENV === 'production' && !consentCookie?.name && (
+          <ConsentBanner />
+        )}
       </body>
       {process.env.NODE_ENV === 'production' &&
         consentCookie?.value === 'true' && (

@@ -125,7 +125,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
   const estimatedReadingTime = data.estimatedReadingTime;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-4">
+    <div className="max-w-7xl mx-auto px-4 pt-8 lg:pt-16 pb-4">
       <main className="flex flex-col lg:flex-row gap-8">
         <div className="flex-1 lg:w-64">
           <article>

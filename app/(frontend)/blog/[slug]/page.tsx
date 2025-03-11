@@ -14,6 +14,7 @@ import { FaFacebookSquare, FaInstagram } from 'react-icons/fa';
 import PostList from '@/components/PostList';
 import Toc from '@/components/Toc';
 import Link from 'next/link';
+import CallOutMessage from '@/components/CallOutMessage';
 
 interface BlogDetailsProps {
   params: { slug: Slug };
@@ -138,50 +139,33 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
                   {data.title}
                 </Heading>
 
-                <p className="mb-8 font-bold">{data.summary}</p>
+                <p className="mb-8">{data.summary}</p>
 
-                <div className="flex gap-2 flex-col">
-                  <div className="flex gap-2">
-                    {data?.author?.image && (
-                      <Image
-                        className="block rounded-full overflow-hidden"
-                        width={24}
-                        height={24}
-                        src={urlFor(data?.author?.image).width(30).url()}
-                        alt={data?.author?.name || ''}
-                      />
-                    )}
-
-                    <strong className="inline-flex font-bold">
-                      {data?.author?.name}
-                    </strong>
-                  </div>
-
-                  {publishedAt && (
-                    <div>
+                <div className="flex text-xs items-center [&>span]:inline-flex [&>span]:after:inline-flex [&>span]:after:self-center [&>span]:after:mx-2 [&>span:last-child]:after:hidden [&>span]:after:w-1 [&>span]:after:h-1 [&>span]:after:bg-black [&>span]:after:rounded-full">
+                  {updatedAt &&
+                  publishedAt?.getDate() !== updatedAt?.getDate() ? (
+                    <span>
+                      {'Last updated: '}
+                      {new Intl.DateTimeFormat('en-GB', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      }).format(updatedAt)}
+                    </span>
+                  ) : publishedAt ? (
+                    <span>
                       {new Intl.DateTimeFormat('en-GB', {
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric'
                       }).format(publishedAt)}
-                    </div>
-                  )}
-                  {updatedAt &&
-                    publishedAt?.getDate() !== updatedAt?.getDate() && (
-                      <div className="text-xs">
-                        {'Last updated: '}
-                        {new Intl.DateTimeFormat('en-GB', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        }).format(updatedAt)}
-                      </div>
-                    )}
+                    </span>
+                  ) : null}
                   {estimatedReadingTime && (
-                    <div className="text-xs flex items-center gap-2">
+                    <span className="flex items-center">
                       <LuClock2 className="w-4" />
                       {`${Math.ceil(estimatedReadingTime)} minute read`}
-                    </div>
+                    </span>
                   )}
                 </div>
               </div>
@@ -193,21 +177,20 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
               )}
             </div>
             {data.hasAffiliateLinks && (
-              <>
-                <p className="text-xs leading-5 font-bold mb-8">
-                  This post might have affiliate links that help us keep the
-                  lights on, at no extra cost to you.{' '}
+              <CallOutMessage messageType="success">
+                <p className="text-xs leading-5 font-semibold">
+                  This post might have affiliate links. Buy purchasing anything
+                  through our links you will be helping support us, at no extra
+                  cost to you. <br />
                   <Link
                     href="/disclaimer"
                     target="_blank"
-                    className="text-blue-700 underline hover:no-underline"
+                    className="text-blue-700 underline hover:no-underline text-xs leading-5"
                   >
                     Read our statement
                   </Link>
-                  .
                 </p>
-                <hr className="mb-8 border-black w-10 mx-auto" />
-              </>
+              </CallOutMessage>
             )}
 
             {data?.content && <BlockRendererClient value={data?.content} />}

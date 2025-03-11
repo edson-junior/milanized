@@ -6,17 +6,23 @@ import { cn } from '@/lib/utils';
 import { PortableComponents } from './BlockRenderClient';
 
 interface CallOutMessageProps {
-  title: string;
-  text: PortableTextTypes;
+  title?: string;
+  text?: PortableTextTypes;
   messageType: string;
+  children?: React.ReactNode;
 }
 
 export default function CallOutMessage({
   title,
   text,
-  messageType
+  messageType,
+  children
 }: CallOutMessageProps) {
   const success = `${messageType === 'success' && 'border-green-700 bg-green-50'}`;
+
+  if (!text && !children) {
+    throw new Error('you need either a `text` or a `children` parameter.');
+  }
 
   return (
     <div
@@ -25,14 +31,18 @@ export default function CallOutMessage({
         success
       )}
     >
-      <Heading
-        as="strong"
-        className="flex items-center text-lg lg:text-xl gap-1 mb-2"
-      >
-        <span>{title}</span>
-      </Heading>
-
-      <PortableText value={text} components={PortableComponents} />
+      {title && (
+        <Heading
+          as="strong"
+          className="flex items-center text-lg lg:text-xl gap-1 mb-2"
+        >
+          <span>{title}</span>
+        </Heading>
+      )}
+      {children && !text && children}
+      {text && !children && (
+        <PortableText value={text} components={PortableComponents} />
+      )}
     </div>
   );
 }

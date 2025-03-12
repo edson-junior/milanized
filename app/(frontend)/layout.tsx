@@ -5,8 +5,7 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer';
 import { GoogleTagManager } from '@next/third-parties/google';
 import NextTopLoader from 'nextjs-toploader';
-// import ConsentBanner from '@/components/ConsentBanner';
-import { cookies } from 'next/headers';
+
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 const openSans = Open_Sans({ subsets: ['latin'] });
@@ -20,9 +19,6 @@ type RootLayoutProps = Readonly<{
 }>;
 
 export default async function RootLayout({ children }: RootLayoutProps) {
-  const cookieStore = cookies();
-  const consentCookie = cookieStore.get('consentCookie');
-
   return (
     <html lang="en-GB" className="lg:scroll-smooth" suppressHydrationWarning>
       <body className={`${openSans.className} bg-black`}>
@@ -33,14 +29,10 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           <NuqsAdapter>{children}</NuqsAdapter>
         </div>
         <Footer />
-        {/* {process.env.NODE_ENV === 'production' && !consentCookie?.name && (
-          <ConsentBanner />
-        )} */}
       </body>
-      {process.env.NODE_ENV === 'production' &&
-        consentCookie?.value === 'true' && (
-          <GoogleTagManager gtmId={`${process.env.NEXT_PUBLIC_GTM_ID}`} />
-        )}
+      {process.env.NODE_ENV === 'production' && (
+        <GoogleTagManager gtmId={`${process.env.NEXT_PUBLIC_GTM_ID}`} />
+      )}
     </html>
   );
 }

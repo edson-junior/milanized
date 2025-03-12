@@ -5,7 +5,7 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer';
 import { GoogleTagManager } from '@next/third-parties/google';
 import NextTopLoader from 'nextjs-toploader';
-import ConsentBanner from '@/components/ConsentBanner';
+// import ConsentBanner from '@/components/ConsentBanner';
 import { cookies } from 'next/headers';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
@@ -33,9 +33,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           <NuqsAdapter>{children}</NuqsAdapter>
         </div>
         <Footer />
-        {process.env.NODE_ENV === 'production' && !consentCookie?.name && (
+        {/* {process.env.NODE_ENV === 'production' && !consentCookie?.name && (
           <ConsentBanner />
-        )}
+        )} */}
       </body>
       {process.env.NODE_ENV === 'production' &&
         consentCookie?.value === 'true' && (

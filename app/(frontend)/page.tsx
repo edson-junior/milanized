@@ -71,26 +71,29 @@ export default async function Home() {
 
   return (
     <main>
-      <section className="bg-neutral-950">
-        <div className="text-white h-full flex-col max-w-7xl mx-auto px-4 pt-14 lg:pt-20 pb-14 lg:pb-20 relative">
-          <h1 className="text-gray-400 mb-4">Come explore Milan with us</h1>
+      <section
+        className="bg-neutral-950 before:block before:w-full before:h-full before:absolute before:bg-black/60"
+        style={{
+          backgroundImage: 'url("/images/nir-himi-L6C8EFsJbzo-unsplash.jpg")',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          position: 'relative'
+        }}
+      >
+        <div className="text-white h-full flex-col max-w-7xl text-center mx-auto px-4 pt-14 lg:pt-20 pb-14 lg:pb-20 relative">
           <Heading
-            as="strong"
-            className="inline-block text-3xl lg:text-6xl mb-8 lg:mb-4 lg:leading-[1.2] max-w-screen-sm"
+            as="h1"
+            className="inline-block text-3xl lg:text-6xl mb-8 lg:mb-4 lg:leading-[1.2] max-w-screen-sm [text-shadow:_0px_1px_1px_black] lg:[text-shadow:_0px_2px_2px_black]"
           >
-            We are delighted to be your guide!
+            We are here to inspire your next adventure!
           </Heading>
 
-          <p className="leading-7 lg:leading-normal mb-8 lg:m-0">
-            Milanized! is an online guide to everything Milan, created by and
-            for (not only) internationals who chose this amazing city as their
-            base.
+          <p className="leading-7 lg:text-lg lg:leading-normal mb-8 [text-shadow:_0px_1px_1px_black] lg:[text-shadow:_0px_2px_2px_black]">
+            We are your ultimate online guide to attractions, food and drink,
+            and things to do to inspire you when planning your holiday!
           </p>
-          <p className="leading-7 lg:leading-normal mb-8">
-            Find the resources you need for the perfect trip, look up
-            information on life in Milan in general, and immerse yourself in
-            Italian culture.
-          </p>
+
           <Button
             asChild
             size="lg"

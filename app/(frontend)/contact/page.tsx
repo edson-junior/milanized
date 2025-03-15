@@ -48,11 +48,12 @@ export default async function Contact() {
       {contact?.title && (
         <Hero
           mainTitle={contact.title}
-          subtitle="We'll reply as soon as possible! 📨"
+          subtitle="We'll reply as soon as possible!"
+          bgImage="/images/nir-himi-tPvnpMkzET8-unsplash.jpg"
         />
       )}
 
-      <div className="max-w-7xl mx-auto px-4 py-4">
+      <div className="max-w-4xl lg:text-lg mx-auto px-4 py-4">
         <ContactForm />
       </div>
     </>

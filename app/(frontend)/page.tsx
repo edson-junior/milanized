@@ -97,7 +97,7 @@ export default async function Home() {
           <Button
             asChild
             size="lg"
-            className="text-md py-4 px-8 bg-blue-600 hover:bg-blue-700 h-auto"
+            className="text-md bg-blue-600 hover:bg-blue-700"
           >
             <Link href="/blog">Start exploring</Link>
           </Button>

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import BlockRendererClient from '@/components/BlockRenderClient';
-import Heading from '@/components/ui/heading';
 import { getAboutPage } from '@/sanity/lib/client';
 import Hero from '@/components/Hero';
 
@@ -50,15 +49,12 @@ export default async function Home() {
         {data.title && (
           <Hero
             mainTitle={data.title}
-            subtitle="Allow us to introduce ourselves! 👋"
+            subtitle="Allow us to introduce ourselves!"
+            bgImage="/images/nir-himi-NP3anTPI5oA-unsplash.jpg"
           />
         )}
 
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <Heading as="h2" className="text-xl lg:text-4xl mb-4">
-            {/* {data.title} */}
-            {`About us`}
-          </Heading>
+        <div className="max-w-4xl lg:text-lg mx-auto px-4 py-4">
           {data.content && <BlockRendererClient value={data.content} />}
         </div>
       </>

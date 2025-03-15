@@ -51,7 +51,8 @@ export default async function Articles() {
       {articles?.title && (
         <Hero
           mainTitle={articles?.title}
-          subtitle="Our latest posts from old to new! 🚀"
+          subtitle="Our latest posts from old to new. New articles every week."
+          bgImage="/images/nir-himi-02LrPeeNzsA-unsplash.jpg"
         />
       )}
 

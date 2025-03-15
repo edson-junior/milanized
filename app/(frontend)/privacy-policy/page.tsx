@@ -47,7 +47,11 @@ export default async function PrivacyPolicy() {
     return (
       <>
         {data.title && (
-          <Hero mainTitle={data.title} subtitle="Last Updated: 18/07/2024" />
+          <Hero
+            mainTitle={data.title}
+            subtitle="Last Updated: 18/07/2024"
+            bgImage="/images/nir-himi-Z1bmf6nNVkc-unsplash.jpg"
+          />
         )}
         <div className="max-w-7xl mx-auto px-4 py-4">
           {data.content && <BlockRendererClient value={data.content} />}

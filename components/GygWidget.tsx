@@ -19,6 +19,8 @@ interface Snippet {
 }
 
 export default function GygWidget({ title, snippet }: GygWidgetProps) {
+  const isTiqets = /tiqets/gm.test(snippet.code);
+
   return (
     <>
       <Heading
@@ -28,9 +30,18 @@ export default function GygWidget({ title, snippet }: GygWidgetProps) {
         {title}
       </Heading>
 
-      <div className="-mx-3 mb-8">{parse(snippet.code)}</div>
+      <div className={isTiqets ? '-mx-3 mb-8' : ''}>{parse(snippet.code)}</div>
 
-      <Script defer src="https://widgets.tiqets.com/loader.js"></Script>
+      {isTiqets ? (
+        <Script defer src="https://widgets.tiqets.com/loader.js" />
+      ) : (
+        <Script
+          async
+          defer
+          src="https://widget.getyourguide.com/dist/pa.umd.production.min.js"
+          data-gyg-partner-id="JHFFJXC"
+        />
+      )}
     </>
   );
 }

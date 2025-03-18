@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Hero from '@/components/Hero';
 import { FaFacebookSquare, FaInstagram } from 'react-icons/fa';
+import Image from 'next/image';
 
 export async function generateMetadata() {
   const homepage = await getHomePage();
@@ -71,16 +72,14 @@ export default async function Home() {
 
   return (
     <main>
-      <section
-        className="bg-neutral-950 before:block before:w-full before:h-full before:absolute before:bg-black/60"
-        style={{
-          backgroundImage: 'url("/images/nir-himi-L6C8EFsJbzo-unsplash.jpg")',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          position: 'relative'
-        }}
-      >
+      <section className="bg-neutral-950 relative">
+        <Image
+          src="/images/nir-himi-L6C8EFsJbzo-unsplash.jpg"
+          fill
+          alt="mountains"
+          sizes="(min-width: 680px) 100vw, (min-width: 520px) calc(30vw + 462px), (min-width: 400px) 684px, calc(-148.75vw + 1233px)"
+          className="object-cover brightness-[0.40]"
+        />
         <div className="text-white h-full flex-col max-w-7xl text-center mx-auto px-4 pt-14 lg:pt-20 pb-14 lg:pb-20 relative">
           <Heading
             as="h1"

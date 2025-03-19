@@ -66,7 +66,15 @@ export const getPostBySlugQuery = groq`*[_type == 'blog' && metadata.slug.curren
     }
   },
   featuredImage,
-  author->,
+  author-> {
+    name,
+    metadata {
+      'slug': slug.current
+    },
+    image,
+    bio,
+    social,
+  },
   'headings': content[style in ['h2', 'h3', 'h4', 'h5', 'h6']] {
     style,
     'text': pt::text(@)

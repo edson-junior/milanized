@@ -84,9 +84,9 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
     inLanguage: 'en-GB',
     author: {
       '@type': 'Person',
-      '@id': `${process.env.CLIENT_URL}/author/${data?.author?.metadata?.slug?.current}/#Person`,
+      '@id': `${process.env.CLIENT_URL}/author/${data?.author?.metadata?.slug}/#Person`,
       name: data?.author?.name,
-      url: `${process.env.CLIENT_URL}/author/${data?.author?.metadata?.slug?.current}`,
+      url: `${process.env.CLIENT_URL}/author/${data?.author?.metadata?.slug}`,
       image: {
         '@type': 'ImageObject',
         '@id': data?.author?.image
@@ -199,7 +199,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
                 <div className="flex flex-col lg:flex-row items-center lg:items-start border shadow-sm p-6 mb-8 gap-6">
                   {data?.author?.image && (
                     <Link
-                      href={`${process.env.CLIENT_URL}/author/${data?.author?.metadata?.slug?.current}`}
+                      href={`${process.env.NEXT_PUBLIC_CLIENT_URL}/author/${data?.author?.metadata?.slug}`}
                     >
                       <Image
                         className="block rounded-full overflow-hidden"
@@ -213,7 +213,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
 
                   <div className="text-center text-sm lg:text-left">
                     <Link
-                      href={`${process.env.CLIENT_URL}/author/${data?.author?.metadata?.slug?.current}`}
+                      href={`${process.env.NEXT_PUBLIC_CLIENT_URL}/author/${data?.author?.metadata?.slug}`}
                       className="inline-flex font-bold mb-4"
                     >
                       {data?.author?.name}

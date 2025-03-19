@@ -1,16 +1,62 @@
 import Heading from '@/components/ui/heading';
 import Image from 'next/image';
 import { Slug } from '@/sanity.types';
+import type { Metadata } from 'next';
 import BlockRendererClient from '@/components/BlockRenderClient';
 import { getAuthor } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
+import { Suspense } from 'react';
+import Paginated from '../../blog/Paginated';
+import { Skeleton } from '@/components/ui/skeleton';
+import Hero from '@/components/Hero';
+import { socialLinks } from '@/components/Footer';
+import Link from 'next/link';
 
 interface AuthorProps {
   params: Promise<{ slug: Slug }>;
 }
 
+export async function generateMetadata({ params }: AuthorProps) {
+  const { slug } = await params;
+  const author = await getAuthor(slug);
+
+  if (!author) {
+    return {};
+  }
+
+  const metaData: Metadata = {
+    title: author.metadata?.title,
+    description: author.metadata?.description,
+    robots:
+      'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
+    alternates: {
+      canonical: `${process.env.CLIENT_URL}/author/${slug}`,
+      types: {
+        'application/rss+xml': `${process.env.CLIENT_URL}/blog/rss.xml`
+      }
+    },
+    openGraph: {
+      url: `${process.env.CLIENT_URL}/author/${slug}`,
+      title: author.metadata?.title,
+      description: author.metadata?.description,
+      type: 'website',
+      images: {
+        url: `${process.env.CLIENT_URL}/opengraph-logo.png`,
+        secureUrl: `${process.env.CLIENT_URL}/opengraph-logo.png`,
+        alt: author.metadata?.title,
+        width: 360,
+        height: 360,
+        type: 'image'
+      }
+    }
+  };
+
+  return metaData;
+}
+
 export default async function Author({ params }: AuthorProps) {
   const { slug } = await params;
+  const itemsPerPage = 9;
   const author = await getAuthor(slug);
 
   if (!author) {
@@ -19,13 +65,14 @@ export default async function Author({ params }: AuthorProps) {
 
   return (
     <>
-      <div className="max-w-7xl mx-auto px-4 py-4">
-        <Heading as="h1" className="text-2xl lg:text-5xl">
-          {author.name}
-        </Heading>
+      <Hero
+        mainTitle={author?.name}
+        bgImage="/images/federico-di-dio-photography-J0xFABbh9hA-unsplash.jpg"
+        className="h-auto lg:h-auto [&>div]:h-auto [&>div]:pt-6 [&>div]:px-8 [&>div]:lg:pt-8 [&>div]:pb-8 [&>div]:lg:pb-10 [&>div>h1]:mb-4"
+      >
         {author.image && (
           <Image
-            className="mb-2"
+            className="size-[100px] inline-flex self-center rounded-full overflow-hidden border-2 border-white -order-1 mb-4"
             width={100}
             height={100}
             priority
@@ -33,8 +80,64 @@ export default async function Author({ params }: AuthorProps) {
             alt={author.name || ''}
           />
         )}
-        {author.bio && <BlockRendererClient value={author.bio} />}
-        {/* TODO: render list of blogposts published by this author */}
+        {author.bio && (
+          <div className="max-w-4xl mx-auto lg:text-lg">
+            <div className="flex text-lg justify-center items-center gap-4 mb-4">
+              {socialLinks
+                .filter(
+                  (item) =>
+                    !item.text.includes('Feed') && !item.text.includes('Coffee')
+                )
+                .map(({ href, text, icon }) => {
+                  return (
+                    <Link
+                      className="text-2xl"
+                      key={text}
+                      href={href}
+                      target="_blank"
+                      aria-label={text}
+                    >
+                      {icon}
+                    </Link>
+                  );
+                })}
+            </div>
+            <BlockRendererClient value={author.bio} />
+          </div>
+        )}
+      </Hero>
+      <div className="max-w-7xl mx-auto px-4 py-4">
+        {!author?.posts ? (
+          <p>there are no blogposts</p>
+        ) : (
+          <Suspense
+            fallback={
+              <div className="max-w-7xl mx-auto px-4 py-4">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 gap-y-6">
+                  {Array.from({ length: itemsPerPage ?? 6 }).map((_, i) => (
+                    <div key={i} className="flex flex-col">
+                      <Skeleton className="h-[200px]" />
+                      <div className="space-y-2 mt-8">
+                        <Skeleton className="h-4 w-[250px]" />
+                        <Skeleton className="h-4 w-[200px]" />
+                      </div>
+                      <div className="space-y-2 mt-8">
+                        <Skeleton className="h-4 w-[250px]" />
+                        <Skeleton className="h-4 w-[200px]" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            }
+          >
+            <Heading
+              as="h2"
+              className="text-xl text-center lg:text-4xl py-0 lg:py-2 mb-4 scroll-m-20"
+            >{`Articles by ${author?.name}`}</Heading>
+            <Paginated posts={author?.posts} itemsPerPage={itemsPerPage} />
+          </Suspense>
+        )}
       </div>
     </>
   );

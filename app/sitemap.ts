@@ -34,6 +34,11 @@ export default async function sitemap(): Promise<
 				'url': $baseUrl + 'blog/' + metadata.slug.current,
 				'lastModified': _updatedAt,
 				'priority': 0.4
+			},
+      'author': *[_type == 'author' && metadata.noIndex != true]|order(name){
+				'url': $baseUrl + 'author/' + metadata.slug.current,
+				'lastModified': _updatedAt,
+				'priority': 0.3
 			}
 		}`,
     params: {

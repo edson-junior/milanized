@@ -3,7 +3,7 @@ import { FaThreads } from 'react-icons/fa6';
 import Link from 'next/link';
 import { LuHeart, LuRss } from 'react-icons/lu';
 
-const links = [
+export const socialLinks = [
   {
     href: 'https://www.facebook.com/MilanIzedOfficial',
     text: 'Facebook',
@@ -41,7 +41,7 @@ export default function Footer() {
     <footer className="bg-black text-white">
       <div className="flex flex-col max-w-7xl mx-auto pt-10">
         <div className="flex justify-center gap-4 pb-10">
-          {links.map(({ href, text, icon }) => {
+          {socialLinks.map(({ href, text, icon }) => {
             return (
               <Link
                 className="text-2xl"

@@ -166,7 +166,7 @@ export type Author = {
   _updatedAt: string;
   _rev: string;
   name?: string;
-  slug?: Slug;
+  metadata?: Metadata;
   image?: {
     asset?: {
       _ref: string;
@@ -197,6 +197,7 @@ export type Author = {
     _key: string;
   }>;
   social: Social[];
+  posts: Blog[];
 };
 
 export interface Social {

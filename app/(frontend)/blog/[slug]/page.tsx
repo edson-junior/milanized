@@ -9,12 +9,11 @@ import { getPostBySlug } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import Image from 'next/image';
 import { PortableText } from 'next-sanity';
-import CTA from '@/components/CTA';
-import { FaFacebookSquare, FaInstagram } from 'react-icons/fa';
 import PostList from '@/components/PostList';
 import Toc from '@/components/Toc';
 import Link from 'next/link';
 import CallOutMessage from '@/components/CallOutMessage';
+import { socialLinks } from '@/components/Footer';
 
 interface BlogDetailsProps {
   params: { slug: Slug };
@@ -84,9 +83,9 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
     inLanguage: 'en-GB',
     author: {
       '@type': 'Person',
-      '@id': `${process.env.CLIENT_URL}/author/${data?.author?.slug?.current}/#Person`,
+      '@id': `${process.env.CLIENT_URL}/author/${data?.author?.metadata?.slug?.current}/#Person`,
       name: data?.author?.name,
-      url: `${process.env.CLIENT_URL}/author/${data?.author?.slug?.current}`,
+      url: `${process.env.CLIENT_URL}/author/${data?.author?.metadata?.slug?.current}`,
       image: {
         '@type': 'ImageObject',
         '@id': data?.author?.image
@@ -196,10 +195,9 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
             {data?.content && <BlockRendererClient value={data?.content} />}
             {data?.author && (
               <div className="flex flex-col lg:flex-row items-center lg:items-start border shadow-sm p-6 mb-8 gap-6">
-                {/* TODO: turn this into a link when author page is complete */}
                 {data?.author?.image && (
-                  <figure
-                  // href={`/author/${data?.author?.slug?.current}`}
+                  <Link
+                    href={`${process.env.CLIENT_URL}/author/${data?.author?.metadata?.slug?.current}`}
                   >
                     <Image
                       className="block rounded-full overflow-hidden"
@@ -208,34 +206,43 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
                       src={urlFor(data?.author?.image).width(100).url()}
                       alt={data?.author?.name || ''}
                     />
-                  </figure>
+                  </Link>
                 )}
 
                 <div className="text-center text-sm lg:text-left">
-                  {/* TODO: turn this into a link when author page is complete */}
-                  <strong
+                  <Link
+                    href={`${process.env.CLIENT_URL}/author/${data?.author?.metadata?.slug?.current}`}
                     className="inline-flex font-bold mb-4"
-                    // href={`/author/${data?.author?.slug?.current}`}
                   >
                     {data?.author?.name}
-                  </strong>
+                  </Link>
                   {data?.author?.bio && (
                     <PortableText value={data?.author?.bio} />
                   )}
-                  <div className="flex justify-center text-lg lg:justify-start items-center gap-2 mt-4">
-                    {data.author.social.map((item, i) => {
-                      return (
-                        <CTA link={item} key={i} aria-label={item.label}>
-                          {item.label.toLowerCase() === 'instagram' ? (
-                            <FaInstagram />
-                          ) : item.label.toLowerCase() === 'facebook' ? (
-                            <FaFacebookSquare />
-                          ) : (
-                            item.label
-                          )}
-                        </CTA>
-                      );
-                    })}
+                  <div className="flex justify-center text-lg lg:justify-start items-center gap-4 mt-4">
+                    {/*
+                      temporary solution for adding socials to the main author.
+                      if there are multiple authors one day, this will break. good luck! ;-)
+                    */}
+                    {socialLinks
+                      .filter(
+                        (item) =>
+                          !item.text.includes('Feed') &&
+                          !item.text.includes('Coffee')
+                      )
+                      .map(({ href, text, icon }) => {
+                        return (
+                          <Link
+                            className="text-lg"
+                            key={text}
+                            href={href}
+                            target="_blank"
+                            aria-label={text}
+                          >
+                            {icon}
+                          </Link>
+                        );
+                      })}
                   </div>
                 </div>
               </div>

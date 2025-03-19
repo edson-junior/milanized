@@ -93,11 +93,29 @@ export const getPostBySlugQuery = groq`*[_type == 'blog' && metadata.slug.curren
   }
 }`;
 
-export const getAuthorQuery = groq`*[_type == 'author' && slug.current == $slug][0] {
+export const getAuthorQuery = groq`*[_type == 'author' && metadata.slug.current == $slug][0] {
   _id,
   name,
   image,
-  bio
+  bio,
+  metadata {
+    title,
+    description,
+    'slug': slug.current,
+  },
+  "posts": *[_type == "blog" && author._ref in *[_type=="author" && name == name ]._id ]{
+    _id,
+    _createdAt,
+    title,
+    summary,
+    content,
+    featuredImage,
+    isFeatured,
+    categories[]->,
+    metadata {
+      'slug': slug.current
+    }
+  }
 }`;
 
 export const getPrivacyPageQuery = groq`*[_type == 'page' && metadata.slug.current == 'privacy-policy'][0] {

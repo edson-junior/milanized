@@ -36,6 +36,11 @@ const nextConfig = {
         source: '/blog/discovering-italy-10-unforgettable-day-trips-from-milan',
         destination: '/blog/day-trips-from-milan',
         permanent: true
+      },
+      {
+        source: '/author/milanized-crew',
+        destination: '/author/milanized',
+        permanent: true
       }
     ];
   }

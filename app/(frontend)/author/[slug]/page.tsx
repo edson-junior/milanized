@@ -68,7 +68,7 @@ export default async function Author({ params }: AuthorProps) {
       <Hero
         mainTitle={author?.name}
         bgImage="/images/federico-di-dio-photography-J0xFABbh9hA-unsplash.jpg"
-        className="h-auto lg:h-auto [&>div]:h-auto [&>div]:pt-6 [&>div]:px-8 [&>div]:lg:pt-8 [&>div]:pb-8 [&>div]:lg:pb-10 [&>div>h1]:mb-4"
+        className="h-auto lg:mb-12 lg:h-auto [&>div]:h-auto [&>div]:pt-6 [&>div]:px-8 [&>div]:lg:pt-8 [&>div]:pb-8 [&>div]:lg:pb-10 [&>div>h1]:mb-4"
       >
         {author.image && (
           <Image
@@ -106,39 +106,37 @@ export default async function Author({ params }: AuthorProps) {
           </div>
         )}
       </Hero>
-      <div className="max-w-7xl mx-auto px-4 py-4">
-        {!author?.posts ? (
-          <p>there are no blogposts</p>
-        ) : (
-          <Suspense
-            fallback={
-              <div className="max-w-7xl mx-auto px-4 py-4">
-                <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 gap-y-6">
-                  {Array.from({ length: itemsPerPage ?? 6 }).map((_, i) => (
-                    <div key={i} className="flex flex-col">
-                      <Skeleton className="h-[200px]" />
-                      <div className="space-y-2 mt-8">
-                        <Skeleton className="h-4 w-[250px]" />
-                        <Skeleton className="h-4 w-[200px]" />
-                      </div>
-                      <div className="space-y-2 mt-8">
-                        <Skeleton className="h-4 w-[250px]" />
-                        <Skeleton className="h-4 w-[200px]" />
-                      </div>
+      {!author?.posts ? (
+        <p>there are no blogposts</p>
+      ) : (
+        <Suspense
+          fallback={
+            <div className="max-w-7xl mx-auto px-4 py-4">
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 gap-y-6">
+                {Array.from({ length: itemsPerPage ?? 6 }).map((_, i) => (
+                  <div key={i} className="flex flex-col">
+                    <Skeleton className="h-[200px]" />
+                    <div className="space-y-2 mt-8">
+                      <Skeleton className="h-4 w-[250px]" />
+                      <Skeleton className="h-4 w-[200px]" />
                     </div>
-                  ))}
-                </div>
+                    <div className="space-y-2 mt-8">
+                      <Skeleton className="h-4 w-[250px]" />
+                      <Skeleton className="h-4 w-[200px]" />
+                    </div>
+                  </div>
+                ))}
               </div>
-            }
-          >
-            <Heading
-              as="h2"
-              className="text-xl text-center lg:text-4xl py-0 lg:py-2 mb-4 scroll-m-20"
-            >{`Articles by ${author?.name}`}</Heading>
-            <Paginated posts={author?.posts} itemsPerPage={itemsPerPage} />
-          </Suspense>
-        )}
-      </div>
+            </div>
+          }
+        >
+          <Heading
+            as="h2"
+            className="text-xl text-center lg:text-4xl py-0 lg:py-2 mb-4 scroll-m-20"
+          >{`Articles by ${author?.name}`}</Heading>
+          <Paginated posts={author?.posts} itemsPerPage={itemsPerPage} />
+        </Suspense>
+      )}
     </>
   );
 }

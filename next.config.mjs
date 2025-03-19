@@ -31,6 +31,11 @@ const nextConfig = {
         source: '/blog/the-pros-and-cons-of-having-a-car-in-milan',
         destination: '/blog/driving-in-milan',
         permanent: true
+      },
+      {
+        source: '/blog/discovering-italy-10-unforgettable-day-trips-from-milan',
+        destination: '/blog/day-trips-from-milan',
+        permanent: true
       }
     ];
   }

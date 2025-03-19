@@ -16,7 +16,7 @@ export default function Filter({
 
   return (
     <Button
-      variant={category === value ? 'default' : 'ghost'}
+      variant={category === value ? 'default' : 'outline'}
       onClick={() => {
         setCategory(value);
         setPage(1);

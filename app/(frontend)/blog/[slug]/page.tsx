@@ -258,7 +258,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
           )}
         </div>
         {data.headings && (
-          <aside className="lg:w-96 h-auto lg:h-full lg:sticky lg:top-20">
+          <aside className="lg:w-96 max-h-auto lg:max-h-[calc(100vh-5rem)] overflow-auto lg:sticky lg:top-20">
             <Toc headings={data.headings} />
           </aside>
         )}

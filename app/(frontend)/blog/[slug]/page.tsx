@@ -14,6 +14,7 @@ import Toc from '@/components/Toc';
 import Link from 'next/link';
 import CallOutMessage from '@/components/CallOutMessage';
 import { socialLinks } from '@/components/Footer';
+import Script from 'next/script';
 
 interface BlogDetailsProps {
   params: { slug: Slug };
@@ -124,152 +125,162 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
   const estimatedReadingTime = data.estimatedReadingTime;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 pt-8 lg:pt-16 pb-4">
-      <main className="flex flex-col lg:flex-row gap-8">
-        <div className="flex-1 lg:w-64">
-          <article>
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-            />
-            <div className="flex flex-col gap-8 lg:mb-8">
-              <div className="w-full">
-                <Heading as="h1" className="text-2xl lg:text-5xl mb-8">
-                  {data.title}
-                </Heading>
+    <>
+      <div className="max-w-7xl mx-auto px-4 pt-8 lg:pt-16 pb-4">
+        <main className="flex flex-col lg:flex-row gap-8">
+          <div className="flex-1 lg:w-64">
+            <article>
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+              />
+              <div className="flex flex-col gap-8 lg:mb-8">
+                <div className="w-full">
+                  <Heading as="h1" className="text-2xl lg:text-5xl mb-8">
+                    {data.title}
+                  </Heading>
 
-                <p className="mb-8">{data.summary}</p>
+                  <p className="mb-8">{data.summary}</p>
 
-                <div className="flex text-xs items-center [&>span]:inline-flex [&>span]:after:inline-flex [&>span]:after:self-center [&>span]:after:mx-2 [&>span:last-child]:after:hidden [&>span]:after:w-1 [&>span]:after:h-1 [&>span]:after:bg-black [&>span]:after:rounded-full">
-                  {updatedAt &&
-                  publishedAt?.getDate() !== updatedAt?.getDate() ? (
-                    <span>
-                      {'Last updated: '}
-                      {new Intl.DateTimeFormat('en-GB', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      }).format(updatedAt)}
-                    </span>
-                  ) : publishedAt ? (
-                    <span>
-                      {new Intl.DateTimeFormat('en-GB', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      }).format(publishedAt)}
-                    </span>
-                  ) : null}
-                  {estimatedReadingTime && (
-                    <span className="flex items-center">
-                      <LuClock2 className="w-4" />
-                      {`${Math.ceil(estimatedReadingTime)} minute read`}
-                    </span>
-                  )}
+                  <div className="flex text-xs items-center [&>span]:inline-flex [&>span]:after:inline-flex [&>span]:after:self-center [&>span]:after:mx-2 [&>span:last-child]:after:hidden [&>span]:after:w-1 [&>span]:after:h-1 [&>span]:after:bg-black [&>span]:after:rounded-full">
+                    {updatedAt &&
+                    publishedAt?.getDate() !== updatedAt?.getDate() ? (
+                      <span>
+                        {'Last updated: '}
+                        {new Intl.DateTimeFormat('en-GB', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        }).format(updatedAt)}
+                      </span>
+                    ) : publishedAt ? (
+                      <span>
+                        {new Intl.DateTimeFormat('en-GB', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        }).format(publishedAt)}
+                      </span>
+                    ) : null}
+                    {estimatedReadingTime && (
+                      <span className="flex items-center">
+                        <LuClock2 className="w-4" />
+                        {`${Math.ceil(estimatedReadingTime)} minute read`}
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
-              {data?.featuredImage && (
-                <FeaturedImage
-                  className="flex flex-col lg:shrink-0 grow"
-                  featuredImage={data.featuredImage}
-                />
-              )}
-            </div>
-            {data.hasAffiliateLinks && (
-              <CallOutMessage messageType="success">
-                <p className="text-xs leading-5 font-semibold">
-                  This post might have affiliate links. Buy purchasing anything
-                  through our links you will be helping support us, at no extra
-                  cost to you. <br />
-                  <Link
-                    href="/disclaimer"
-                    target="_blank"
-                    className="text-blue-700 underline hover:no-underline text-xs leading-5"
-                  >
-                    Read our statement
-                  </Link>
-                </p>
-              </CallOutMessage>
-            )}
-
-            {data?.content && <BlockRendererClient value={data?.content} />}
-            {data?.author && (
-              <div className="flex flex-col lg:flex-row items-center lg:items-start border shadow-sm p-6 mb-8 gap-6">
-                {data?.author?.image && (
-                  <Link
-                    href={`${process.env.CLIENT_URL}/author/${data?.author?.metadata?.slug?.current}`}
-                  >
-                    <Image
-                      className="block rounded-full overflow-hidden"
-                      width={100}
-                      height={100}
-                      src={urlFor(data?.author?.image).width(100).url()}
-                      alt={data?.author?.name || ''}
-                    />
-                  </Link>
+                {data?.featuredImage && (
+                  <FeaturedImage
+                    className="flex flex-col lg:shrink-0 grow"
+                    featuredImage={data.featuredImage}
+                  />
                 )}
+              </div>
+              {data.hasAffiliateLinks && (
+                <CallOutMessage messageType="success">
+                  <p className="text-xs leading-5 font-semibold">
+                    This post might have affiliate links. Buy purchasing
+                    anything through our links you will be helping support us,
+                    at no extra cost to you. <br />
+                    <Link
+                      href="/disclaimer"
+                      target="_blank"
+                      className="text-blue-700 underline hover:no-underline text-xs leading-5"
+                    >
+                      Read our statement
+                    </Link>
+                  </p>
+                </CallOutMessage>
+              )}
 
-                <div className="text-center text-sm lg:text-left">
-                  <Link
-                    href={`${process.env.CLIENT_URL}/author/${data?.author?.metadata?.slug?.current}`}
-                    className="inline-flex font-bold mb-4"
-                  >
-                    {data?.author?.name}
-                  </Link>
-                  {data?.author?.bio && (
-                    <PortableText value={data?.author?.bio} />
+              {data?.content && <BlockRendererClient value={data?.content} />}
+              {data?.author && (
+                <div className="flex flex-col lg:flex-row items-center lg:items-start border shadow-sm p-6 mb-8 gap-6">
+                  {data?.author?.image && (
+                    <Link
+                      href={`${process.env.CLIENT_URL}/author/${data?.author?.metadata?.slug?.current}`}
+                    >
+                      <Image
+                        className="block rounded-full overflow-hidden"
+                        width={100}
+                        height={100}
+                        src={urlFor(data?.author?.image).width(100).url()}
+                        alt={data?.author?.name || ''}
+                      />
+                    </Link>
                   )}
-                  <div className="flex justify-center text-lg lg:justify-start items-center gap-4 mt-4">
-                    {/*
+
+                  <div className="text-center text-sm lg:text-left">
+                    <Link
+                      href={`${process.env.CLIENT_URL}/author/${data?.author?.metadata?.slug?.current}`}
+                      className="inline-flex font-bold mb-4"
+                    >
+                      {data?.author?.name}
+                    </Link>
+                    {data?.author?.bio && (
+                      <PortableText value={data?.author?.bio} />
+                    )}
+                    <div className="flex justify-center text-lg lg:justify-start items-center gap-4 mt-4">
+                      {/*
                       temporary solution for adding socials to the main author.
                       if there are multiple authors one day, this will break. good luck! ;-)
                     */}
-                    {socialLinks
-                      .filter(
-                        (item) =>
-                          !item.text.includes('Feed') &&
-                          !item.text.includes('Coffee')
-                      )
-                      .map(({ href, text, icon }) => {
-                        return (
-                          <Link
-                            className="text-lg"
-                            key={text}
-                            href={href}
-                            target="_blank"
-                            aria-label={text}
-                          >
-                            {icon}
-                          </Link>
-                        );
-                      })}
+                      {socialLinks
+                        .filter(
+                          (item) =>
+                            !item.text.includes('Feed') &&
+                            !item.text.includes('Coffee')
+                        )
+                        .map(({ href, text, icon }) => {
+                          return (
+                            <Link
+                              className="text-lg"
+                              key={text}
+                              href={href}
+                              target="_blank"
+                              aria-label={text}
+                            >
+                              {icon}
+                            </Link>
+                          );
+                        })}
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
+            </article>
+            {data.relatedArticles && (
+              <section>
+                <Heading
+                  as="h3"
+                  className="text-xl lg:text-4xl py-0 lg:py-2 mb-2 scroll-m-20"
+                >
+                  Related Articles
+                </Heading>
+                <PostList
+                  variant="col"
+                  className="gap-8 mb-8"
+                  posts={data.relatedArticles}
+                />
+              </section>
             )}
-          </article>
-          {data.relatedArticles && (
-            <section>
-              <Heading
-                as="h3"
-                className="text-xl lg:text-4xl py-0 lg:py-2 mb-2 scroll-m-20"
-              >
-                Related Articles
-              </Heading>
-              <PostList
-                variant="col"
-                className="gap-8 mb-8"
-                posts={data.relatedArticles}
-              />
-            </section>
+          </div>
+          {data.headings && (
+            <aside className="lg:w-96 max-h-auto lg:max-h-[calc(100vh-5rem)] overflow-auto lg:sticky lg:top-20">
+              <Toc headings={data.headings} />
+            </aside>
           )}
-        </div>
-        {data.headings && (
-          <aside className="lg:w-96 max-h-auto lg:max-h-[calc(100vh-5rem)] overflow-auto lg:sticky lg:top-20">
-            <Toc headings={data.headings} />
-          </aside>
-        )}
-      </main>
-    </div>
+        </main>
+      </div>
+      {process.env.NODE_ENV === 'production' && (
+        <Script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`}
+          crossOrigin="anonymous"
+          strategy="lazyOnload"
+        />
+      )}
+    </>
   );
 }

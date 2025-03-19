@@ -9,6 +9,7 @@ import Link from 'next/link';
 import Hero from '@/components/Hero';
 import { FaFacebookSquare, FaInstagram } from 'react-icons/fa';
 import Image from 'next/image';
+import Script from 'next/script';
 
 export async function generateMetadata() {
   const homepage = await getHomePage();
@@ -71,93 +72,106 @@ export default async function Home() {
   };
 
   return (
-    <main>
-      <section className="bg-neutral-950 relative">
-        <Image
-          src="/images/nir-himi-L6C8EFsJbzo-unsplash.jpg"
-          fill
-          alt="mountains"
-          sizes="(min-width: 680px) 100vw, (min-width: 520px) calc(30vw + 462px), (min-width: 400px) 684px, calc(-148.75vw + 1233px)"
-          className="object-cover brightness-[0.40]"
-        />
-        <div className="text-white h-full flex-col max-w-7xl text-center mx-auto px-4 pt-14 lg:pt-20 pb-14 lg:pb-20 relative">
-          <Heading
-            as="h1"
-            className="inline-block text-3xl lg:text-6xl mb-8 lg:mb-4 lg:leading-[1.2] max-w-screen-sm [text-shadow:_0px_1px_1px_black] lg:[text-shadow:_0px_2px_2px_black]"
-          >
-            We are here to inspire your next adventure!
-          </Heading>
-
-          <p className="leading-7 lg:text-lg lg:leading-normal mb-8 [text-shadow:_0px_1px_1px_black] lg:[text-shadow:_0px_2px_2px_black]">
-            We are your ultimate online guide to attractions, food and drink,
-            and things to do to inspire you when planning your holiday!
-          </p>
-
-          <Button
-            asChild
-            size="lg"
-            className="text-md bg-green-600 hover:bg-green-700"
-          >
-            <Link href="/blog">Start exploring</Link>
-          </Button>
-        </div>
-      </section>
-
-      <div className="max-w-7xl mx-auto p-4 lg:pt-12">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        <FeaturedPost />
-        <hr className="my-4" />
-        <Heading as="h2" className="text-xl lg:text-4xl py-2">
-          Most Popular Posts
-        </Heading>
-        <PostList posts={homepage.mostRead} />
-      </div>
-      <Hero
-        mainTitle={
-          <Heading as="h2" className="text-2xl lg:text-5xl">
-            Connect with us
-          </Heading>
-        }
-        subtitle="and stay up to date with our latest content"
-        className="[&>div]:items-center h-80 lg:h-96 lg:bg-bottom"
-        bgImage="/images/gae-aulenti-landscape.jpg"
-      >
-        <div className="flex gap-4">
-          <Button
-            asChild
-            className="bg-rose-600 hover:bg-rose-700 lg:text-lg lg:px-8 lg:py-6"
-          >
-            <Link href="https://www.instagram.com/milanize.me" target="_blank">
-              <FaInstagram /> Instagram
-            </Link>
-          </Button>
-          <Button
-            asChild
-            className="bg-blue-600 hover:bg-blue-700 lg:text-lg lg:px-8 lg:py-6"
-          >
-            <Link
-              href="https://www.facebook.com/MilanIzedOfficial"
-              target="_blank"
+    <>
+      <main>
+        <section className="bg-neutral-950 relative">
+          <Image
+            src="/images/nir-himi-L6C8EFsJbzo-unsplash.jpg"
+            fill
+            alt="mountains"
+            sizes="(min-width: 680px) 100vw, (min-width: 520px) calc(30vw + 462px), (min-width: 400px) 684px, calc(-148.75vw + 1233px)"
+            className="object-cover brightness-[0.40]"
+          />
+          <div className="text-white h-full flex-col max-w-7xl text-center mx-auto px-4 pt-14 lg:pt-20 pb-14 lg:pb-20 relative">
+            <Heading
+              as="h1"
+              className="inline-block text-3xl lg:text-6xl mb-8 lg:mb-4 lg:leading-[1.2] max-w-screen-sm [text-shadow:_0px_1px_1px_black] lg:[text-shadow:_0px_2px_2px_black]"
             >
-              <FaFacebookSquare /> Facebook
-            </Link>
-          </Button>
-        </div>
-      </Hero>
-      <div className="max-w-7xl mx-auto p-4 lg:pt-12">
-        <Heading as="h2" className="text-xl lg:text-4xl py-2">
-          Latest Posts
-        </Heading>
+              We are here to inspire your next adventure!
+            </Heading>
 
-        {!posts?.length ? (
-          <p>there are no blogposts</p>
-        ) : (
-          <PostList posts={posts} />
-        )}
-      </div>
-    </main>
+            <p className="leading-7 lg:text-lg lg:leading-normal mb-8 [text-shadow:_0px_1px_1px_black] lg:[text-shadow:_0px_2px_2px_black]">
+              We are your ultimate online guide to attractions, food and drink,
+              and things to do to inspire you when planning your holiday!
+            </p>
+
+            <Button
+              asChild
+              size="lg"
+              className="text-md bg-green-600 hover:bg-green-700"
+            >
+              <Link href="/blog">Start exploring</Link>
+            </Button>
+          </div>
+        </section>
+
+        <div className="max-w-7xl mx-auto p-4 lg:pt-12">
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          />
+          <FeaturedPost />
+          <hr className="my-4" />
+          <Heading as="h2" className="text-xl lg:text-4xl py-2">
+            Most Popular Posts
+          </Heading>
+          <PostList posts={homepage.mostRead} />
+        </div>
+        <Hero
+          mainTitle={
+            <Heading as="h2" className="text-2xl lg:text-5xl">
+              Connect with us
+            </Heading>
+          }
+          subtitle="and stay up to date with our latest content"
+          className="[&>div]:items-center h-80 lg:h-96 lg:bg-bottom"
+          bgImage="/images/gae-aulenti-landscape.jpg"
+        >
+          <div className="flex gap-4">
+            <Button
+              asChild
+              className="bg-rose-600 hover:bg-rose-700 lg:text-lg lg:px-8 lg:py-6"
+            >
+              <Link
+                href="https://www.instagram.com/milanize.me"
+                target="_blank"
+              >
+                <FaInstagram /> Instagram
+              </Link>
+            </Button>
+            <Button
+              asChild
+              className="bg-blue-600 hover:bg-blue-700 lg:text-lg lg:px-8 lg:py-6"
+            >
+              <Link
+                href="https://www.facebook.com/MilanIzedOfficial"
+                target="_blank"
+              >
+                <FaFacebookSquare /> Facebook
+              </Link>
+            </Button>
+          </div>
+        </Hero>
+        <div className="max-w-7xl mx-auto p-4 lg:pt-12">
+          <Heading as="h2" className="text-xl lg:text-4xl py-2">
+            Latest Posts
+          </Heading>
+
+          {!posts?.length ? (
+            <p>there are no blogposts</p>
+          ) : (
+            <PostList posts={posts} />
+          )}
+        </div>
+      </main>
+      {process.env.NODE_ENV === 'production' && (
+        <Script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`}
+          crossOrigin="anonymous"
+          strategy="lazyOnload"
+        />
+      )}
+    </>
   );
 }

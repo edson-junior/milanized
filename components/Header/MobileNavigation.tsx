@@ -1,19 +1,21 @@
 'use client';
 
 import Link from 'next/link';
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger
-} from '../ui/drawer';
 
 import { LuMenu, LuX } from 'react-icons/lu';
 import { links } from './Header';
 import { useCallback, useState } from 'react';
+import { socialLinks } from '../Footer';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '../ui/dialog';
 
 export default function MobileNavigation() {
   const [open, setOpen] = useState(false);
@@ -21,47 +23,67 @@ export default function MobileNavigation() {
     setOpen(false);
   }, []);
 
+  const mobileLinks = [
+    {
+      href: `${process.env.NEXT_PUBLIC_CLIENT_URL}/`,
+      text: 'Home'
+    },
+    ...links
+  ];
+
   return (
-    <Drawer direction="right" open={open} onOpenChange={setOpen}>
-      <DrawerTrigger
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger
         className="text-white lg:hidden w-7 h-7"
         aria-label="open menu"
       >
         <LuMenu size={24} />
-      </DrawerTrigger>
-      <DrawerContent>
-        <DrawerTitle className="hidden">Menu</DrawerTitle>
-        <DrawerDescription className="hidden">
+      </DialogTrigger>
+      <DialogContent className="bg-black/30 backdrop-blur-sm border-0 h-full w-full p-0 max-w-full [&>button]:hidden">
+        <DialogTitle className="hidden">Menu</DialogTitle>
+        <DialogDescription className="hidden">
           Navigation menu
-        </DrawerDescription>
-        <DrawerHeader className="bg-black h-14 flex mb-4">
-          <Link
-            href="/"
-            className="text-white font-bold uppercase text-lg lg:text-2xl"
-            onClick={closeMobileMenu}
-          >
-            Milanized!
-          </Link>
-          <DrawerClose className="text-white ml-auto">
+        </DialogDescription>
+        <DialogHeader className="h-14 flex justify-between items-end p-4">
+          <DialogClose className="text-white">
             <LuX size={24} />
-          </DrawerClose>
-        </DrawerHeader>
-        <ul className="px-4">
-          {links.map(({ href, text }, index) => {
-            return (
-              <li key={index} className="border-b border-gray-100">
+          </DialogClose>
+        </DialogHeader>
+        <div className="overflow-auto">
+          <ul className="px-4 mx-auto">
+            {mobileLinks.map(({ href, text }, index) => {
+              return (
+                <li key={index}>
+                  <Link
+                    className="text-lg text-white text-center font-bold uppercase block lg:text-2xl py-6 hover:underline [text-shadow:_0px_1px_1px_black] lg:[text-shadow:_0px_2px_2px_black]"
+                    href={href}
+                    onClick={closeMobileMenu}
+                  >
+                    {text}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <DialogFooter className="sm:justify-center">
+          <div className="flex justify-center text-lg lg:justify-start items-center pb-8 gap-8 mt-4">
+            {socialLinks.map(({ href, text, icon }) => {
+              return (
                 <Link
-                  className="text-sm font-semibold block py-2 hover:underline"
+                  className="text-2xl text-white"
+                  key={text}
                   href={href}
-                  onClick={closeMobileMenu}
+                  target="_blank"
+                  aria-label={text}
                 >
-                  {text}
+                  {icon}
                 </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </DrawerContent>
-    </Drawer>
+              );
+            })}
+          </div>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

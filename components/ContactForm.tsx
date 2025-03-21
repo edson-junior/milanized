@@ -9,7 +9,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useRef, useState } from 'react';
-import { useCookies } from 'react-cookie';
 import { LuCheckCheck, LuLoaderCircle } from 'react-icons/lu';
 
 const ContactSchema = z.object({
@@ -28,8 +27,6 @@ export default function ContactForm() {
   } = useForm<z.infer<typeof ContactSchema>>({
     resolver: zodResolver(ContactSchema)
   });
-
-  const [cookies] = useCookies(['consentCookie']);
 
   const [isValidReCAPTCHA, setIsValidReCAPTCHA] = useState(false);
 
@@ -118,17 +115,15 @@ export default function ContactForm() {
         )}
       </div>
 
-      {cookies.consentCookie === true && (
-        <ReCAPTCHA
-          // ref={recaptchaRef}
-          size="normal"
-          sitekey={`${process.env.NEXT_PUBLIC_RECAPTCHA_KEY}`}
-          className="mb-4"
-          onChange={(value) => {
-            setIsValidReCAPTCHA(Boolean(value));
-          }}
-        />
-      )}
+      <ReCAPTCHA
+        // ref={recaptchaRef}
+        size="normal"
+        sitekey={`${process.env.NEXT_PUBLIC_RECAPTCHA_KEY}`}
+        className="mb-4"
+        onChange={(value) => {
+          setIsValidReCAPTCHA(Boolean(value));
+        }}
+      />
 
       <Button disabled={!isValidReCAPTCHA || isSubmitting} type="submit">
         {isSubmitting ? (

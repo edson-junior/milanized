@@ -33,7 +33,7 @@ export default function SearchBar() {
           <DialogHeader className="text-left">
             <DialogTitle>Search</DialogTitle>
             <DialogDescription hidden>
-              This website uses cookies to enhance the user experience.
+              Please enter your search on the form bellow
             </DialogDescription>
           </DialogHeader>
           <form

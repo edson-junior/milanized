@@ -8,6 +8,7 @@ type HeroProps = ComponentProps<'div'> &
     mainTitle: string | ReactNode;
     subtitle?: string;
     bgImage?: string;
+    placeholder?: string;
   }>;
 
 export default function Hero({
@@ -15,7 +16,8 @@ export default function Hero({
   children,
   mainTitle,
   subtitle,
-  bgImage = '/images/duomo-di-milano-by-night.jpeg'
+  bgImage = '/images/duomo-di-milano-by-night.jpeg',
+  placeholder
 }: HeroProps) {
   return (
     <div
@@ -28,9 +30,11 @@ export default function Hero({
         src={bgImage}
         fill
         priority
-        alt="background"
-        sizes="(min-width: 400px) 100vw, calc(10vw + 342px)"
+        alt="background image"
+        sizes="(min-width: 680px) 100vw, (min-width: 520px) calc(30vw + 462px), (min-width: 400px) 684px, calc(-148.75vw + 1233px)"
         className="object-cover brightness-[0.30]"
+        placeholder={placeholder ? 'blur' : 'empty'}
+        blurDataURL={placeholder}
       />
 
       <div className="text-white text-center flex align-middle h-full flex-col justify-center max-w-7xl mx-auto px-4 py-4 relative">

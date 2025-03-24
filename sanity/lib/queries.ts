@@ -111,7 +111,7 @@ export const getAuthorQuery = groq`*[_type == 'author' && metadata.slug.current 
     description,
     'slug': slug.current,
   },
-  "posts": *[_type == "blog" && author._ref in *[_type=="author" && name == name ]._id ]{
+  "posts": *[_type == "blog" && !(_id in path('drafts.**')) && author._ref in *[_type=="author" && name == name ]._id ] | order(_createdAt desc) {
     _id,
     _createdAt,
     title,

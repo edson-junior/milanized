@@ -14,7 +14,6 @@ import Toc from '@/components/Toc';
 import Link from 'next/link';
 import CallOutMessage from '@/components/CallOutMessage';
 import { socialLinks } from '@/components/Footer';
-import Script from 'next/script';
 
 interface BlogDetailsProps {
   params: { slug: Slug };
@@ -273,14 +272,6 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
           )}
         </main>
       </div>
-      {process.env.NODE_ENV === 'production' && (
-        <Script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`}
-          crossOrigin="anonymous"
-          strategy="lazyOnload"
-        />
-      )}
     </>
   );
 }

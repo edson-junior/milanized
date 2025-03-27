@@ -1,5 +1,5 @@
 import { createClient, type QueryParams } from 'next-sanity';
-import { Author, Blog, Page, Slug } from '@/sanity.types';
+import { Author, Blog, Homepage, Page, Slug } from '@/sanity.types';
 
 import { apiVersion, dataset, projectId } from '../env';
 import {
@@ -42,7 +42,7 @@ export async function sanityFetch<const QueryString extends string>({
   });
 }
 
-export async function getHomePage(): Promise<Page | undefined> {
+export async function getHomePage(): Promise<Homepage | undefined> {
   const query = getHomePageQuery;
   const data = await sanityFetch({ query });
 

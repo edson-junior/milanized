@@ -23,6 +23,8 @@ export function FeaturedImage({ featuredImage, ...props }: FeaturedImageProps) {
             sizes="(min-width: 1340px) 832px, (min-width: 1040px) calc(85.71vw - 299px), calc(100vw - 32px)"
             src={urlFor(featuredImage).width(1280).url()}
             alt={featuredImage.alt || ''}
+            blurDataURL={featuredImage.lqip}
+            placeholder="blur"
             className="object-cover transition duration-200 ease-in-out transform hover:scale-110"
           />
         </div>

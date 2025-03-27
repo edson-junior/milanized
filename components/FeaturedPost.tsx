@@ -11,7 +11,14 @@ const query = groq`*[_type == 'blog' && !(_id in path('drafts.**')) && isFeature
   _publishedAt,
   title,
   summary,
-  featuredImage,
+  featuredImage {
+    ...,
+    ...asset-> {
+      ...metadata {
+        lqip
+      }
+    }
+  },
   author-> {
     name,
   },
@@ -47,6 +54,8 @@ export default async function FeaturedPost() {
             alt={featuredImage.alt || ''}
             priority
             className="object-cover transition duration-200 ease-in-out transform group-hover:scale-110"
+            blurDataURL={featuredImage.lqip}
+            placeholder="blur"
           />
         </figure>
       )}

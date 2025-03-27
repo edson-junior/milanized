@@ -41,6 +41,8 @@ export const PortableComponents: PortableTextComponents = {
               loading="lazy"
               src={urlFor(value).width(1280).url()}
               alt={value.alt}
+              blurDataURL={value.lqip}
+              placeholder="blur"
               className="object-cover transition duration-200 ease-in-out transform hover:scale-110"
             />
           </div>

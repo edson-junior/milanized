@@ -2,14 +2,13 @@ import type { Metadata } from 'next';
 import { Organization, WithContext } from 'schema-dts';
 import Heading from '@/components/ui/heading';
 import FeaturedPost from '@/components/FeaturedPost';
-import { getAllPosts, getHomePage } from '@/sanity/lib/client';
+import { getHomePage } from '@/sanity/lib/client';
 import PostList from '@/components/PostList';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Hero from '@/components/Hero';
 import { FaFacebookSquare, FaInstagram } from 'react-icons/fa';
 import Image from 'next/image';
-import Script from 'next/script';
 
 export async function generateMetadata() {
   const homepage = await getHomePage();
@@ -49,7 +48,6 @@ export async function generateMetadata() {
 }
 
 export default async function Home() {
-  const posts = await getAllPosts({ limit: 6, removeFeatured: true });
   const homepage = await getHomePage();
 
   if (!homepage) {
@@ -161,21 +159,13 @@ export default async function Home() {
             Latest Posts
           </Heading>
 
-          {!posts?.length ? (
+          {!homepage?.posts?.length ? (
             <p>there are no blogposts</p>
           ) : (
-            <PostList posts={posts} />
+            <PostList posts={homepage.posts} />
           )}
         </div>
       </main>
-      {process.env.NODE_ENV === 'production' && (
-        <Script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`}
-          crossOrigin="anonymous"
-          strategy="lazyOnload"
-        />
-      )}
     </>
   );
 }

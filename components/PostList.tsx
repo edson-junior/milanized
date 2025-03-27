@@ -61,6 +61,8 @@ export default function PostList({
                     loading="lazy"
                     src={urlFor(featuredImage).width(600).url()}
                     alt={featuredImage.alt || ''}
+                    blurDataURL={featuredImage.lqip}
+                    placeholder="blur"
                     className={cn(
                       variant === 'row' &&
                         'object-cover w-full aspect-video transition duration-200 ease-in-out transform group-hover:scale-110',

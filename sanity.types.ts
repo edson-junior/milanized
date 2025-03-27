@@ -80,6 +80,10 @@ export type Page = {
   mostRead: Blog[];
 };
 
+export interface Homepage extends Page {
+  posts: Blog[];
+}
+
 export type PortableTextTypes = Array<
   | {
       children?: Array<{
@@ -151,6 +155,7 @@ export type Blog = {
     crop?: SanityImageCrop;
     alt?: string;
     caption?: string;
+    lqip?: string;
     _type: 'image';
   };
   content?: PortableTextTypes;

@@ -8,7 +8,14 @@ export const getHomePageQuery = groq`*[_type == 'page' && metadata.slug.current 
     summary,
     author->,
     _createdAt,
-    featuredImage,
+    featuredImage {
+      ...,
+      ...asset-> {
+        ...metadata {
+          lqip
+        }
+      }
+    },
     title,
     metadata {
       'slug': slug.current,
@@ -20,6 +27,26 @@ export const getHomePageQuery = groq`*[_type == 'page' && metadata.slug.current 
     noIndex,
     image,
     description
+  },
+  "posts": *[_type == "blog" && !(_id in path('drafts.**')) && !(isFeatured == true)] | order(_createdAt desc) [0...6] {
+    _id,
+    _createdAt,
+    title,
+    summary,
+    content,
+    featuredImage {
+      ...,
+      ...asset-> {
+        ...metadata {
+          lqip
+        }
+      }
+    },
+    isFeatured,
+    categories[]->,
+    metadata {
+      'slug': slug.current
+    }
   }
 }`;
 
@@ -29,7 +56,14 @@ export const getAllPostsQuery = groq`*[_type == 'blog' && !(_id in path('drafts.
   title,
   summary,
   content,
-  featuredImage,
+  featuredImage {
+    ...,
+    ...asset-> {
+      ...metadata {
+        lqip
+      }
+    }
+  },
   isFeatured,
   categories[]->,
   author-> {
@@ -63,9 +97,24 @@ export const getPostBySlugQuery = groq`*[_type == 'blog' && metadata.slug.curren
           }
         }
       }
+    },
+    _type == "image" => {
+      ...,
+      ...asset-> {
+        ...metadata {
+          lqip
+        }
+      }
     }
   },
-  featuredImage,
+  featuredImage {
+    ...,
+    ...asset-> {
+      ...metadata {
+        lqip
+      }
+    }
+  },
   author-> {
     name,
     metadata {
@@ -86,7 +135,14 @@ export const getPostBySlugQuery = groq`*[_type == 'blog' && metadata.slug.curren
     summary,
     author->,
     _createdAt,
-    featuredImage,
+    featuredImage {
+      ...,
+      ...asset-> {
+        ...metadata {
+          lqip
+        }
+      }
+    },
     title,
     metadata {
       'slug': slug.current,
@@ -117,7 +173,14 @@ export const getAuthorQuery = groq`*[_type == 'author' && metadata.slug.current 
     title,
     summary,
     content,
-    featuredImage,
+    featuredImage {
+      ...,
+      ...asset-> {
+        ...metadata {
+          lqip
+        }
+      }
+    },
     isFeatured,
     categories[]->,
     metadata {
@@ -164,7 +227,14 @@ export const getAboutPageQuery = groq`*[_type == 'page' && metadata.slug.current
   _id,
   title,
   content,
-  featuredImage,
+  featuredImage {
+    ...,
+    ...asset-> {
+      ...metadata {
+        lqip
+      }
+    }
+  },
   metadata {
     'slug': slug.current,
     title,
@@ -178,7 +248,14 @@ export const getDisclaimerPageQuery = groq`*[_type == 'page' && metadata.slug.cu
   _id,
   title,
   content,
-  featuredImage,
+  featuredImage {
+    ...,
+    ...asset-> {
+      ...metadata {
+        lqip
+      }
+    }
+  },
   metadata {
     'slug': slug.current,
     title,

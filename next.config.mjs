@@ -41,6 +41,12 @@ const nextConfig = {
         source: '/author/milanized-crew',
         destination: '/author/milanized',
         permanent: true
+      },
+      {
+        source:
+          '/blog/escape-the-city-10-incredible-city-escape-destinations-to-explore-from-milan',
+        destination: '/blog/best-trips-from-milan',
+        permanent: true
       }
     ];
   }

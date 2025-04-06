@@ -73,7 +73,6 @@ export default defineType({
     defineField({
       name: 'publishDate',
       type: 'date'
-      // validation: (Rule) => Rule.required()
     }),
     defineField({
       name: 'categories',
@@ -142,6 +141,9 @@ export default defineType({
         }),
         defineArrayMember({
           type: 'ctas'
+        }),
+        defineArrayMember({
+          type: 'customHTML'
         }),
         defineField({
           name: 'gygSnippet',

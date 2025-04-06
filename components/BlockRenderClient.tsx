@@ -75,6 +75,9 @@ export const PortableComponents: PortableTextComponents = {
     },
     gygSnippet: ({ value }) => {
       return <GygWidget {...value} />;
+    },
+    customHTML: ({ value }) => {
+      return parse(value.HTMLSnippet.code);
     }
   },
 

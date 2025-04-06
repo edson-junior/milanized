@@ -11,6 +11,7 @@ import category from './documents/category';
 import table from './documents/table';
 import cta from './objects/cta';
 import ctasList from './objects/ctas-list';
+import customHTML from './objects/customHTML';
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -25,6 +26,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     links,
     linksList,
     cta,
-    ctasList
+    ctasList,
+    customHTML
   ]
 };

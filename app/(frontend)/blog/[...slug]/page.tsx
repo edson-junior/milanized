@@ -3,26 +3,47 @@ import { Metadata } from 'next';
 import Heading from '@/components/ui/heading';
 import { LuClock2 } from 'react-icons/lu';
 import { FeaturedImage } from '@/components/FeaturedImage';
-import { Slug } from '@/sanity.types';
 import { BlogPosting, WithContext } from 'schema-dts';
-import { getPostBySlug } from '@/sanity/lib/client';
+import { getPostBySlug, sanityFetch } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import Image from 'next/image';
-import { PortableText } from 'next-sanity';
+import { groq, PortableText } from 'next-sanity';
 import PostList from '@/components/PostList';
 import Toc from '@/components/Toc';
 import Link from 'next/link';
 import CallOutMessage from '@/components/CallOutMessage';
 import { socialLinks } from '@/components/Footer';
+import { formatDate } from '@/lib/utils';
 
 interface BlogDetailsProps {
-  params: { slug: Slug };
+  params: { slug: string };
+}
+
+interface SlugList {
+  metadata: {
+    slug: string;
+  };
+}
+
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  const slugs: SlugList[] = await sanityFetch({
+    query: groq`*[_type == "blog" && !(_id in path('drafts.**'))] | order(_createdAt desc) [0...10] {
+      metadata {
+        'slug': slug.current
+      }
+    }`
+  });
+
+  return slugs.map(({ metadata }) => metadata.slug);
 }
 
 export async function generateMetadata({
   params
 }: BlogDetailsProps): Promise<Metadata> {
-  const data = await getPostBySlug(params.slug);
+  const { slug } = await params;
+  const data = await getPostBySlug(slug[0] as string);
 
   if (!data?.featuredImage) {
     return {};
@@ -34,13 +55,13 @@ export async function generateMetadata({
     robots:
       'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
     alternates: {
-      canonical: `${process.env.CLIENT_URL}/blog/${params.slug}`,
+      canonical: `${process.env.CLIENT_URL}/blog/${slug[0]}`,
       types: {
         'application/rss+xml': `${process.env.CLIENT_URL}/blog/rss.xml`
       }
     },
     openGraph: {
-      url: `${process.env.CLIENT_URL}/blog/${params.slug}`,
+      url: `${process.env.CLIENT_URL}/blog/${slug[0]}`,
       siteName: 'Milanized!',
       locale: 'en_GB',
       type: 'article',
@@ -59,7 +80,8 @@ export async function generateMetadata({
 }
 
 export default async function BlogDetails({ params }: BlogDetailsProps) {
-  const data = await getPostBySlug(params.slug);
+  const { slug } = await params;
+  const data = await getPostBySlug(slug[0] as string);
 
   if (!data) {
     return;
@@ -72,14 +94,14 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
   const jsonLd: WithContext<BlogPosting> = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
-    '@id': `${process.env.CLIENT_URL}/blog/${params.slug}/#BlogPosting`,
-    mainEntityOfPage: `${process.env.CLIENT_URL}/blog/${params.slug}/`,
+    '@id': `${process.env.CLIENT_URL}/blog/${slug[0] as string}/#BlogPosting`,
+    mainEntityOfPage: `${process.env.CLIENT_URL}/blog/${slug[0] as string}/`,
     headline: data.metadata?.title,
     name: data.metadata?.title,
     description: data.metadata?.description,
     datePublished: `${publishedAt}`,
     dateModified: `${updatedAt}`,
-    url: `${process.env.CLIENT_URL}/blog/${params.slug}/`,
+    url: `${process.env.CLIENT_URL}/blog/${slug[0] as string}/`,
     inLanguage: 'en-GB',
     author: {
       '@type': 'Person',
@@ -144,22 +166,9 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
                   <div className="flex text-xs items-center [&>span]:inline-flex [&>span]:after:inline-flex [&>span]:after:self-center [&>span]:after:mx-2 [&>span:last-child]:after:hidden [&>span]:after:w-1 [&>span]:after:h-1 [&>span]:after:bg-black [&>span]:after:rounded-full">
                     {updatedAt &&
                     publishedAt?.getDate() !== updatedAt?.getDate() ? (
-                      <span>
-                        {'Last updated: '}
-                        {new Intl.DateTimeFormat('en-GB', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        }).format(updatedAt)}
-                      </span>
+                      <span>Last updated: {formatDate(updatedAt)}</span>
                     ) : publishedAt ? (
-                      <span>
-                        {new Intl.DateTimeFormat('en-GB', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        }).format(publishedAt)}
-                      </span>
+                      <span>{formatDate(publishedAt)}</span>
                     ) : null}
                     {estimatedReadingTime && (
                       <span className="flex items-center">
@@ -179,9 +188,9 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
               {data.hasAffiliateLinks && (
                 <CallOutMessage messageType="success">
                   <p className="text-xs leading-5 font-semibold">
-                    This post might have affiliate links. Buy purchasing
-                    anything through our links you will be helping support us,
-                    at no extra cost to you. <br />
+                    This post might have affiliate links. By purchasing anything
+                    through our links, you will be helping support us, at no
+                    extra cost to you. <br />
                     <Link
                       href="/disclaimer"
                       target="_blank"

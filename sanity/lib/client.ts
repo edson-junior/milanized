@@ -73,7 +73,9 @@ export async function getAllPosts({
   return data || [];
 }
 
-export async function getPostBySlug(slug: Slug): Promise<Blog | undefined> {
+export async function getPostBySlug(
+  slug: Slug | string
+): Promise<Blog | undefined> {
   const query = getPostBySlugQuery;
   const data = await sanityFetch({
     query,

@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
 export {};
 declare global {
   interface Window {
-    // eslint-disable-next-line @typescript-eslint/ban-types
     gtag: Function;
   }
 }

@@ -17,7 +17,7 @@ import { TableRow } from '@sanity/table';
 import Table from './Table';
 import CTACollection from './CTACollection';
 import GygWidget from './GygWidget';
-import InstagramWidget from './InstagramWidget';
+import { InstagramEmbed } from 'react-social-media-embed';
 
 export interface Table {
   rows?: TableRow[];
@@ -67,8 +67,8 @@ export const PortableComponents: PortableTextComponents = {
     messages: ({ value }) => {
       return <CallOutMessage {...value} />;
     },
-    instagramPost: (props) => {
-      return <InstagramWidget {...props} />;
+    instagramPost: ({ value }) => {
+      return <InstagramEmbed url={value.url} />;
     },
     tableRichText: ({ value }) => {
       return <Table value={value} />;

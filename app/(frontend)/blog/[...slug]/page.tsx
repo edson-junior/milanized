@@ -16,7 +16,7 @@ import { socialLinks } from '@/components/Footer';
 import { formatDate } from '@/lib/utils';
 
 interface BlogDetailsProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 interface SlugList {
@@ -36,14 +36,14 @@ export async function generateStaticParams() {
     }`
   });
 
-  return slugs.map(({ metadata }) => metadata.slug);
+  return [slugs.map(({ metadata }) => ({ slug: metadata.slug }))];
 }
 
 export async function generateMetadata({
   params
 }: BlogDetailsProps): Promise<Metadata> {
-  const { slug } = await params;
-  const data = await getPostBySlug(slug[0] as string);
+  const slug = (await params).slug[0];
+  const data = await getPostBySlug(slug);
 
   if (!data?.featuredImage) {
     return {};
@@ -55,13 +55,13 @@ export async function generateMetadata({
     robots:
       'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
     alternates: {
-      canonical: `${process.env.CLIENT_URL}/blog/${slug[0]}`,
+      canonical: `${process.env.CLIENT_URL}/blog/${slug}`,
       types: {
         'application/rss+xml': `${process.env.CLIENT_URL}/blog/rss.xml`
       }
     },
     openGraph: {
-      url: `${process.env.CLIENT_URL}/blog/${slug[0]}`,
+      url: `${process.env.CLIENT_URL}/blog/${slug}`,
       siteName: 'Milanized!',
       locale: 'en_GB',
       type: 'article',
@@ -80,8 +80,8 @@ export async function generateMetadata({
 }
 
 export default async function BlogDetails({ params }: BlogDetailsProps) {
-  const { slug } = await params;
-  const data = await getPostBySlug(slug[0] as string);
+  const slug = (await params).slug[0];
+  const data = await getPostBySlug(slug);
 
   if (!data) {
     return;
@@ -94,14 +94,14 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
   const jsonLd: WithContext<BlogPosting> = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
-    '@id': `${process.env.CLIENT_URL}/blog/${slug[0] as string}/#BlogPosting`,
-    mainEntityOfPage: `${process.env.CLIENT_URL}/blog/${slug[0] as string}/`,
+    '@id': `${process.env.CLIENT_URL}/blog/${slug}/#BlogPosting`,
+    mainEntityOfPage: `${process.env.CLIENT_URL}/blog/${slug}/`,
     headline: data.metadata?.title,
     name: data.metadata?.title,
     description: data.metadata?.description,
     datePublished: `${publishedAt}`,
     dateModified: `${updatedAt}`,
-    url: `${process.env.CLIENT_URL}/blog/${slug[0] as string}/`,
+    url: `${process.env.CLIENT_URL}/blog/${slug}/`,
     inLanguage: 'en-GB',
     author: {
       '@type': 'Person',

@@ -5,6 +5,7 @@ import { urlFor } from '@/sanity/lib/image';
 import { sanityFetch } from '@/sanity/lib/client';
 import groq from 'groq';
 import { Blog } from '@/sanity.types';
+import { formatDate } from '@/lib/utils';
 const query = groq`*[_type == 'blog' && !(_id in path('drafts.**')) && isFeatured]|order(_createdAt desc) [0...1] [0] {
   _id,
   _createdAt,
@@ -36,9 +37,10 @@ export default async function FeaturedPost() {
     return null;
   }
 
-  const { _createdAt, metadata, featuredImage, title, summary } = data;
+  const { _createdAt, metadata, featuredImage, title, summary, publishDate } =
+    data;
 
-  const publishedAt = new Date(_createdAt);
+  const publishedAt = new Date(publishDate || _createdAt);
 
   return (
     <Link
@@ -68,13 +70,7 @@ export default async function FeaturedPost() {
           {summary}
         </p>
         <p className="text-sm">
-          <span className="text-gray-600">
-            {new Intl.DateTimeFormat('en-GB', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            }).format(publishedAt)}
-          </span>
+          <span className="text-gray-600">{formatDate(publishedAt)}</span>
         </p>
       </div>
     </Link>

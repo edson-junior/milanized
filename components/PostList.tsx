@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { urlFor } from '@/sanity/lib/image';
 import Heading from './ui/heading';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
-import { cn } from '@/lib/utils';
+import { cn, formatDate } from '@/lib/utils';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface PostListProps
@@ -33,8 +33,19 @@ export default function PostList({
       {...props}
     >
       {posts.map(
-        ({ _id, metadata, title, summary, featuredImage, _createdAt }) => {
-          const publishedAt = _createdAt ? new Date(_createdAt) : undefined;
+        ({
+          _id,
+          metadata,
+          title,
+          summary,
+          featuredImage,
+          _createdAt,
+          publishDate
+        }) => {
+          const publishedAt =
+            publishDate || _createdAt
+              ? new Date(publishDate || _createdAt)
+              : undefined;
 
           return (
             <Link
@@ -93,15 +104,13 @@ export default function PostList({
                   {summary}
                 </p>
 
-                <p className="text text-xs align-baseline">
-                  <span className="text-gray-600">
-                    {new Intl.DateTimeFormat('en-GB', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    }).format(publishedAt)}
-                  </span>
-                </p>
+                {publishedAt && (
+                  <p className="text text-xs align-baseline">
+                    <span className="text-gray-600">
+                      {formatDate(publishedAt)}
+                    </span>
+                  </p>
+                )}
               </div>
             </Link>
           );

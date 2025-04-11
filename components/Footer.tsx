@@ -38,9 +38,9 @@ export const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white">
+    <footer className="bg-black text-white relative after:block after:w-full after:h-[0.18rem] after:bg-gradient-to-r after:from-red-800 after:via-yellow-400 after:to-cyan-600 after:absolute after:bottom-full after:border-t after:border-black after:left-0">
       <div className="flex flex-col max-w-7xl mx-auto pt-10">
-        <div className="flex justify-center gap-4 pb-10">
+        <div className="flex justify-center gap-8 pb-10">
           {socialLinks.map(({ href, text, icon }) => {
             return (
               <Link

@@ -83,7 +83,7 @@ export const PortableComponents: PortableTextComponents = {
 
   list: {
     bullet: ({ children }) => (
-      <ul className="flex flex-col list-disc gap-2 list-outside ms-4 mb-6">
+      <ul className="flex flex-col list-disc gap-2 list-outside ms-4 [&:not(:last-child)]:mb-6">
         {children}
       </ul>
     ),

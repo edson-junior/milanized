@@ -18,6 +18,7 @@ import { TableRow } from '@sanity/table';
 import Table from './Table';
 import CTACollection from './CTACollection';
 import GygWidget from './GygWidget';
+import dynamic from 'next/dynamic';
 
 export interface Table {
   rows?: TableRow[];
@@ -28,6 +29,8 @@ export interface TableValueProps {
   table?: Table;
   caption?: string;
 }
+
+const CustomHTML = dynamic(() => import('./CustomHTML'), { ssr: false });
 
 export const PortableComponents: PortableTextComponents = {
   types: {
@@ -77,7 +80,7 @@ export const PortableComponents: PortableTextComponents = {
       return <GygWidget {...value} />;
     },
     customHTML: ({ value }) => {
-      return parse(value.HTMLSnippet.code);
+      return <CustomHTML {...value} suppressHydrationWarning />;
     }
   },
 
@@ -129,10 +132,10 @@ export const PortableComponents: PortableTextComponents = {
   },
 
   block: {
-    normal: ({ children, value }) => {
-      if (value.children[0].marks.includes('code')) {
-        return <>{parse(value.children[0].text)}</>;
-      }
+    normal: ({ children }) => {
+      // if (value.children[0].marks.includes('code')) {
+      //   return <>{parse(value.children[0].text)}</>;
+      // }
 
       return <p className="leading-7 [&:not(:last-child)]:mb-6">{children}</p>;
     },

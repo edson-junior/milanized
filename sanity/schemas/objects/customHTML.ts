@@ -12,11 +12,7 @@ const customHTML = defineField({
     {
       title: 'HTML Snippet',
       name: 'HTMLSnippet',
-      type: 'code',
-      description: 'Read https://css-tricks.com/use-target_blank/',
-      options: {
-        language: 'html'
-      }
+      type: 'code'
     }
   ]
 });

@@ -4,7 +4,6 @@ import blog from './documents/blog';
 import page from './documents/page';
 import metadata from './objects/metadata';
 import message from './documents/message';
-import instagramPost from './documents/instagramPost';
 import links from './objects/links';
 import linksList from './objects/links-list';
 import category from './documents/category';
@@ -21,7 +20,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     metadata,
     author,
     message,
-    instagramPost,
     table,
     links,
     linksList,

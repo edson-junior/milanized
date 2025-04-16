@@ -12,7 +12,6 @@ import parse from 'html-react-parser';
 import Heading from './ui/heading';
 import { urlFor } from '@/sanity/lib/image';
 import { slugify } from '@/lib/utils';
-import { InstagramEmbed } from 'react-social-media-embed';
 import CallOutMessage from './CallOutMessage';
 import { TableRow } from '@sanity/table';
 import Table from './Table';
@@ -70,9 +69,6 @@ export const PortableComponents: PortableTextComponents = {
     messages: ({ value }) => {
       return <CallOutMessage {...value} />;
     },
-    instagramPost: ({ value }) => {
-      return <InstagramEmbed url={value.url} />;
-    },
     tableRichText: ({ value }) => {
       return <Table value={value} />;
     },
@@ -80,7 +76,11 @@ export const PortableComponents: PortableTextComponents = {
       return <GygWidget {...value} />;
     },
     customHTML: ({ value }) => {
-      return <CustomHTML {...value} suppressHydrationWarning />;
+      if (/instagram.com\/embed.js/gm.test(value.HTMLSnippet.code)) {
+        return <CustomHTML {...value} suppressHydrationWarning />;
+      }
+
+      return parse(value.HTMLSnippet.code);
     }
   },
 

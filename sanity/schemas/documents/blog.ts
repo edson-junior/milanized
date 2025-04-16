@@ -131,9 +131,6 @@ export default defineType({
           ]
         },
         defineArrayMember({
-          type: 'instagramPost'
-        }),
-        defineArrayMember({
           type: 'tableRichText'
         }),
         defineArrayMember({

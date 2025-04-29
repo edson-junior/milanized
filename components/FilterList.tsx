@@ -1,6 +1,6 @@
-import { groq } from 'next-sanity';
-import { Key, Suspense } from 'react';
 import { sanityFetch } from '@/sanity/lib/client';
+import groq from 'groq';
+import { Key, Suspense } from 'react';
 import Filter from './Filter';
 
 export default async function FilterList() {

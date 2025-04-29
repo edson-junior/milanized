@@ -1,19 +1,20 @@
 import BlockRendererClient from '@/components/BlockRenderClient';
-import { Metadata } from 'next';
-import Heading from '@/components/ui/heading';
-import { LuClock2 } from 'react-icons/lu';
+import CallOutMessage from '@/components/CallOutMessage';
 import { FeaturedImage } from '@/components/FeaturedImage';
-import { BlogPosting, WithContext } from 'schema-dts';
-import { getPostBySlug, sanityFetch } from '@/sanity/lib/client';
-import { urlFor } from '@/sanity/lib/image';
-import Image from 'next/image';
-import { groq, PortableText } from 'next-sanity';
+import { socialLinks } from '@/components/Footer';
 import PostList from '@/components/PostList';
 import Toc from '@/components/Toc';
-import Link from 'next/link';
-import CallOutMessage from '@/components/CallOutMessage';
-import { socialLinks } from '@/components/Footer';
+import Heading from '@/components/ui/heading';
 import { formatDate } from '@/lib/utils';
+import { getPostBySlug, sanityFetch } from '@/sanity/lib/client';
+import { urlFor } from '@/sanity/lib/image';
+import { PortableText } from '@portabletext/react';
+import groq from 'groq';
+import { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { LuClock2 } from 'react-icons/lu';
+import { BlogPosting, WithContext } from 'schema-dts';
 
 interface BlogDetailsProps {
   params: { slug: string };

@@ -1,5 +1,5 @@
-import { createClient, type QueryParams } from 'next-sanity';
 import { Author, Blog, Homepage, Page, Slug } from '@/sanity.types';
+import { type QueryParams, createClient } from '@sanity/client';
 
 import { apiVersion, dataset, projectId } from '../env';
 import {

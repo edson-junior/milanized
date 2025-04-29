@@ -1,6 +1,6 @@
-import { groq } from 'next-sanity';
-import type { MetadataRoute } from 'next';
 import { sanityFetch } from '@/sanity/lib/client';
+import groq from 'groq';
+import type { MetadataRoute } from 'next';
 
 interface Sitemap {
   pages: SitemapItem[];

@@ -1,13 +1,13 @@
 'use client';
 
-import { Blog } from '@/sanity.types';
-import Link from 'next/link';
-import Image from 'next/image';
-import { urlFor } from '@/sanity/lib/image';
-import Heading from './ui/heading';
-import { DetailedHTMLProps, HTMLAttributes } from 'react';
-import { cn, formatDate } from '@/lib/utils';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { cn, formatDate } from '@/lib/utils';
+import { Blog } from '@/sanity.types';
+import { urlFor } from '@/sanity/lib/image';
+import Image from 'next/image';
+import Link from 'next/link';
+import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import Heading from './ui/heading';
 
 interface PostListProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -27,7 +27,7 @@ export default function PostList({
     <div
       className={cn(
         variant === 'row' && 'grid grid-cols-1 lg:grid-cols-3 gap-8 gap-y-6',
-        variant === 'col' && 'flex flex-col',
+        variant === 'col' && 'flex flex-col gap-8',
         className
       )}
       {...props}
@@ -52,7 +52,7 @@ export default function PostList({
               href={`/blog/${metadata?.slug}`}
               className={cn(
                 variant === 'col' &&
-                  'flex flex-col lg:flex-row  gap-4 items-center',
+                  'flex flex-col lg:flex-row gap-4 items-center',
                 'group'
               )}
               key={_id}

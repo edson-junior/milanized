@@ -43,26 +43,31 @@ export default async function FeaturedPost() {
   const publishedAt = new Date(publishDate || _createdAt);
 
   return (
-    <section className="bg-black text-white">
-      <div className="max-w-7xl mx-auto px-4 py-16 lg:py-20">
+    <section
+      className="bg-no-repeat bg-cover relative after:bg-black/60 after:absolute after:w-full after:h-full after:top-0 after:left-0 z-0 text-white"
+      style={{
+        backgroundImage: `url("${featuredImage?.lqip}")`
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-4 py-16 lg:py-20 z-10 relative border border-l-0 border-r-0 border-b-gray-800 border-t-gray-800">
         <Link
           href={`/blog/${metadata?.slug}`}
           className="relative group grid items-center gap-8 md:grid-cols-2"
         >
           <div className="max-w-lg space-y-4">
-            <Heading className="text-xl lg:text-3xl block mb-4 bg-transparent lg:p-2 lg:-ml-2 lg:group-hover:text-black lg:group-hover:bg-white">
+            <Heading className="text-xl lg:text-3xl block mb-4 bg-transparent lg:p-2 lg:-ml-2 text-black bg-white lg:group-hover:underline">
               {title}
             </Heading>
             <p className="text-sm lg:text-lg line-clamp-4 align-baseline">
               {summary}
             </p>
             <p className="text-sm">
-              <span className="text-gray-600">{formatDate(publishedAt)}</span>
+              <span className="text-stone-400">{formatDate(publishedAt)}</span>
             </p>
           </div>
 
           {featuredImage && (
-            <figure className="max-md:full-bleed relative aspect-video overflow-hidden rounded-md -order-1 lg:order-none">
+            <figure className="max-md:full-bleed relative aspect-video overflow-hidden rounded-md -order-1 lg:order-none border border-gray-800 shadow-xl shadow-black/50">
               <Image
                 fill
                 sizes="(min-width: 1360px) 608px, (min-width: 780px) 44.64vw, calc(100vw - 32px)"

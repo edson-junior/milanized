@@ -30,7 +30,7 @@ export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const slugs: SlugList[] = await sanityFetch({
-    query: groq`*[_type == "blog" && !(_id in path('drafts.**'))] | order(_createdAt desc) [0...10] {
+    query: groq`*[_type == "blog" && !(_id in path('drafts.**'))] | order(_createdAt desc) [0...50] {
       metadata {
         'slug': slug.current
       }

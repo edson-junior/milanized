@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
-import { Button } from './ui/button';
 import CTA from './CTA';
+import { Button } from './ui/button';
 
 interface CTAsProps {
   _type: string;
@@ -35,7 +35,7 @@ interface Metadata {
 
 export default function CTACollection({ ctas }: CTAsProps) {
   return (
-    <div className="flex items-center justify-center gap-4 mb-8 py-8">
+    <div className="flex items-center gap-4 mb-8">
       {ctas.map((cta) => (
         <Button
           asChild

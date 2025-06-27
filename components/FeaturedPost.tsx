@@ -55,7 +55,7 @@ export default async function FeaturedPost() {
           className="relative group grid items-center gap-8 md:grid-cols-2"
         >
           <div className="max-w-lg space-y-4">
-            <Heading className="text-xl lg:text-3xl block mb-4 bg-transparent lg:p-2 lg:-ml-2 text-black bg-white lg:group-hover:underline">
+            <Heading className="text-xl lg:text-3xl block mb-4 bg-transparent p-2 lg:-ml-2 text-black bg-white lg:group-hover:underline">
               {title}
             </Heading>
             <p className="text-sm lg:text-lg line-clamp-4 align-baseline">

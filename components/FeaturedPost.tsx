@@ -49,15 +49,17 @@ export default async function FeaturedPost() {
         backgroundImage: `url("${featuredImage?.lqip}")`
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 py-16 lg:py-20 z-10 relative border border-l-0 border-r-0 border-b-gray-800 border-t-gray-800">
+      <div className="max-w-7xl mx-auto px-4 py-12 z-10 relative border border-l-0 border-r-0 border-b-gray-800 border-t-gray-800">
         <Link
           href={`/blog/${metadata?.slug}`}
           className="relative group grid items-center gap-8 md:grid-cols-2"
         >
-          <div className="max-w-lg space-y-4">
-            <Heading className="text-xl lg:text-3xl block mb-4 bg-transparent p-2 lg:-ml-2 text-black bg-white lg:group-hover:underline">
-              {title}
-            </Heading>
+          <div className="space-y-4">
+            <div className="leading-[2.4] lg:leading-[3.6]">
+              <Heading className="text-xl lg:text-3xl mb-4 text-black group-hover:text-blue-700 bg-white box-decoration-clone px-2 rounded-md">
+                {title}
+              </Heading>
+            </div>
             <p className="text-sm lg:text-lg line-clamp-4 align-baseline">
               {summary}
             </p>

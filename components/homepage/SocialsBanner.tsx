@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import React from 'react';
 import { FaFacebookSquare, FaInstagram } from 'react-icons/fa';
 import Hero from '../Hero';
 import { Button } from '../ui/button';

@@ -1,9 +1,8 @@
-import React from 'react';
-import Heading from './ui/heading';
-import { PortableText } from '@portabletext/react';
-import { PortableTextTypes } from '@/sanity.types';
 import { cn } from '@/lib/utils';
+import { PortableTextTypes } from '@/sanity.types';
+import { PortableText } from '@portabletext/react';
 import { PortableComponents } from './BlockRenderClient';
+import Heading from './ui/heading';
 
 interface CallOutMessageProps {
   title?: string;

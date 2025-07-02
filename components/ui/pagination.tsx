@@ -1,7 +1,6 @@
-import * as React from 'react';
-
-import { cn } from '@/lib/utils';
 import { ButtonProps, buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { forwardRef } from 'react';
 import { LuChevronLeft, LuChevronRight, LuEllipsis } from 'react-icons/lu';
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
@@ -14,7 +13,7 @@ const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
 );
 Pagination.displayName = 'Pagination';
 
-const PaginationContent = React.forwardRef<
+const PaginationContent = forwardRef<
   HTMLUListElement,
   React.ComponentProps<'ul'>
 >(({ className, ...props }, ref) => (
@@ -26,12 +25,11 @@ const PaginationContent = React.forwardRef<
 ));
 PaginationContent.displayName = 'PaginationContent';
 
-const PaginationItem = React.forwardRef<
-  HTMLLIElement,
-  React.ComponentProps<'li'>
->(({ className, ...props }, ref) => (
-  <li ref={ref} className={cn('', className)} {...props} />
-));
+const PaginationItem = forwardRef<HTMLLIElement, React.ComponentProps<'li'>>(
+  ({ className, ...props }, ref) => (
+    <li ref={ref} className={cn('', className)} {...props} />
+  )
+);
 PaginationItem.displayName = 'PaginationItem';
 
 type PaginationLinkProps = {

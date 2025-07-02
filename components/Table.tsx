@@ -1,4 +1,3 @@
-import React from 'react';
 import { TableValueProps } from './BlockRenderClient';
 
 export default function Table({ value }: { value: TableValueProps }) {

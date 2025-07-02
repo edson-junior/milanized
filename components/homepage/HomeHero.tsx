@@ -1,4 +1,3 @@
-import React from 'react';
 import Heading from '../ui/heading';
 
 export default function HomeHero() {

@@ -183,6 +183,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
                   <FeaturedImage
                     className="flex flex-col lg:shrink-0 grow"
                     featuredImage={data.featuredImage}
+                    image={data.image}
                   />
                 )}
               </div>

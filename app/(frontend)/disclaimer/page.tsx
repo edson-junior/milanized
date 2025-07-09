@@ -1,7 +1,7 @@
-import type { Metadata } from 'next';
 import BlockRendererClient from '@/components/BlockRenderClient';
-import { getDisclaimerPage } from '@/sanity/lib/client';
 import Hero from '@/components/Hero';
+import { getDisclaimerPage } from '@/sanity/lib/client';
+import type { Metadata } from 'next';
 
 export async function generateMetadata() {
   const homepage = await getDisclaimerPage();
@@ -13,13 +13,13 @@ export async function generateMetadata() {
       robots:
         'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
       alternates: {
-        canonical: `${process.env.CLIENT_URL}/affiliate-link-disclaimer`,
+        canonical: `${process.env.CLIENT_URL}/disclaimer`,
         types: {
           'application/rss+xml': `${process.env.CLIENT_URL}/blog/rss.xml`
         }
       },
       openGraph: {
-        url: `${process.env.CLIENT_URL}/affiliate-link-disclaimer`,
+        url: `${process.env.CLIENT_URL}/disclaimer`,
         title: homepage.metadata?.title,
         description: homepage.metadata?.description,
         type: 'website',

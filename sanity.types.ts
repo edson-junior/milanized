@@ -144,6 +144,7 @@ export type Blog = {
   hasAffiliateLinks?: boolean;
   summary?: string;
   author?: Author;
+  image?: CloudinaryImage;
   featuredImage?: {
     asset?: {
       _ref: string;
@@ -295,4 +296,47 @@ export type Metadata = {
   };
   noIndex?: boolean;
 };
+
+export interface CloudinaryImage {
+  _key: string;
+  _type: string;
+  _version: number;
+  access_control: any[];
+  access_mode: string;
+  bytes: number;
+  context: Context;
+  created_at: string;
+  created_by: EdBy;
+  duration: null;
+  folder: string;
+  folder_id: string;
+  format: string;
+  height: number;
+  id: string;
+  metadata: {};
+  public_id: string;
+  resource_type: string;
+  secure_url: string;
+  tags: any[];
+  type: string;
+  uploaded_by: EdBy;
+  url: string;
+  version: number;
+  width: number;
+}
+
+interface Context {
+  custom: Custom;
+}
+
+interface Custom {
+  alt: string;
+  caption: string;
+}
+
+interface EdBy {
+  id: string;
+  type: string;
+}
+
 export declare const internalGroqTypeReferenceTo: unique symbol;

@@ -111,6 +111,7 @@ export const getPostBySlugQuery = groq`*[_type == 'blog' && metadata.slug.curren
       }
     }
   },
+  image,
   featuredImage {
     ...,
     ...asset-> {
@@ -219,7 +220,7 @@ export const getContactPageQuery = groq`*[_type == 'page' && metadata.slug.curre
   }
 }`;
 
-export const getArticlesPageQuery = groq`*[_type == 'page' && metadata.slug.current == 'articles'][0] {
+export const getArticlesPageQuery = groq`*[_type == 'page' && metadata.slug.current == 'blog'][0] {
   _id,
   title,
   metadata {
@@ -250,7 +251,7 @@ export const getAboutPageQuery = groq`*[_type == 'page' && metadata.slug.current
   }
 }`;
 
-export const getDisclaimerPageQuery = groq`*[_type == 'page' && metadata.slug.current == 'affiliate-link-disclaimer'][0] {
+export const getDisclaimerPageQuery = groq`*[_type == 'page' && metadata.slug.current == 'disclaimer'][0] {
   _id,
   title,
   content,

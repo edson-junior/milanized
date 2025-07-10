@@ -11,7 +11,7 @@ interface RSSProps {
 export async function GET() {
   const { blog, posts }: RSSProps = await sanityFetch({
     query: groq`{
-			'blog': *[_type == 'page' && metadata.slug.current == 'articles'][0] {
+			'blog': *[_type == 'page' && metadata.slug.current == 'blog'][0] {
 				_type,
 				title,
 				metadata {

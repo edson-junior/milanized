@@ -1,23 +1,23 @@
 'use client';
 
+import { slugify } from '@/lib/utils';
+import { urlFor } from '@/sanity/lib/image';
 import {
   PortableText,
   PortableTextComponents,
   PortableTextProps,
   toPlainText
 } from '@portabletext/react';
-import Image from 'next/image';
 import { TypedObject } from '@portabletext/types';
-import parse from 'html-react-parser';
-import Heading from './ui/heading';
-import { urlFor } from '@/sanity/lib/image';
-import { slugify } from '@/lib/utils';
-import CallOutMessage from './CallOutMessage';
 import { TableRow } from '@sanity/table';
-import Table from './Table';
-import CTACollection from './CTACollection';
-import GygWidget from './GygWidget';
+import parse from 'html-react-parser';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import CTACollection from './CTACollection';
+import CallOutMessage from './CallOutMessage';
+import GygWidget from './GygWidget';
+import Table from './Table';
+import Heading from './ui/heading';
 
 export interface Table {
   rows?: TableRow[];
@@ -39,7 +39,7 @@ export const PortableComponents: PortableTextComponents = {
           <div className="w-full aspect-video relative mb-2 overflow-hidden rounded-md">
             <Image
               fill
-              sizes="(min-width: 1340px) 832px, (min-width: 1040px) calc(85.71vw - 299px), calc(100vw - 32px)"
+              sizes="(min-width: 1340px) 832px, (min-width: 1040px) calc(85.71vw - 299px), 50vw"
               loading="lazy"
               src={urlFor(value).width(1280).url()}
               alt={value.alt}

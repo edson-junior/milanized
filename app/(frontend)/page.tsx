@@ -1,7 +1,6 @@
 import FeaturedPost from '@/components/FeaturedPost';
 import PostList from '@/components/PostList';
 import HomeHero from '@/components/homepage/HomeHero';
-import SocialsBanner from '@/components/homepage/SocialsBanner';
 import Heading from '@/components/ui/heading';
 import { getHomePage } from '@/sanity/lib/client';
 import type { Metadata } from 'next';
@@ -81,7 +80,7 @@ export default async function Home() {
           </Heading>
           <PostList posts={homepage.mostRead} />
         </div>
-        <SocialsBanner />
+        <hr />
         <div className="max-w-7xl mx-auto p-4 lg:pt-12">
           <Heading as="h2" className="text-xl text-center lg:text-4xl py-2">
             Latest Articles

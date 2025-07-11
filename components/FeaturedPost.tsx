@@ -12,6 +12,10 @@ const query = groq`*[_type == 'blog' && !(_id in path('drafts.**')) && isFeature
   _publishedAt,
   title,
   summary,
+  categories[]->{
+    title,
+    slug
+  },
   featuredImage {
     ...,
     ...asset-> {
@@ -37,8 +41,15 @@ export default async function FeaturedPost() {
     return null;
   }
 
-  const { _createdAt, metadata, featuredImage, title, summary, publishDate } =
-    data;
+  const {
+    _createdAt,
+    metadata,
+    featuredImage,
+    title,
+    summary,
+    categories,
+    publishDate
+  } = data;
 
   const publishedAt = new Date(publishDate || _createdAt);
 
@@ -55,6 +66,7 @@ export default async function FeaturedPost() {
           className="relative group grid items-center gap-8 md:grid-cols-2"
         >
           <div className="space-y-4">
+            <p className="text-sm text-stone-400">{categories[0].title}</p>
             <div className="leading-[2.4] lg:leading-[3.6]">
               <Heading className="text-xl lg:text-3xl mb-4 text-black group-hover:text-blue-700 bg-white box-decoration-clone px-2 rounded-md">
                 {title}
@@ -63,9 +75,7 @@ export default async function FeaturedPost() {
             <p className="text-sm lg:text-lg line-clamp-4 align-baseline">
               {summary}
             </p>
-            <p className="text-sm">
-              <span className="text-stone-400">{formatDate(publishedAt)}</span>
-            </p>
+            <p className="text-sm text-stone-400">{formatDate(publishedAt)}</p>
           </div>
 
           {featuredImage && (

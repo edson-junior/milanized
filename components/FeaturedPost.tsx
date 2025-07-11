@@ -86,6 +86,7 @@ export default async function FeaturedPost() {
                 src={urlFor(featuredImage).width(800).url()}
                 alt={featuredImage.alt || ''}
                 priority
+                fetchPriority="high"
                 className="object-cover transition duration-200 ease-in-out transform group-hover:scale-105"
                 blurDataURL={featuredImage.lqip}
                 placeholder="blur"

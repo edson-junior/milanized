@@ -1,7 +1,8 @@
-import type { Metadata } from 'next';
+import BlockRendererClient from '@/components/BlockRenderClient';
 import ContactForm from '@/components/ContactForm';
-import { getContactPage } from '@/sanity/lib/client';
 import Hero from '@/components/Hero';
+import { getContactPage } from '@/sanity/lib/client';
+import type { Metadata } from 'next';
 
 export async function generateMetadata() {
   const contact = await getContactPage();
@@ -55,6 +56,11 @@ export default async function Contact() {
       )}
 
       <div className="max-w-4xl lg:text-lg mx-auto px-4 py-4">
+        {contact?.content && (
+          <div className="mb-16">
+            <BlockRendererClient value={contact?.content} />
+          </div>
+        )}
         <ContactForm />
       </div>
     </>

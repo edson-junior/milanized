@@ -18,6 +18,10 @@ const config = {
       }
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--open-sans)'],
+        catamaran: ['var(--catamaran)', 'sans-serif']
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

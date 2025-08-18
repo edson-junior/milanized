@@ -1,6 +1,4 @@
-import { Catamaran } from 'next/font/google';
-import { forwardRef, HTMLAttributes } from 'react';
-const catamaran = Catamaran({ subsets: ['latin'] });
+import { HTMLAttributes, forwardRef } from 'react';
 
 type HeadingTypes = HTMLAttributes<HTMLElement>;
 
@@ -16,7 +14,7 @@ const Heading: React.ForwardRefRenderFunction<HTMLElement, HeadingProps> = (
 
   return (
     <Wrapper
-      className={`font-black ${catamaran.className} ${className}`}
+      className={`font-black font-catamaran ${className}`}
       ref={ref}
       {...props}
     >

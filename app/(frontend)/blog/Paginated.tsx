@@ -16,12 +16,12 @@ export default function Paginated({
     itemsPerPage
   });
 
-  function scrollToList() {
-    if (typeof window !== 'undefined')
-      document
-        .querySelector('#blog-list')
-        ?.scrollIntoView({ behavior: 'smooth' });
-  }
+  // function scrollToList() {
+  //   if (typeof window !== 'undefined')
+  //     document
+  //       .querySelector('#blog-list')
+  //       ?.scrollIntoView({ behavior: 'smooth' });
+  // }
 
   return (
     <div className="max-w-7xl mx-auto px-4">
@@ -31,10 +31,7 @@ export default function Paginated({
         <List posts={paginatedItems} />
       )}
 
-      <Pagination
-        className="flex items-center justify-center gap-4 bg-canvas p-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] [&_span]:tabular-nums"
-        onClick={scrollToList}
-      />
+      <Pagination className="flex items-center justify-center gap-4 bg-canvas p-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] [&_span]:tabular-nums" />
     </div>
   );
 }

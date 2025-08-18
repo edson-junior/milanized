@@ -3,7 +3,6 @@ import { Open_Sans } from 'next/font/google';
 import { Catamaran } from 'next/font/google';
 import '../../styles/globals.css';
 import { GoogleTagManager } from '@next/third-parties/google';
-import parse from 'html-react-parser';
 import NextTopLoader from 'nextjs-toploader';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header/Header';
@@ -36,19 +35,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <Footer />
       </body>
       {process.env.NODE_ENV === 'production' && (
-        <>
-          <GoogleTagManager gtmId={`${process.env.NEXT_PUBLIC_GTM_ID}`} />
-          {parse(`
-            <script data-noptimize="1" data-cfasync="false" data-wpfc-render="false">
-              (function () {
-                var script = document.createElement("script");
-                script.async = 1;
-                script.src = 'https://tpembars.com/NDMyMjQz.js?t=432243';
-                document.head.appendChild(script);
-              })();
-            </script>
-          `)}
-        </>
+        <GoogleTagManager gtmId={`${process.env.NEXT_PUBLIC_GTM_ID}`} />
       )}
     </html>
   );

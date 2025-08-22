@@ -13,6 +13,7 @@ import groq from 'groq';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { LuClock2 } from 'react-icons/lu';
 import { BlogPosting, WithContext } from 'schema-dts';
 
@@ -47,7 +48,7 @@ export async function generateMetadata({
   const data = await getPostBySlug(slug[0] as string);
 
   if (!data?.featuredImage) {
-    return {};
+    return notFound();
   }
 
   return {
@@ -85,7 +86,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
   const data = await getPostBySlug(slug[0] as string);
 
   if (!data) {
-    return;
+    return notFound();
   }
 
   const publishedAt = data

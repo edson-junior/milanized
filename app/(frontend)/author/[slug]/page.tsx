@@ -1,16 +1,17 @@
-import Heading from '@/components/ui/heading';
-import Image from 'next/image';
-import { Slug } from '@/sanity.types';
-import type { Metadata } from 'next';
 import BlockRendererClient from '@/components/BlockRenderClient';
+import { socialLinks } from '@/components/Footer';
+import Hero from '@/components/Hero';
+import Heading from '@/components/ui/heading';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Slug } from '@/sanity.types';
 import { getAuthor } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import Paginated from '../../blog/Paginated';
-import { Skeleton } from '@/components/ui/skeleton';
-import Hero from '@/components/Hero';
-import { socialLinks } from '@/components/Footer';
-import Link from 'next/link';
 
 interface AuthorProps {
   params: Promise<{ slug: Slug }>;
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: AuthorProps) {
   const author = await getAuthor(slug);
 
   if (!author) {
-    return {};
+    return notFound();
   }
 
   const metaData: Metadata = {
@@ -60,7 +61,7 @@ export default async function Author({ params }: AuthorProps) {
   const author = await getAuthor(slug);
 
   if (!author) {
-    return null;
+    return notFound();
   }
 
   return (

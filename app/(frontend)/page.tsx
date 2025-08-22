@@ -4,13 +4,14 @@ import HomeHero from '@/components/homepage/HomeHero';
 import Heading from '@/components/ui/heading';
 import { getHomePage } from '@/sanity/lib/client';
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { Organization, WithContext } from 'schema-dts';
 
 export async function generateMetadata() {
   const homepage = await getHomePage();
 
   if (!homepage) {
-    return {};
+    return notFound();
   }
 
   const metaData: Metadata = {
@@ -47,7 +48,7 @@ export default async function Home() {
   const homepage = await getHomePage();
 
   if (!homepage) {
-    return null;
+    return notFound();
   }
 
   const jsonLd: WithContext<Organization> = {

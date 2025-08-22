@@ -7,15 +7,38 @@ import { Slug } from '@/sanity.types';
 import { getAuthor } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
-import Paginated from '../../blog/Paginated';
 
 interface AuthorProps {
   params: Promise<{ slug: Slug }>;
 }
+
+const Paginated = dynamic(() => import('./../../blog/Paginated'), {
+  ssr: false,
+  loading: () => (
+    <div className="max-w-7xl mx-auto px-4 py-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 gap-y-9">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="flex flex-col">
+            <Skeleton className="h-[200px]" />
+            <div className="space-y-2 mt-8">
+              <Skeleton className="h-4 w-[250px]" />
+              <Skeleton className="h-4 w-[200px]" />
+            </div>
+            <div className="space-y-2 mt-8">
+              <Skeleton className="h-4 w-[250px]" />
+              <Skeleton className="h-4 w-[200px]" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+});
 
 export async function generateMetadata({ params }: AuthorProps) {
   const { slug } = await params;
@@ -111,33 +134,13 @@ export default async function Author({ params }: AuthorProps) {
       {!author?.posts ? (
         <p>there are no blogposts</p>
       ) : (
-        <Suspense
-          fallback={
-            <div className="max-w-7xl mx-auto px-4 py-4">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 gap-y-9">
-                {Array.from({ length: itemsPerPage ?? 6 }).map((_, i) => (
-                  <div key={i} className="flex flex-col">
-                    <Skeleton className="h-[200px]" />
-                    <div className="space-y-2 mt-8">
-                      <Skeleton className="h-4 w-[250px]" />
-                      <Skeleton className="h-4 w-[200px]" />
-                    </div>
-                    <div className="space-y-2 mt-8">
-                      <Skeleton className="h-4 w-[250px]" />
-                      <Skeleton className="h-4 w-[200px]" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          }
-        >
+        <>
           <Heading
             as="h2"
             className="text-xl text-center lg:text-4xl py-0 lg:py-2 mb-4 scroll-m-20"
           >{`Articles by ${author?.name}`}</Heading>
           <Paginated posts={author?.posts} itemsPerPage={itemsPerPage} />
-        </Suspense>
+        </>
       )}
     </>
   );

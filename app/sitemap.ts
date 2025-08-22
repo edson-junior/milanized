@@ -30,7 +30,7 @@ export default async function sitemap(): Promise<
 					0.5
 				),
 			},
-			'blog': *[_type == 'blog' && metadata.noIndex != true]|order(name){
+			'blog': *[_type == 'blog' && !(_id in path('drafts.**')) && metadata.noIndex != true]|order(name){
 				'url': $baseUrl + 'blog/' + metadata.slug.current,
 				'lastModified': _updatedAt,
 				'priority': 0.4

@@ -3,48 +3,55 @@ import Hero from '@/components/Hero';
 import { Skeleton } from '@/components/ui/skeleton';
 import { getAllPosts, getArticlesPage } from '@/sanity/lib/client';
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import Paginated from './Paginated';
 
 export async function generateMetadata() {
   const articles = await getArticlesPage();
 
-  if (articles) {
-    const metaData: Metadata = {
+  if (!articles) {
+    return notFound();
+  }
+
+  const metaData: Metadata = {
+    title: articles.metadata?.title,
+    description: articles.metadata?.description,
+    robots:
+      'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
+    alternates: {
+      canonical: `${process.env.CLIENT_URL}/blog`,
+      types: {
+        'application/rss+xml': `${process.env.CLIENT_URL}/blog/rss.xml`
+      }
+    },
+    openGraph: {
+      url: `${process.env.CLIENT_URL}/blog`,
       title: articles.metadata?.title,
       description: articles.metadata?.description,
-      robots:
-        'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
-      alternates: {
-        canonical: `${process.env.CLIENT_URL}/blog`,
-        types: {
-          'application/rss+xml': `${process.env.CLIENT_URL}/blog/rss.xml`
-        }
-      },
-      openGraph: {
-        url: `${process.env.CLIENT_URL}/blog`,
-        title: articles.metadata?.title,
-        description: articles.metadata?.description,
-        type: 'website',
-        images: {
-          url: `${process.env.CLIENT_URL}/opengraph-logo.png`,
-          secureUrl: `${process.env.CLIENT_URL}/opengraph-logo.png`,
-          alt: articles.metadata?.title,
-          width: 360,
-          height: 360,
-          type: 'image'
-        }
+      type: 'website',
+      images: {
+        url: `${process.env.CLIENT_URL}/opengraph-logo.png`,
+        secureUrl: `${process.env.CLIENT_URL}/opengraph-logo.png`,
+        alt: articles.metadata?.title,
+        width: 360,
+        height: 360,
+        type: 'image'
       }
-    };
+    }
+  };
 
-    return metaData;
-  }
+  return metaData;
 }
 
 export default async function Articles() {
   const posts = await getAllPosts();
   const itemsPerPage = 9;
   const articles = await getArticlesPage();
+
+  if (!articles) {
+    return notFound();
+  }
 
   return (
     <>

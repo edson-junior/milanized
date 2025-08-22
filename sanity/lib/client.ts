@@ -46,7 +46,7 @@ export async function getHomePage(): Promise<Homepage | undefined> {
   const query = getHomePageQuery;
   const data = await sanityFetch({ query });
 
-  return data || {};
+  return data;
 }
 
 interface AllPostsProps {
@@ -70,7 +70,7 @@ export async function getAllPosts({
     }
   });
 
-  return data || [];
+  return data;
 }
 
 export async function getPostBySlug(
@@ -84,42 +84,42 @@ export async function getPostBySlug(
     }
   });
 
-  return data || {};
+  return data;
 }
 
 export async function getAboutPage(): Promise<Page | undefined> {
   const query = getAboutPageQuery;
   const data = await sanityFetch({ query });
 
-  return data || {};
+  return data;
 }
 
 export async function getDisclaimerPage(): Promise<Page | undefined> {
   const query = getDisclaimerPageQuery;
   const data = await sanityFetch({ query });
 
-  return data || {};
+  return data;
 }
 
 export async function getArticlesPage(): Promise<Page | undefined> {
   const query = getArticlesPageQuery;
   const data = await sanityFetch({ query });
 
-  return data || {};
+  return data;
 }
 
 export async function getContactPage(): Promise<Page | undefined> {
   const query = getContactPageQuery;
   const data = await sanityFetch({ query });
 
-  return data || {};
+  return data;
 }
 
 export async function getPrivacyPage(): Promise<Page | undefined> {
   const query = getPrivacyPageQuery;
   const data = await sanityFetch({ query });
 
-  return data || {};
+  return data;
 }
 
 export async function getAuthor(slug: Slug): Promise<Author | undefined> {
@@ -131,7 +131,7 @@ export async function getAuthor(slug: Slug): Promise<Author | undefined> {
     }
   });
 
-  return data || {};
+  return data;
 }
 
 export default client;

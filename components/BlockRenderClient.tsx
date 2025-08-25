@@ -35,8 +35,8 @@ export const PortableComponents: PortableTextComponents = {
   types: {
     image: ({ value }) => {
       return value.caption ? (
-        <figure>
-          <div className="w-full aspect-video relative mb-2 overflow-hidden rounded-md">
+        <figure className="-ml-4 -mr-4 lg:ml-0 lg:mr-0">
+          <div className="w-full aspect-video relative mb-2 overflow-hidden lg:rounded-md">
             <Image
               fill
               sizes="(min-width: 1340px) 832px, (min-width: 1040px) calc(85.71vw - 299px), 50vw"
@@ -48,7 +48,7 @@ export const PortableComponents: PortableTextComponents = {
               className="object-cover transition duration-200 ease-in-out transform hover:scale-110"
             />
           </div>
-          <figcaption className="text-xs italic text-gray-600 [&>a]:text-blue-700 [&>a]:underline mb-4 place-items-start">
+          <figcaption className="text-xs italic text-gray-600 [&>a]:text-blue-700 [&>a]:underline mb-4 place-items-start mx-4 lg:mx-0">
             {parse(value.caption)}
           </figcaption>
         </figure>

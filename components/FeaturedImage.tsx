@@ -21,7 +21,7 @@ export function FeaturedImage({
   if (featuredImage.caption) {
     return (
       <figure {...props}>
-        <div className="w-full aspect-video relative mb-2 overflow-hidden rounded-md">
+        <div className="w-full aspect-video relative mb-2 overflow-hidden lg:rounded-md">
           <Image
             fill
             priority
@@ -34,7 +34,7 @@ export function FeaturedImage({
             className="object-cover transition duration-200 ease-in-out transform hover:scale-110"
           />
         </div>
-        <figcaption className="text-xs italic text-gray-600 [&>a]:text-blue-700 [&>a]:underline mb-4">
+        <figcaption className="text-xs italic text-gray-600 [&>a]:text-blue-700 [&>a]:underline mb-4 mx-4 lg:mx-0">
           {parse(featuredImage?.caption)}
         </figcaption>
       </figure>

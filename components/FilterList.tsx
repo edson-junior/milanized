@@ -14,10 +14,10 @@ export default async function FilterList() {
   if (!categories) return null;
 
   return (
-    <fieldset className="max-w-7xl mx-auto px-4 mb-6">
+    <fieldset className="max-w-7xl mb-6 text-black">
       <legend className="sr-only">Filter by category</legend>
 
-      <div className="filtering group grid grid-cols-2 lg:flex lg:flex-wrap gap-2 max-sm:justify-between">
+      <div className="filtering group flex flex-wrap gap-2">
         <Suspense>
           <Filter label="All" />
           {categories?.map(

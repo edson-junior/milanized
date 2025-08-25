@@ -17,6 +17,7 @@ export default function Filter({
   return (
     <Button
       variant={category === value ? 'default' : 'outline'}
+      className="border border-gray-300 font-semibold rounded-lg"
       onClick={() => {
         setCategory(value);
         setPage(1);

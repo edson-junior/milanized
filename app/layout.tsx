@@ -23,15 +23,11 @@ type RootLayoutProps = Readonly<{
 export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en-GB" className="lg:scroll-smooth" suppressHydrationWarning>
-      <body
-        className={`${openSans.variable} ${catamaran.variable} font-sans bg-black`}
-      >
+      <body className={`${openSans.variable} ${catamaran.variable} font-sans`}>
         <NextTopLoader color="#b91c1c" showSpinner={false} />
         <Header />
 
-        <div className="flex-grow bg-white pb-20">
-          <NuqsAdapter>{children}</NuqsAdapter>
-        </div>
+        <NuqsAdapter>{children}</NuqsAdapter>
         <Footer />
       </body>
       {process.env.NODE_ENV === 'production' && (

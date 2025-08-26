@@ -31,7 +31,7 @@ export default function Paginated({
         <List posts={paginatedItems} />
       )}
 
-      <Pagination className="flex items-center justify-center gap-4 bg-canvas p-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] [&_span]:tabular-nums" />
+      <Pagination className="flex items-center justify-center gap-4 bg-canvas p-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] [&_span]:tabular-nums mt-10 mb-20" />
     </div>
   );
 }

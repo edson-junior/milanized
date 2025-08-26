@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { SiteNavigationElement, WithContext } from 'schema-dts';
-import MobileNavigation from './MobileNavigation';
 import DesktopNavigation from './DesktopNavigation';
+import MobileNavigation from './MobileNavigation';
 import SearchBar from './SearchBar';
 
 export const links = [
@@ -28,7 +28,7 @@ const jsonLd: WithContext<SiteNavigationElement> = {
 
 export default function Header() {
   return (
-    <header className="bg-black/85 backdrop-blur-sm sticky w-full top-0 z-10 border-b border-white/15 after:block after:w-full after:h-[0.18rem] after:bg-gradient-to-r after:from-red-800 after:via-yellow-400 after:to-cyan-600 after:absolute after:top-full after:border-b after:border-black after:left-0">
+    <header className="bg-black sticky w-full top-0 z-10">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

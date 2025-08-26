@@ -82,7 +82,7 @@ export default async function Home() {
           <PostList posts={homepage.mostRead} />
         </div>
         <hr />
-        <div className="max-w-7xl mx-auto p-4 lg:pt-12">
+        <div className="max-w-7xl mx-auto p-4 lg:pt-12 mb-20">
           <Heading as="h2" className="text-xl text-center lg:text-4xl py-2">
             Latest Articles
           </Heading>

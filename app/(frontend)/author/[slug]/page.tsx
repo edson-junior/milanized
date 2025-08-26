@@ -90,10 +90,15 @@ export default async function Author({ params }: AuthorProps) {
   return (
     <>
       <Hero
-        mainTitle={author?.name}
-        bgImage="/images/federico-di-dio-photography-J0xFABbh9hA-unsplash.jpg"
+        mainTitle={
+          <Heading
+            as="h1"
+            className="text-3xl lg:text-5xl text-center [text-shadow:_0px_1px_1px_black] lg:[text-shadow:_0px_2px_2px_black] mb-2 lg:mb-4"
+          >
+            {author?.name}
+          </Heading>
+        }
         className="h-auto lg:mb-12 lg:h-auto [&>div]:h-auto [&>div]:pt-6 [&>div]:px-8 [&>div]:lg:pt-8 [&>div]:pb-8 [&>div]:lg:pb-10 [&>div>h1]:mb-4"
-        placeholder="data:image/webp;base64,UklGRt4DAABXRUJQVlA4WAoAAAAgAAAAAwEAoAAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDgg8AEAALAWAJ0BKgQBoQA+7W6vUb+3M6KndBtj8B2JaW7gAO2OxVeHy/xAab+C5MX65FBfBcmYyJZE/FNfr29NNpekGdA1c03o/XRTPUWXb/KwRVxlYxrqsyTpjdVnVA3milQGiHm8IGv8Rkh/4pI6ispwIcNT4a/xhH3Vcv+ArKG7IuiFAiqynENbV78nFedX/Q9bg2+FBvEbYVHSUDDwldaspxDWoPVFt4OBVIbwb4ZgFeS/78VlInf5zpwYyTciPoAA/uSLXwefJ1FG2J34C554ya1o2q0AhbvJGH2qSWeBEObb/HvO9BmLY2C1HbJ5oYyp2L/IOFxWSBYOQeNkjv1LjBOYo2qag8NpWBIwNsdTRnobJ48WcVQNoVohJhQfi0D2I15FyPsHi96uCdSV/ek6m4ITXCHL0syjdXrU/HkNtWdp3aRH3qUsrFlum4k7gKNxoQWswfIo9MmcJjayizUFHNhnzacWumusKFUlkK//9VX2P1qtrObgZu43G0uDpZjrKAACb1NBznma6/E4fTEE+bWBuXnm9AmmB9S5trUsYTgoKfTTodz3/1dPxEk8v6UnTvydvzeq2cKgnS+Uw6a9T9VK93mxB3Bb+Pt8S1q6DpL0r77LgU3iQtwb2epZZTzpAYqiDd9mY5zVapirYiIAAAA="
       >
         {author.image && (
           <Image
@@ -106,7 +111,7 @@ export default async function Author({ params }: AuthorProps) {
           />
         )}
         {author.bio && (
-          <div className="max-w-4xl mx-auto lg:text-lg">
+          <div className="max-w-4xl mx-auto text-center lg:text-lg">
             <div className="flex text-lg justify-center items-center gap-4 mb-4">
               {socialLinks
                 .filter(

@@ -262,7 +262,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
               )}
             </article>
             {data.relatedArticles && (
-              <section>
+              <section className="mb-20">
                 <Heading
                   as="h3"
                   className="text-xl lg:text-4xl py-0 lg:py-2 mb-2 scroll-m-20"

@@ -23,6 +23,8 @@ const config = {
         catamaran: ['var(--catamaran)', 'sans-serif']
       },
       colors: {
+        'soft-white': '#F8F8F7',
+        'jet-black': '#161618',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

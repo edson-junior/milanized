@@ -54,6 +54,7 @@ export default async function Contact() {
     <>
       <Hero
         mainTitle={contact.title}
+        className="bg-[#119a91]"
         subtitle={
           <p className="max-w-5xl text-sm/7 lg:text-lg/7">
             We’re always happy to hear from our readers, contributors, and

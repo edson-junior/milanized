@@ -1,7 +1,9 @@
 import Link from 'next/link';
+import Script from 'next/script';
 import { FaFacebookSquare, FaInstagram, FaPinterest } from 'react-icons/fa';
 import { FaThreads } from 'react-icons/fa6';
 import { LuHeart, LuRss } from 'react-icons/lu';
+import Heading from './ui/heading';
 
 export const socialLinks = [
   {
@@ -40,6 +42,26 @@ export default function Footer() {
   return (
     <footer className="bg-jet-black text-white relative after:block after:w-full after:h-[0.18rem] after:bg-gradient-to-r after:from-red-800 after:via-yellow-400 after:to-cyan-600 after:absolute after:bottom-full after:border-t after:border-black after:left-0">
       <div className="flex flex-col max-w-7xl mx-auto pt-10">
+        <div className="text-center px-4 mb-8 mx-auto">
+          <Heading as="h3" className="text-lg/7 mb-2">
+            Sign up to the newsletter
+          </Heading>
+          <p className="text-sm mb-8">
+            Stay up-to-date with our latest travel blogs, tips, itineraries and
+            much more!
+          </p>
+          <div
+            data-supascribe-embed-id="581925620720"
+            data-supascribe-subscribe
+            className="w-full"
+          ></div>
+        </div>
+
+        <Script
+          src="https://js.supascribe.com/v1/loader/aXywFuyJ4tcgUdaLnstjO8iAHxf2.js"
+          async
+        ></Script>
+
         <div className="flex justify-center gap-8 pb-10">
           {socialLinks.map(({ href, text, icon }) => {
             return (

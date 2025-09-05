@@ -159,7 +159,8 @@ export const getPostBySlugQuery = groq`*[_type == 'blog' && !(_id in path('draft
     slug,
     description,
     image,
-    title
+    title,
+    noIndex
   }
 }`;
 

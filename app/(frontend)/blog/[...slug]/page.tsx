@@ -54,8 +54,9 @@ export async function generateMetadata({
   return {
     title: data.metadata?.title,
     description: data.metadata?.description,
-    robots:
-      'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
+    robots: data.metadata?.noIndex
+      ? 'noindex, nofollow'
+      : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
     alternates: {
       canonical: `${process.env.CLIENT_URL}/blog/${slug[0]}`,
       types: {

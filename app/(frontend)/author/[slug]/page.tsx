@@ -1,13 +1,12 @@
 import type { Metadata } from 'next';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import BlockRendererClient from '@/components/BlockRenderClient';
 import { socialLinks } from '@/components/Footer';
 import Hero from '@/components/Hero';
+import { Button } from '@/components/ui/button';
 import Heading from '@/components/ui/heading';
-import { Skeleton } from '@/components/ui/skeleton';
 import { getAuthor } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import { Slug } from '@/sanity.types';
@@ -15,29 +14,6 @@ import { Slug } from '@/sanity.types';
 interface AuthorProps {
   params: Promise<{ slug: Slug }>;
 }
-
-const Paginated = dynamic(() => import('./../../blog/Paginated'), {
-  ssr: false,
-  loading: () => (
-    <div className="max-w-7xl mx-auto px-4 py-4">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 gap-y-9">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="flex flex-col">
-            <Skeleton className="h-[200px]" />
-            <div className="space-y-2 mt-8">
-              <Skeleton className="h-4 w-[250px]" />
-              <Skeleton className="h-4 w-[200px]" />
-            </div>
-            <div className="space-y-2 mt-8">
-              <Skeleton className="h-4 w-[250px]" />
-              <Skeleton className="h-4 w-[200px]" />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-});
 
 export async function generateMetadata({ params }: AuthorProps) {
   const { slug } = await params;
@@ -135,17 +111,60 @@ export default async function Author({ params }: AuthorProps) {
           </div>
         )}
       </Hero>
-      {!author?.posts ? (
-        <p>there are no blogposts</p>
-      ) : (
-        <>
-          <Heading
-            as="h2"
-            className="text-xl text-center lg:text-4xl py-0 lg:py-2 mb-4 scroll-m-20"
-          >{`Articles by ${author?.name}`}</Heading>
-          <Paginated posts={author?.posts} itemsPerPage={itemsPerPage} />
-        </>
-      )}
+      <div className="flex flex-col max-w-3xl mx-auto px-4 mb-20">
+        <Button asChild variant="outline">
+          <a
+            className="text-2xl mb-2"
+            target="_blank"
+            aria-label="Facebook"
+            href="https://www.facebook.com/MilanIzedOfficial"
+          >
+            Facebook
+          </a>
+        </Button>
+        <Button asChild variant="outline">
+          <a
+            className="text-2xl mb-2"
+            target="_blank"
+            aria-label="Instagram"
+            href="https://www.instagram.com/milanize.me"
+          >
+            Instagram
+          </a>
+        </Button>
+        <Button asChild variant="outline">
+          <a
+            className="text-2xl mb-2"
+            target="_blank"
+            aria-label="Threads"
+            href="https://www.threads.net/@milanize.me"
+          >
+            Threads
+          </a>
+        </Button>
+
+        <Button asChild variant="outline">
+          <a
+            className="text-2xl mb-2"
+            target="_blank"
+            aria-label="Pinterest"
+            href="https://www.pinterest.com/milanizedofficial/"
+          >
+            Pinterest
+          </a>
+        </Button>
+
+        <Button asChild variant="outline">
+          <a
+            className="text-2xl mb-2"
+            target="_blank"
+            aria-label="Buy me a Coffee"
+            href="https://buymeacoffee.com/milanized"
+          >
+            Put a smile on my face and buy me a coffee! :)
+          </a>
+        </Button>
+      </div>
     </>
   );
 }

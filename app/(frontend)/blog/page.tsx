@@ -1,11 +1,8 @@
-import FilterList from '@/components/FilterList';
-import Heading from '@/components/ui/heading';
-import { Skeleton } from '@/components/ui/skeleton';
-import { getAllPosts, getArticlesPage } from '@/sanity/lib/client';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
-import Paginated from './Paginated';
+import PostList from '@/components/PostList';
+import Heading from '@/components/ui/heading';
+import { getAllPosts, getArticlesPage } from '@/sanity/lib/client';
 
 export async function generateMetadata() {
   const articles = await getArticlesPage();
@@ -46,7 +43,6 @@ export async function generateMetadata() {
 
 export default async function Articles() {
   const posts = await getAllPosts();
-  const itemsPerPage = 9;
   const articles = await getArticlesPage();
 
   if (!articles) {
@@ -65,35 +61,16 @@ export default async function Articles() {
           city, and travel ideas. Read our insider tips, curated
           recommendations, and fresh takes on everyday experiences!
         </p>
-        <FilterList />
+        {/* TODO: make static filterlist */}
+        {/* <FilterList /> */}
       </div>
 
       {!posts ? (
         <p>there are no blogposts</p>
       ) : (
-        <Suspense
-          fallback={
-            <div className="max-w-7xl mx-auto px-4">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 gap-y-9">
-                {Array.from({ length: itemsPerPage ?? 6 }).map((_, i) => (
-                  <div key={i} className="flex flex-col">
-                    <Skeleton className="h-[200px]" />
-                    <div className="space-y-2 mt-8">
-                      <Skeleton className="h-4 w-[250px]" />
-                      <Skeleton className="h-4 w-[200px]" />
-                    </div>
-                    <div className="space-y-2 mt-8">
-                      <Skeleton className="h-4 w-[250px]" />
-                      <Skeleton className="h-4 w-[200px]" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          }
-        >
-          <Paginated posts={posts} itemsPerPage={itemsPerPage} />
-        </Suspense>
+        <div className="max-w-7xl mx-auto px-4 mb-20">
+          <PostList posts={posts} />
+        </div>
       )}
     </>
   );

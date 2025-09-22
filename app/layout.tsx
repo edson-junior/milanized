@@ -3,7 +3,6 @@ import { Catamaran, Open_Sans } from 'next/font/google';
 import './../styles/globals.css';
 import { GoogleTagManager } from '@next/third-parties/google';
 import NextTopLoader from 'nextjs-toploader';
-import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import Footer from './../components/Footer';
 import Header from './../components/Header/Header';
 
@@ -27,7 +26,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <NextTopLoader color="#b91c1c" showSpinner={false} />
         <Header />
 
-        <NuqsAdapter>{children}</NuqsAdapter>
+        {children}
         <Footer />
       </body>
       {process.env.NODE_ENV === 'production' && (

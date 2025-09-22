@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Hero from '@/components/Hero';
+import PostList from '@/components/PostList';
 import Heading from '@/components/ui/heading';
 import { Blog } from '@/sanity.types';
-import List from '../blog/List';
 
 interface SearchPageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -93,7 +93,7 @@ export default async function Search({ searchParams }: SearchPageProps) {
             </ul>
           </>
         ) : (
-          <List posts={posts} />
+          <PostList posts={posts} />
         )}
       </div>
     </>

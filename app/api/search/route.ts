@@ -16,7 +16,14 @@ export async function GET(request: NextRequest) {
         title,
         summary,
         content,
-        featuredImage,
+        featuredImage {
+          ...,
+          ...asset-> {
+            ...metadata {
+              lqip
+            }
+          }
+        },
         isFeatured,
         metadata {
           'slug': slug.current

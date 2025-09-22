@@ -1,10 +1,8 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
 import Hero from '@/components/Hero';
 import Heading from '@/components/ui/heading';
-import { urlFor } from '@/sanity/lib/image';
 import { Blog } from '@/sanity.types';
+import List from '../blog/List';
 
 interface SearchPageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -76,7 +74,7 @@ export default async function Search({ searchParams }: SearchPageProps) {
         mainTitle={`Search results for: ${searchString}`}
         subtitle={`Not what you're looking for? Give it another go! `}
       />
-      <div className="max-w-7xl mx-auto px-4 py-4">
+      <div className="max-w-7xl mx-auto px-4 py-4 mb-20">
         {!posts?.length ? (
           <>
             <Heading
@@ -95,38 +93,7 @@ export default async function Search({ searchParams }: SearchPageProps) {
             </ul>
           </>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 gap-y-6">
-            {posts?.map(({ _id, metadata, title, summary, featuredImage }) => {
-              return (
-                <Link
-                  href={`/blog/${metadata?.slug}`}
-                  className="group"
-                  key={_id}
-                >
-                  {featuredImage && (
-                    <Image
-                      width={250}
-                      height={250}
-                      loading="lazy"
-                      src={urlFor(featuredImage).width(600).url()}
-                      alt={featuredImage.alt || ''}
-                      className="block w-full object-cover h-52"
-                    />
-                  )}
-
-                  <div className="py-6">
-                    <Heading className="text-xl block mb-4 group-hover:text-blue-700">
-                      {title}
-                    </Heading>
-
-                    <p className="text text-sm line-clamp-4 align-baseline">
-                      {summary}
-                    </p>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
+          <List posts={posts} />
         )}
       </div>
     </>

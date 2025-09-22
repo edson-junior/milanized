@@ -1,9 +1,9 @@
 'use client';
 
-import { cn, slugify } from '@/lib/utils';
-import Heading from './ui/heading';
 import { useEffect } from 'react';
+import { cn, slugify } from '@/lib/utils';
 import css from './Toc.module.css';
+import Heading from './ui/heading';
 
 export default function Toc({
   headings

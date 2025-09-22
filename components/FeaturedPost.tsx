@@ -1,11 +1,12 @@
-import Heading from '@/components/ui/heading';
-import { formatDate } from '@/lib/utils';
-import { Blog } from '@/sanity.types';
-import { sanityFetch } from '@/sanity/lib/client';
-import { urlFor } from '@/sanity/lib/image';
 import groq from 'groq';
 import Image from 'next/image';
 import Link from 'next/link';
+import Heading from '@/components/ui/heading';
+import { formatDate } from '@/lib/utils';
+import { sanityFetch } from '@/sanity/lib/client';
+import { urlFor } from '@/sanity/lib/image';
+import { Blog } from '@/sanity.types';
+
 const query = groq`*[_type == 'blog' && !(_id in path('drafts.**')) && isFeatured]|order(_createdAt desc) [0...1] [0] {
   _id,
   _createdAt,

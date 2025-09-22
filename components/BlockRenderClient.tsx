@@ -1,7 +1,5 @@
 'use client';
 
-import { slugify } from '@/lib/utils';
-import { urlFor } from '@/sanity/lib/image';
 import {
   PortableText,
   PortableTextComponents,
@@ -13,8 +11,10 @@ import { TableRow } from '@sanity/table';
 import parse from 'html-react-parser';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import CTACollection from './CTACollection';
+import { slugify } from '@/lib/utils';
+import { urlFor } from '@/sanity/lib/image';
 import CallOutMessage from './CallOutMessage';
+import CTACollection from './CTACollection';
 import GygWidget from './GygWidget';
 import Table from './Table';
 import Heading from './ui/heading';

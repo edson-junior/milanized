@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
 import Hero from '@/components/Hero';
 import Heading from '@/components/ui/heading';
-import { Blog } from '@/sanity.types';
-import Link from 'next/link';
-import Image from 'next/image';
 import { urlFor } from '@/sanity/lib/image';
+import { Blog } from '@/sanity.types';
 
 interface SearchPageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;

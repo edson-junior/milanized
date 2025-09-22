@@ -1,8 +1,8 @@
-import { Blog } from '@/sanity.types';
-import { urlFor } from '@/sanity/lib/image';
 import parse from 'html-react-parser';
 import Image from 'next/image';
 import { HTMLAttributes } from 'react';
+import { urlFor } from '@/sanity/lib/image';
+import { Blog } from '@/sanity.types';
 
 type FeaturedImageProps = {
   featuredImage: Blog['featuredImage'];

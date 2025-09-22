@@ -1,8 +1,8 @@
-import { Button } from '@/components/ui/button';
-import Heading from '@/components/ui/heading';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { LuArrowRight } from 'react-icons/lu';
+import { Button } from '@/components/ui/button';
+import Heading from '@/components/ui/heading';
 
 export const metadata: Metadata = {
   title: "Womp, womp... coun't find what you're looking for!",

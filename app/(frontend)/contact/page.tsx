@@ -1,10 +1,10 @@
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import BlockRendererClient from '@/components/BlockRenderClient';
 import ContactForm from '@/components/ContactForm';
 import Hero from '@/components/Hero';
 import Heading from '@/components/ui/heading';
 import { getContactPage } from '@/sanity/lib/client';
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 
 export async function generateMetadata() {
   const contact = await getContactPage();

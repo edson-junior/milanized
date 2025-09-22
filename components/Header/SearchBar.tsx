@@ -1,8 +1,9 @@
 'use client';
 
+import { useRouter } from 'nextjs-toploader/app';
+import { useRef, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { Button } from '../ui/button';
-import { Input } from '../ui/input';
 import {
   Dialog,
   DialogContent,
@@ -10,8 +11,7 @@ import {
   DialogHeader,
   DialogTitle
 } from '../ui/dialog';
-import { useRef, useState } from 'react';
-import { useRouter } from 'nextjs-toploader/app';
+import { Input } from '../ui/input';
 
 export default function SearchBar() {
   const router = useRouter();

@@ -1,10 +1,9 @@
 'use client';
 
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-
-import { cn } from '@/lib/utils';
 import { forwardRef } from 'react';
 import { LuX } from 'react-icons/lu';
+import { cn } from '@/lib/utils';
 
 const Dialog = DialogPrimitive.Root;
 

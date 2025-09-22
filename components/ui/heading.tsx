@@ -1,4 +1,4 @@
-import { HTMLAttributes, forwardRef } from 'react';
+import { forwardRef, HTMLAttributes } from 'react';
 
 type HeadingTypes = HTMLAttributes<HTMLElement>;
 

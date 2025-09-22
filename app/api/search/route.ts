@@ -1,7 +1,7 @@
-import { Blog } from '@/sanity.types';
-import { sanityFetch } from '@/sanity/lib/client';
 import groq from 'groq';
 import { NextRequest, NextResponse } from 'next/server';
+import { sanityFetch } from '@/sanity/lib/client';
+import { Blog } from '@/sanity.types';
 
 export async function GET(request: NextRequest) {
   const getAllSearchResults = async (

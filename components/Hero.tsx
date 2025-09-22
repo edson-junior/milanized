@@ -1,6 +1,5 @@
+import { ComponentProps, ReactNode } from 'react';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
-import React, { ComponentProps, ReactNode } from 'react';
 import Heading from './ui/heading';
 
 type HeroProps = ComponentProps<'div'> &

@@ -1,15 +1,15 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRef, useState } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { useForm } from 'react-hook-form';
+import { LuCheckCheck, LuLoaderCircle } from 'react-icons/lu';
+import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import ReCAPTCHA from 'react-google-recaptcha';
-import { useRef, useState } from 'react';
-import { LuCheckCheck, LuLoaderCircle } from 'react-icons/lu';
 
 const ContactSchema = z.object({
   name: z.string().min(2, {

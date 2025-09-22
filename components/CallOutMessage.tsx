@@ -1,6 +1,6 @@
+import { PortableText } from '@portabletext/react';
 import { cn } from '@/lib/utils';
 import { PortableTextTypes } from '@/sanity.types';
-import { PortableText } from '@portabletext/react';
 import { PortableComponents } from './BlockRenderClient';
 import Heading from './ui/heading';
 

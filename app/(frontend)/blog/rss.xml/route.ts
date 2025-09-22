@@ -1,7 +1,7 @@
-import { Blog, Page } from '@/sanity.types';
+import groq from 'groq';
 import { sanityFetch } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
-import groq from 'groq';
+import { Blog, Page } from '@/sanity.types';
 
 interface RSSProps {
   blog: Page;

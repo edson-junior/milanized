@@ -1,7 +1,6 @@
 'use client';
 
-import { Blog } from '@/sanity.types';
-import { useQueryState, parseAsInteger } from 'nuqs';
+import { parseAsInteger, useQueryState } from 'nuqs';
 import { ReactNode } from 'react';
 import {
   Pagination as PaginationComponent,
@@ -12,6 +11,7 @@ import {
   PaginationNext,
   PaginationPrevious
 } from '@/components/ui/pagination';
+import { Blog } from '@/sanity.types';
 
 type PaginationProps = React.ComponentProps<'div'> &
   Partial<{

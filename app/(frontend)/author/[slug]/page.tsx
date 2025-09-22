@@ -1,17 +1,16 @@
-import BlockRendererClient from '@/components/BlockRenderClient';
-import { socialLinks } from '@/components/Footer';
-import Hero from '@/components/Hero';
-import Heading from '@/components/ui/heading';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Slug } from '@/sanity.types';
-import { getAuthor } from '@/sanity/lib/client';
-import { urlFor } from '@/sanity/lib/image';
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
+import BlockRendererClient from '@/components/BlockRenderClient';
+import { socialLinks } from '@/components/Footer';
+import Hero from '@/components/Hero';
+import Heading from '@/components/ui/heading';
+import { Skeleton } from '@/components/ui/skeleton';
+import { getAuthor } from '@/sanity/lib/client';
+import { urlFor } from '@/sanity/lib/image';
+import { Slug } from '@/sanity.types';
 
 interface AuthorProps {
   params: Promise<{ slug: Slug }>;

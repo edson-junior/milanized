@@ -1,7 +1,10 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
   "vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
-  "files": { "ignoreUnknown": false, "ignore": ["**/.next", ".editorconfig"] },
+  "files": {
+    "ignoreUnknown": false,
+    "includes": ["**/*.ts", "**/*.tsx"]
+  },
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
@@ -10,10 +13,15 @@
     "lineEnding": "lf",
     "lineWidth": 80,
     "attributePosition": "auto",
-    "bracketSpacing": true,
-    "ignore": ["**/package.json", "**/package-lock.json", "**/.next"]
+    "bracketSpacing": true
   },
-  "organizeImports": { "enabled": true },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
   "linter": {
     "enabled": true,
     "rules": {
@@ -24,6 +32,9 @@
           "options": { "allow": ["warn", "error", "info"] }
         },
         "noDebugger": "warn"
+      },
+      "correctness": {
+        "noUnusedImports": "error"
       }
     }
   },

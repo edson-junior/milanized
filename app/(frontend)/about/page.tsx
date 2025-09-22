@@ -1,8 +1,8 @@
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import BlockRendererClient from '@/components/BlockRenderClient';
 import Hero from '@/components/Hero';
 import { getAboutPage } from '@/sanity/lib/client';
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 
 export async function generateMetadata() {
   const homepage = await getAboutPage();

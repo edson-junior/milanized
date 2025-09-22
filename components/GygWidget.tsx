@@ -1,8 +1,8 @@
 'use client';
 
 import parse from 'html-react-parser';
-import Heading from './ui/heading';
 import Script from 'next/script';
+import Heading from './ui/heading';
 
 interface GygWidgetProps {
   markDefs: null;

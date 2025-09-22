@@ -1,10 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-
-import { LuMenu, LuX } from 'react-icons/lu';
-import { links } from './Header';
 import { useCallback, useState } from 'react';
+import { LuMenu, LuX } from 'react-icons/lu';
 import { socialLinks } from '../Footer';
 import {
   Dialog,
@@ -16,6 +14,7 @@ import {
   DialogTitle,
   DialogTrigger
 } from '../ui/dialog';
+import { links } from './Header';
 
 export default function MobileNavigation() {
   const [open, setOpen] = useState(false);

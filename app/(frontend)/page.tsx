@@ -1,11 +1,11 @@
-import FeaturedPost from '@/components/FeaturedPost';
-import PostList from '@/components/PostList';
-import HomeHero from '@/components/homepage/HomeHero';
-import Heading from '@/components/ui/heading';
-import { getHomePage } from '@/sanity/lib/client';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Organization, WithContext } from 'schema-dts';
+import FeaturedPost from '@/components/FeaturedPost';
+import HomeHero from '@/components/homepage/HomeHero';
+import PostList from '@/components/PostList';
+import Heading from '@/components/ui/heading';
+import { getHomePage } from '@/sanity/lib/client';
 
 export async function generateMetadata() {
   const homepage = await getHomePage();

@@ -1,13 +1,11 @@
 import type { Viewport } from 'next';
-import { Open_Sans } from 'next/font/google';
-import { Catamaran } from 'next/font/google';
+import { Catamaran, Open_Sans } from 'next/font/google';
 import './../styles/globals.css';
 import { GoogleTagManager } from '@next/third-parties/google';
 import NextTopLoader from 'nextjs-toploader';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import Footer from './../components/Footer';
 import Header from './../components/Header/Header';
-
-import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 const openSans = Open_Sans({ subsets: ['latin'], variable: '--open-sans' });
 const catamaran = Catamaran({ subsets: ['latin'], variable: '--catamaran' });

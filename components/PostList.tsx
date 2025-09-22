@@ -1,12 +1,12 @@
 'use client';
 
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { cn, formatDate } from '@/lib/utils';
-import { Blog } from '@/sanity.types';
-import { urlFor } from '@/sanity/lib/image';
 import Image from 'next/image';
 import Link from 'next/link';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { cn, formatDate } from '@/lib/utils';
+import { urlFor } from '@/sanity/lib/image';
+import { Blog } from '@/sanity.types';
 import Heading from './ui/heading';
 
 interface PostListProps

@@ -1,7 +1,7 @@
-import { ButtonProps, buttonVariants } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 import { forwardRef } from 'react';
 import { LuChevronLeft, LuChevronRight, LuEllipsis } from 'react-icons/lu';
+import { ButtonProps, buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
   <nav

@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import Script from 'next/script';
 import { FaFacebookSquare, FaInstagram, FaPinterest } from 'react-icons/fa';
 import { FaThreads } from 'react-icons/fa6';
 import { LuHeart, LuRss } from 'react-icons/lu';
+import { Button } from './ui/button';
 import Heading from './ui/heading';
 
 export const socialLinks = [
@@ -50,17 +50,12 @@ export default function Footer() {
             Stay up-to-date with our latest travel blogs, tips, itineraries and
             much more!
           </p>
-          <div
-            data-supascribe-embed-id="581925620720"
-            data-supascribe-subscribe
-            className="w-full"
-          ></div>
+          <Button asChild variant="secondary" className="w-52">
+            <a href="https://milanized.substack.com/subscribe" target="_blank">
+              Subscribe
+            </a>
+          </Button>
         </div>
-
-        <Script
-          src="https://js.supascribe.com/v1/loader/aXywFuyJ4tcgUdaLnstjO8iAHxf2.js"
-          async
-        ></Script>
 
         <div className="flex justify-center gap-8 pb-10">
           {socialLinks.map(({ href, text, icon }) => {

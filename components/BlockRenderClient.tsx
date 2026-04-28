@@ -15,8 +15,10 @@ import { slugify } from '@/lib/utils';
 import { urlFor } from '@/sanity/lib/image';
 import CallOutMessage from './CallOutMessage';
 import CTACollection from './CTACollection';
-import GygWidget from './GygWidget';
-import Table from './Table';
+
+const GygWidget = dynamic(() => import('./GygWidget'));
+const Table = dynamic(() => import('./Table'));
+
 import Heading from './ui/heading';
 
 export interface Table {

@@ -45,6 +45,7 @@ export function FeaturedImage({
     <Image
       width={800}
       height={800}
+      sizes="(min-width: 1340px) 800px, (min-width: 1040px) calc(85.71vw - 299px), 100vw"
       src={urlFor(featuredImage).width(800).url()}
       alt={featuredImage.alt || ''}
       priority

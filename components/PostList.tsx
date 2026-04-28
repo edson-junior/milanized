@@ -1,9 +1,6 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { cn, formatDate } from '@/lib/utils';
 import { urlFor } from '@/sanity/lib/image';
 import { Blog } from '@/sanity.types';
@@ -21,8 +18,6 @@ export default function PostList({
   variant = 'row',
   ...props
 }: PostListProps) {
-  const isDesktop = useMediaQuery('(min-width: 768px)');
-
   return (
     <div
       className={cn(
@@ -67,13 +62,18 @@ export default function PostList({
                   )}
                 >
                   <Image
-                    width={isDesktop && variant === 'col' ? 140 : 250}
-                    height={isDesktop && variant === 'col' ? 140 : 250}
+                    width={250}
+                    height={250}
                     loading="lazy"
                     src={urlFor(featuredImage).width(600).url()}
                     alt={featuredImage.alt || ''}
                     blurDataURL={featuredImage.lqip}
                     placeholder="blur"
+                    sizes={
+                      variant === 'col'
+                        ? '(min-width: 768px) 140px, 250px'
+                        : '(min-width: 1024px) 33vw, 100vw'
+                    }
                     className={cn(
                       variant === 'row' &&
                         'object-cover w-full aspect-video transition duration-200 ease-in-out transform group-hover:scale-110',

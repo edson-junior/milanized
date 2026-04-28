@@ -15,7 +15,6 @@ export async function GET(request: NextRequest) {
         _createdAt,
         title,
         summary,
-        content,
         featuredImage {
           ...,
           ...asset-> {

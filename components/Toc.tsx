@@ -16,6 +16,8 @@ export default function Toc({
   useEffect(() => {
     if (typeof document === 'undefined') return;
 
+    const observers: IntersectionObserver[] = [];
+
     headings?.forEach(({ text }) => {
       const target = document.getElementById(slugify(text));
 
@@ -36,9 +38,12 @@ export default function Toc({
       });
 
       observer.observe(target);
-
-      return () => observer.disconnect();
+      observers.push(observer);
     });
+
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+    };
   }, [headings]);
 
   return (

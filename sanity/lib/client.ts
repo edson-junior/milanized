@@ -1,4 +1,5 @@
 import { createClient, type QueryParams } from '@sanity/client';
+import { cache } from 'react';
 import { Author, Blog, Homepage, Page, Slug } from '@/sanity.types';
 
 import { apiVersion, dataset, projectId } from '../env';
@@ -11,7 +12,8 @@ import {
   getDisclaimerPageQuery,
   getHomePageQuery,
   getPostBySlugQuery,
-  getPrivacyPageQuery
+  getPrivacyPageQuery,
+  getSearchResultsQuery
 } from './queries';
 
 const client = createClient({
@@ -19,14 +21,14 @@ const client = createClient({
   dataset,
   apiVersion,
   token: process.env.SANITY_API_TOKEN,
-  useCdn: true,
+  useCdn: false,
   ignoreBrowserTokenWarning: true
 });
 
 export async function sanityFetch<const QueryString extends string>({
   query,
   params = {},
-  revalidate = 60, // default revalidation time in seconds
+  revalidate = 60,
   tags = []
 }: {
   query: QueryString;
@@ -36,18 +38,15 @@ export async function sanityFetch<const QueryString extends string>({
 }) {
   return client.fetch(query, params, {
     next: {
-      revalidate: tags.length ? false : revalidate, // for simple, time-based revalidation
-      tags // for tag-based revalidation
+      revalidate: tags.length ? false : revalidate,
+      tags
     }
   });
 }
 
-export async function getHomePage(): Promise<Homepage | undefined> {
-  const query = getHomePageQuery;
-  const data = await sanityFetch({ query });
-
-  return data;
-}
+export const getHomePage = cache(async (): Promise<Homepage | undefined> => {
+  return sanityFetch({ query: getHomePageQuery });
+});
 
 interface AllPostsProps {
   limit?: number;
@@ -55,83 +54,60 @@ interface AllPostsProps {
   removeFeatured?: string | boolean;
 }
 
-export async function getAllPosts({
-  limit = 99999,
-  removeSlug = '',
-  removeFeatured = ''
-}: AllPostsProps = {}): Promise<Blog[] | undefined> {
-  const query = getAllPostsQuery;
-  const data = await sanityFetch({
-    query,
-    params: {
-      limit,
-      removeSlug,
-      removeFeatured
-    }
-  });
+export const getAllPosts = cache(
+  async ({
+    limit = 99999,
+    removeSlug = '',
+    removeFeatured = ''
+  }: AllPostsProps = {}): Promise<Blog[] | undefined> => {
+    return sanityFetch({
+      query: getAllPostsQuery,
+      params: { limit, removeSlug, removeFeatured }
+    });
+  }
+);
 
-  return data;
-}
+export const getPostBySlug = cache(
+  async (slug: Slug | string): Promise<Blog | undefined> => {
+    return sanityFetch({ query: getPostBySlugQuery, params: { slug } });
+  }
+);
 
-export async function getPostBySlug(
-  slug: Slug | string
-): Promise<Blog | undefined> {
-  const query = getPostBySlugQuery;
-  const data = await sanityFetch({
-    query,
-    params: {
-      slug
-    }
-  });
+export const getAboutPage = cache(async (): Promise<Page | undefined> => {
+  return sanityFetch({ query: getAboutPageQuery });
+});
 
-  return data;
-}
+export const getDisclaimerPage = cache(async (): Promise<Page | undefined> => {
+  return sanityFetch({ query: getDisclaimerPageQuery });
+});
 
-export async function getAboutPage(): Promise<Page | undefined> {
-  const query = getAboutPageQuery;
-  const data = await sanityFetch({ query });
+export const getArticlesPage = cache(async (): Promise<Page | undefined> => {
+  return sanityFetch({ query: getArticlesPageQuery });
+});
 
-  return data;
-}
+export const getContactPage = cache(async (): Promise<Page | undefined> => {
+  return sanityFetch({ query: getContactPageQuery });
+});
 
-export async function getDisclaimerPage(): Promise<Page | undefined> {
-  const query = getDisclaimerPageQuery;
-  const data = await sanityFetch({ query });
+export const getPrivacyPage = cache(async (): Promise<Page | undefined> => {
+  return sanityFetch({ query: getPrivacyPageQuery });
+});
 
-  return data;
-}
+export const getAuthor = cache(
+  async (slug: Slug): Promise<Author | undefined> => {
+    return sanityFetch({ query: getAuthorQuery, params: { slug } });
+  }
+);
 
-export async function getArticlesPage(): Promise<Page | undefined> {
-  const query = getArticlesPageQuery;
-  const data = await sanityFetch({ query });
-
-  return data;
-}
-
-export async function getContactPage(): Promise<Page | undefined> {
-  const query = getContactPageQuery;
-  const data = await sanityFetch({ query });
-
-  return data;
-}
-
-export async function getPrivacyPage(): Promise<Page | undefined> {
-  const query = getPrivacyPageQuery;
-  const data = await sanityFetch({ query });
-
-  return data;
-}
-
-export async function getAuthor(slug: Slug): Promise<Author | undefined> {
-  const query = getAuthorQuery;
-  const data = await sanityFetch({
-    query,
-    params: {
-      slug
-    }
-  });
-
-  return data;
-}
+export const getSearchResults = cache(
+  async (queryString: string): Promise<Blog[] | undefined> => {
+    const data = await sanityFetch({
+      query: getSearchResultsQuery,
+      params: { queryString },
+      revalidate: 0
+    });
+    return data || [];
+  }
+);
 
 export default client;

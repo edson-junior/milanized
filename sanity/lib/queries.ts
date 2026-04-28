@@ -6,7 +6,6 @@ export const getHomePageQuery = groq`*[_type == 'page' && metadata.slug.current 
   mostRead[]-> {
     _id,
     summary,
-    author->,
     _createdAt,
     publishDate,
     featuredImage {
@@ -35,7 +34,6 @@ export const getHomePageQuery = groq`*[_type == 'page' && metadata.slug.current 
     publishDate,
     title,
     summary,
-    content,
     featuredImage {
       ...,
       ...asset-> {
@@ -45,7 +43,6 @@ export const getHomePageQuery = groq`*[_type == 'page' && metadata.slug.current 
       }
     },
     isFeatured,
-    categories[]->,
     metadata {
       'slug': slug.current
     }
@@ -58,7 +55,6 @@ export const getAllPostsQuery = groq`*[_type == 'blog' && !(_id in path('drafts.
   publishDate,
   title,
   summary,
-  content,
   featuredImage {
     ...,
     ...asset-> {
@@ -68,10 +64,6 @@ export const getAllPostsQuery = groq`*[_type == 'blog' && !(_id in path('drafts.
     }
   },
   isFeatured,
-  categories[]->,
-  author-> {
-    name,
-  },
   metadata {
     'slug': slug.current
   }
@@ -174,13 +166,12 @@ export const getAuthorQuery = groq`*[_type == 'author' && metadata.slug.current 
     description,
     'slug': slug.current,
   },
-  "posts": *[_type == "blog" && !(_id in path('drafts.**')) && author._ref in *[_type=="author" && name == name ]._id ] | order(_createdAt desc) {
+  "posts": *[_type == "blog" && !(_id in path('drafts.**')) && author._ref == ^._id] | order(_createdAt desc) {
     _id,
     _createdAt,
     publishDate,
     title,
     summary,
-    content,
     featuredImage {
       ...,
       ...asset-> {
@@ -190,7 +181,6 @@ export const getAuthorQuery = groq`*[_type == 'author' && metadata.slug.current 
       }
     },
     isFeatured,
-    categories[]->,
     metadata {
       'slug': slug.current
     }
@@ -270,5 +260,24 @@ export const getDisclaimerPageQuery = groq`*[_type == 'page' && metadata.slug.cu
     noIndex,
     image,
     description
+  }
+}`;
+
+export const getSearchResultsQuery = groq`*[_type == "blog" && !(_id in path('drafts.**')) && (title match $queryString + '*' || summary match $queryString + '*' || content[].children[].text match $queryString + '*')] | order(_createdAt desc) {
+  _id,
+  _createdAt,
+  title,
+  summary,
+  featuredImage {
+    ...,
+    ...asset-> {
+      ...metadata {
+        lqip
+      }
+    }
+  },
+  isFeatured,
+  metadata {
+    'slug': slug.current
   }
 }`;

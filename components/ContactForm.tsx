@@ -1,8 +1,9 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import dynamic from 'next/dynamic';
 import { useRef, useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+import type ReCAPTCHAType from 'react-google-recaptcha';
 import { useForm } from 'react-hook-form';
 import { LuCheckCheck, LuLoaderCircle } from 'react-icons/lu';
 import { z } from 'zod';
@@ -10,6 +11,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+
+const ReCAPTCHA = dynamic(() => import('react-google-recaptcha'), {
+  ssr: false
+});
 
 const ContactSchema = z.object({
   name: z.string().min(2, {
@@ -30,7 +35,7 @@ export default function ContactForm() {
 
   const [isValidReCAPTCHA, setIsValidReCAPTCHA] = useState(false);
 
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const recaptchaRef = useRef<ReCAPTCHAType>(null);
 
   const contactSubmit = async (formData: z.infer<typeof ContactSchema>) => {
     if (isValidReCAPTCHA) {

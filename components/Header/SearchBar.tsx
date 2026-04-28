@@ -2,7 +2,7 @@
 
 import { useRouter } from 'nextjs-toploader/app';
 import { useRef, useState } from 'react';
-import { FaSearch } from 'react-icons/fa';
+import { LuSearch } from 'react-icons/lu';
 import { Button } from '../ui/button';
 import {
   Dialog,
@@ -26,7 +26,7 @@ export default function SearchBar() {
         aria-label="search"
         onClick={() => setOpen(!open)}
       >
-        <FaSearch size={16} />
+        <LuSearch size={16} />
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="top-28 lg:top-32">
@@ -58,7 +58,7 @@ export default function SearchBar() {
               placeholder="What are you looking for?"
             />
             <Button type="submit" aria-label="search">
-              <FaSearch />
+              <LuSearch />
             </Button>
           </form>
         </DialogContent>

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useCallback, useState } from 'react';
 import { LuMenu, LuX } from 'react-icons/lu';
-import { socialLinks } from '../Footer';
+import { socialLinks } from '@/lib/social-links';
 import {
   Dialog,
   DialogClose,

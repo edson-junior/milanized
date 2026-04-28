@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Hero from '@/components/Hero';
 import PostList from '@/components/PostList';
 import Heading from '@/components/ui/heading';
+import { getSearchResults } from '@/sanity/lib/client';
 import { Blog } from '@/sanity.types';
 
 interface SearchPageProps {
@@ -9,64 +10,43 @@ interface SearchPageProps {
 }
 
 export async function generateMetadata({ searchParams }: SearchPageProps) {
-  const articles = await getSearchResults({ searchParams });
-  const searchString = (await searchParams).query;
+  const { query: searchString } = await searchParams;
 
-  if (articles) {
-    const metaData: Metadata = {
+  const metaData: Metadata = {
+    title: `Search results for ${searchString}`,
+    description: `Search results for ${searchString}`,
+    robots:
+      'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
+    alternates: {
+      canonical: `${process.env.CLIENT_URL}/search?query=${searchString}`,
+      types: {
+        'application/rss+xml': `${process.env.CLIENT_URL}/blog/rss.xml`
+      }
+    },
+    openGraph: {
+      url: `${process.env.CLIENT_URL}/search?query=${searchString}`,
       title: `Search results for ${searchString}`,
       description: `Search results for ${searchString}`,
-      robots:
-        'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
-      alternates: {
-        canonical: `${process.env.CLIENT_URL}/search?query=${searchString}`,
-        types: {
-          'application/rss+xml': `${process.env.CLIENT_URL}/blog/rss.xml`
-        }
-      },
-      openGraph: {
-        url: `${process.env.CLIENT_URL}/search?query=${searchString}`,
-        title: `Search results for ${searchString}`,
-        description: `Search results for ${searchString}`,
-        type: 'website',
-        images: {
-          url: `${process.env.CLIENT_URL}/opengraph-logo.png`,
-          secureUrl: `${process.env.CLIENT_URL}/opengraph-logo.png`,
-          alt: `Search results for ${searchString}`,
-          width: 360,
-          height: 360,
-          type: 'image'
-        }
+      type: 'website',
+      images: {
+        url: `${process.env.CLIENT_URL}/opengraph-logo.png`,
+        secureUrl: `${process.env.CLIENT_URL}/opengraph-logo.png`,
+        alt: `Search results for ${searchString}`,
+        width: 360,
+        height: 360,
+        type: 'image'
       }
-    };
-
-    return metaData;
-  }
-}
-
-async function getSearchResults({
-  searchParams
-}: SearchPageProps): Promise<Blog[] | undefined> {
-  try {
-    const searchString = (await searchParams).query;
-    const query = `${process.env.CLIENT_URL}/api/search?query=${searchString}`;
-    const response = await fetch(query, {
-      method: 'GET'
-    });
-
-    if (response.status === 200) {
-      const data = await response.json();
-
-      return data;
     }
-  } catch (error) {
-    console.error(error);
-  }
+  };
+
+  return metaData;
 }
 
 export default async function Search({ searchParams }: SearchPageProps) {
-  const posts = await getSearchResults({ searchParams });
-  const searchString = (await searchParams).query;
+  const { query: searchString } = await searchParams;
+  const posts: Blog[] | undefined = await getSearchResults(
+    (searchString as string) ?? ''
+  );
 
   return (
     <>

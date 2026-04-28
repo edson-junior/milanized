@@ -9,10 +9,10 @@ import { BlogPosting, WithContext } from 'schema-dts';
 import BlockRendererClient from '@/components/BlockRenderClient';
 import CallOutMessage from '@/components/CallOutMessage';
 import { FeaturedImage } from '@/components/FeaturedImage';
-import { socialLinks } from '@/components/Footer';
 import PostList from '@/components/PostList';
 import Toc from '@/components/Toc';
 import Heading from '@/components/ui/heading';
+import { socialLinks } from '@/lib/social-links';
 import { formatDate } from '@/lib/utils';
 import { getPostBySlug, sanityFetch } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
@@ -38,7 +38,7 @@ export async function generateStaticParams() {
     }`
   });
 
-  return slugs.map(({ metadata }) => metadata.slug);
+  return slugs.map(({ metadata }) => ({ slug: [metadata.slug] }));
 }
 
 export async function generateMetadata({
@@ -217,6 +217,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
                         className="block rounded-full overflow-hidden"
                         width={100}
                         height={100}
+                        loading="lazy"
                         src={urlFor(data?.author?.image).width(100).url()}
                         alt={data?.author?.name || ''}
                       />

@@ -4,7 +4,6 @@ import type { Viewport } from 'next';
 import { Catamaran, Open_Sans } from 'next/font/google';
 import '../styles/globals.css';
 import { GoogleTagManager } from '@next/third-parties/google';
-import parse from 'html-react-parser';
 import NextTopLoader from 'nextjs-toploader';
 import Footer from './../components/Footer';
 import Header from './../components/Header/Header';
@@ -28,7 +27,9 @@ type RootLayoutProps = Readonly<{
 export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en-GB" className="lg:scroll-smooth" suppressHydrationWarning>
-      <head>{parse(`<style>${criticalCss}</style>`)}</head>
+      <head>
+        <style dangerouslySetInnerHTML={{ __html: criticalCss }} />
+      </head>
       <body
         className={`${openSans.variable} ${catamaran.variable} font-sans bg-soft-white`}
       >

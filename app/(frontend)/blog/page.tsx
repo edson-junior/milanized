@@ -1,8 +1,15 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Pagination from '@/components/Pagination';
 import PostList from '@/components/PostList';
 import Heading from '@/components/ui/heading';
-import { getAllPosts, getArticlesPage } from '@/sanity/lib/client';
+import {
+  getArticlesPage,
+  getPagedPosts,
+  getPostCount
+} from '@/sanity/lib/client';
+
+const PAGE_SIZE = 9;
 
 export async function generateMetadata() {
   const articles = await getArticlesPage();
@@ -41,9 +48,21 @@ export async function generateMetadata() {
   return metaData;
 }
 
-export default async function Articles() {
-  const posts = await getAllPosts();
-  const articles = await getArticlesPage();
+interface ArticlesProps {
+  searchParams: Promise<{ page?: string }>;
+}
+
+export default async function Articles({ searchParams }: ArticlesProps) {
+  const { page: pageParam } = await searchParams;
+  const currentPage = Math.max(1, Number(pageParam) || 1);
+
+  const [posts, totalCount, articles] = await Promise.all([
+    getPagedPosts(currentPage, PAGE_SIZE),
+    getPostCount(),
+    getArticlesPage()
+  ]);
+
+  const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 
   if (!articles) {
     return notFound();
@@ -70,6 +89,11 @@ export default async function Articles() {
       ) : (
         <div className="max-w-7xl mx-auto px-4 mb-20">
           <PostList posts={posts} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            basePath="/blog"
+          />
         </div>
       )}
     </>

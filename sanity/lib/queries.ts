@@ -69,6 +69,28 @@ export const getAllPostsQuery = groq`*[_type == 'blog' && !(_id in path('drafts.
   }
 }`;
 
+export const getPagedPostsQuery = groq`*[_type == 'blog' && !(_id in path('drafts.**'))] | order(_createdAt desc) [$offset...$offset + $pageSize] {
+  _id,
+  _createdAt,
+  publishDate,
+  title,
+  summary,
+  featuredImage {
+    ...,
+    ...asset-> {
+      ...metadata {
+        lqip
+      }
+    }
+  },
+  isFeatured,
+  metadata {
+    'slug': slug.current
+  }
+}`;
+
+export const getPostCountQuery = groq`count(*[_type == 'blog' && !(_id in path('drafts.**'))])`;
+
 export const getPostBySlugQuery = groq`*[_type == 'blog' && !(_id in path('drafts.**')) && metadata.slug.current == $slug][0] {
   _id,
   _createdAt,

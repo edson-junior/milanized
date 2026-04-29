@@ -11,7 +11,9 @@ import {
   getContactPageQuery,
   getDisclaimerPageQuery,
   getHomePageQuery,
+  getPagedPostsQuery,
   getPostBySlugQuery,
+  getPostCountQuery,
   getPrivacyPageQuery,
   getSearchResultsQuery
 } from './queries';
@@ -66,6 +68,20 @@ export const getAllPosts = cache(
     });
   }
 );
+
+export const getPagedPosts = cache(
+  async (page: number, pageSize: number): Promise<Blog[] | undefined> => {
+    const offset = (page - 1) * pageSize;
+    return sanityFetch({
+      query: getPagedPostsQuery,
+      params: { offset, pageSize }
+    });
+  }
+);
+
+export const getPostCount = cache(async (): Promise<number> => {
+  return sanityFetch({ query: getPostCountQuery });
+});
 
 export const getPostBySlug = cache(
   async (slug: Slug | string): Promise<Blog | undefined> => {

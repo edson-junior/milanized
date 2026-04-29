@@ -6,6 +6,10 @@ import Hero from '@/components/Hero';
 import Heading from '@/components/ui/heading';
 import { getContactPage } from '@/sanity/lib/client';
 
+interface ContactProps {
+  searchParams: Promise<{ success?: string; error?: string }>;
+}
+
 export async function generateMetadata() {
   const contact = await getContactPage();
 
@@ -43,8 +47,9 @@ export async function generateMetadata() {
   return metaData;
 }
 
-export default async function Contact() {
+export default async function Contact({ searchParams }: ContactProps) {
   const contact = await getContactPage();
+  const { success, error } = await searchParams;
 
   if (!contact) {
     return notFound();
@@ -85,7 +90,7 @@ export default async function Contact() {
             don't be shy! <br /> We will reply as soon as possible!
           </p>
           <div className="bg-white rounded-lg shadow-md lg:text-lg mx-auto px-4 py-4">
-            <ContactForm />
+            <ContactForm success={success === '1'} errorType={error} />
           </div>
         </div>
       </div>

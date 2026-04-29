@@ -1,145 +1,88 @@
-'use client';
-
-import { zodResolver } from '@hookform/resolvers/zod';
-import dynamic from 'next/dynamic';
-import { useRef, useState } from 'react';
-import type ReCAPTCHAType from 'react-google-recaptcha';
-import { useForm } from 'react-hook-form';
-import { LuCheckCheck, LuLoaderCircle } from 'react-icons/lu';
-import { z } from 'zod';
-import { Button } from '@/components/ui/button';
+import { LuCheckCheck, LuTriangleAlert } from 'react-icons/lu';
+import { sendContactEmail } from '@/app/actions/contact';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import SubmitButton from './SubmitButton';
+import TurnstileWidget from './TurnstileWidget';
 
-const ReCAPTCHA = dynamic(() => import('react-google-recaptcha'), {
-  ssr: false
-});
+interface ContactFormProps {
+  success?: boolean;
+  errorType?: string;
+}
 
-const ContactSchema = z.object({
-  name: z.string().min(2, {
-    message: 'This field must not be empty'
-  }),
-  email: z.string().min(2),
-  message: z.string().min(1)
-});
-
-export default function ContactForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitSuccessful, isSubmitting }
-  } = useForm<z.infer<typeof ContactSchema>>({
-    resolver: zodResolver(ContactSchema)
-  });
-
-  const [isValidReCAPTCHA, setIsValidReCAPTCHA] = useState(false);
-
-  const recaptchaRef = useRef<ReCAPTCHAType>(null);
-
-  const contactSubmit = async (formData: z.infer<typeof ContactSchema>) => {
-    if (isValidReCAPTCHA) {
-      try {
-        const response = await fetch('/api/email', {
-          method: 'POST',
-          body: JSON.stringify(formData)
-        });
-
-        if (response.status === 200) {
-          const data = await response.json();
-          recaptchaRef.current?.reset();
-          console.info(data);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
-
+export default function ContactForm({ success, errorType }: ContactFormProps) {
   return (
-    <form onSubmit={handleSubmit(contactSubmit)}>
-      {isSubmitSuccessful && isValidReCAPTCHA && (
-        <div className="success flex gap-2 group py-4 px-4 mb-4 font-semibold rounded border-green-500 border-2 bg-green-300 text-green-800">
+    <>
+      {success && (
+        <div className="flex gap-2 py-4 px-4 mb-4 font-semibold rounded border-green-500 border-2 bg-green-300 text-green-800">
           <LuCheckCheck size={24} />
           {`Your message has been sent! We'll be in touch ASAP!`}
         </div>
       )}
-      <div className="grid gap-4 mb-5">
-        <Label htmlFor="name">
-          Name <span className="text-red-500 font-bold">*</span>
-        </Label>
-        <Input
-          className="w-full text-base font-medium"
-          type="text"
-          placeholder="John Doe"
-          id="name"
-          autoComplete="name"
-          {...register('name')}
-        />
-        {errors?.name && (
-          <p className="text-sm font-medium text-destructive">
-            {errors?.name?.message}
-          </p>
-        )}
-      </div>
+      {errorType === 'captcha' && (
+        <div className="flex gap-2 py-4 px-4 mb-4 font-semibold rounded border-red-500 border-2 bg-red-100 text-red-800">
+          <LuTriangleAlert size={24} />
+          Security check failed. Please try again.
+        </div>
+      )}
+      {errorType === 'validation' && (
+        <div className="flex gap-2 py-4 px-4 mb-4 font-semibold rounded border-red-500 border-2 bg-red-100 text-red-800">
+          <LuTriangleAlert size={24} />
+          Please fill in all required fields correctly.
+        </div>
+      )}
 
-      <div className="grid gap-4 mb-5">
-        <Label htmlFor="email">
-          Email <span className="text-red-500 font-bold">*</span>
-        </Label>
-        <Input
-          className="w-full text-base font-medium"
-          type="email"
-          placeholder="example@domain.com"
-          id="email"
-          autoComplete="email"
-          {...register('email')}
-        />
-        {errors?.email && (
-          <p className="text-sm font-medium text-destructive">
-            {errors?.email?.message}
-          </p>
-        )}
-      </div>
+      <form action={sendContactEmail}>
+        <div className="grid gap-4 mb-5">
+          <Label htmlFor="name">
+            Name <span className="text-red-500 font-bold">*</span>
+          </Label>
+          <Input
+            className="w-full text-base font-medium"
+            type="text"
+            name="name"
+            id="name"
+            placeholder="John Doe"
+            autoComplete="name"
+            required
+            minLength={2}
+          />
+        </div>
 
-      <div className="grid gap-4 mb-5">
-        <Label htmlFor="message">
-          Your message <span className="text-red-500 font-bold">*</span>
-        </Label>
-        <Textarea
-          rows={4}
-          placeholder="Type your message here."
-          className="w-full text-base font-medium"
-          id="message"
-          {...register('message')}
-        />
-        {errors?.message && (
-          <p className="text-sm font-medium text-destructive">
-            {errors?.message?.message}
-          </p>
-        )}
-      </div>
+        <div className="grid gap-4 mb-5">
+          <Label htmlFor="email">
+            Email <span className="text-red-500 font-bold">*</span>
+          </Label>
+          <Input
+            className="w-full text-base font-medium"
+            type="email"
+            name="email"
+            id="email"
+            placeholder="example@domain.com"
+            autoComplete="email"
+            required
+          />
+        </div>
 
-      <ReCAPTCHA
-        // ref={recaptchaRef}
-        size="normal"
-        sitekey={`${process.env.NEXT_PUBLIC_RECAPTCHA_KEY}`}
-        className="mb-4"
-        onChange={(value) => {
-          setIsValidReCAPTCHA(Boolean(value));
-        }}
-      />
+        <div className="grid gap-4 mb-5">
+          <Label htmlFor="message">
+            Your message <span className="text-red-500 font-bold">*</span>
+          </Label>
+          <Textarea
+            rows={4}
+            name="message"
+            id="message"
+            placeholder="Type your message here."
+            className="w-full text-base font-medium"
+            required
+          />
+        </div>
 
-      <Button disabled={!isValidReCAPTCHA || isSubmitting} type="submit">
-        {isSubmitting ? (
-          <>
-            <LuLoaderCircle className="mr-2 h-4 w-4 animate-spin" />
-            Please wait
-          </>
-        ) : (
-          <>{`Submit`}</>
-        )}
-      </Button>
-    </form>
+        <TurnstileWidget />
+        <SubmitButton />
+      </form>
+    </>
   );
 }
+

@@ -1,4 +1,4 @@
-export {};
+declare module '*.css';
 declare global {
   interface Window {
     // eslint-disable-next-line @typescript-eslint/ban-types
@@ -7,9 +7,4 @@ declare global {
       Embeds: { process: Function };
     };
   }
-}
-
-declare module '*.css' {
-  const content: string;
-  export default content;
 }

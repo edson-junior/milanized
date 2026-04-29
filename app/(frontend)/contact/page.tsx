@@ -6,10 +6,6 @@ import Hero from '@/components/Hero';
 import Heading from '@/components/ui/heading';
 import { getContactPage } from '@/sanity/lib/client';
 
-interface ContactProps {
-  searchParams: Promise<{ success?: string; error?: string }>;
-}
-
 export async function generateMetadata() {
   const contact = await getContactPage();
 
@@ -45,6 +41,10 @@ export async function generateMetadata() {
   };
 
   return metaData;
+}
+
+interface ContactProps {
+  searchParams: Promise<{ success?: string; error?: string }>;
 }
 
 export default async function Contact({ searchParams }: ContactProps) {

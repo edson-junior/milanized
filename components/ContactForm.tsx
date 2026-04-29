@@ -15,25 +15,31 @@ export default function ContactForm({ success, errorType }: ContactFormProps) {
   return (
     <>
       {success && (
-        <div className="flex gap-2 py-4 px-4 mb-4 font-semibold rounded border-green-500 border-2 bg-green-300 text-green-800">
+        <div role="alert" aria-atomic="true" className="flex gap-2 py-4 px-4 mb-4 font-semibold rounded border-green-500 border-2 bg-green-300 text-green-800">
           <LuCheckCheck size={24} />
           {`Your message has been sent! We'll be in touch ASAP!`}
         </div>
       )}
       {errorType === 'captcha' && (
-        <div className="flex gap-2 py-4 px-4 mb-4 font-semibold rounded border-red-500 border-2 bg-red-100 text-red-800">
+        <div role="alert" aria-atomic="true" className="flex gap-2 py-4 px-4 mb-4 font-semibold rounded border-red-500 border-2 bg-red-100 text-red-800">
           <LuTriangleAlert size={24} />
           Security check failed. Please try again.
         </div>
       )}
+      {errorType === 'send' && (
+        <div role="alert" aria-atomic="true" className="flex gap-2 py-4 px-4 mb-4 font-semibold rounded border-red-500 border-2 bg-red-100 text-red-800">
+          <LuTriangleAlert size={24} />
+          Something went wrong sending your message. Please try again later.
+        </div>
+      )}
       {errorType === 'validation' && (
-        <div className="flex gap-2 py-4 px-4 mb-4 font-semibold rounded border-red-500 border-2 bg-red-100 text-red-800">
+        <div role="alert" aria-atomic="true" className="flex gap-2 py-4 px-4 mb-4 font-semibold rounded border-red-500 border-2 bg-red-100 text-red-800">
           <LuTriangleAlert size={24} />
           Please fill in all required fields correctly.
         </div>
       )}
 
-      <form action={sendContactEmail}>
+      {!success && <form action={sendContactEmail}>
         <div className="grid gap-4 mb-5">
           <Label htmlFor="name">
             Name <span className="text-red-500 font-bold">*</span>
@@ -76,13 +82,13 @@ export default function ContactForm({ success, errorType }: ContactFormProps) {
             placeholder="Type your message here."
             className="w-full text-base font-medium"
             required
+            maxLength={2000}
           />
         </div>
 
         <TurnstileWidget />
         <SubmitButton />
-      </form>
+      </form>}
     </>
   );
 }
-

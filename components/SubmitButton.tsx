@@ -18,7 +18,12 @@ export default function SubmitButton({
   const { pending } = useFormStatus();
 
   return (
-    <Button type="submit" disabled={pending} aria-busy={pending} className={className}>
+    <Button
+      type="submit"
+      disabled={pending}
+      aria-busy={pending}
+      className={className}
+    >
       {pending ? (
         <>
           <LuLoaderCircle className="mr-2 h-4 w-4 animate-spin" />

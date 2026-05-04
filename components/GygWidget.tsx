@@ -1,5 +1,3 @@
-'use client';
-
 import parse from 'html-react-parser';
 import Script from 'next/script';
 import Heading from './ui/heading';

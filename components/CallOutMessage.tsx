@@ -1,3 +1,5 @@
+'use client';
+
 import { PortableText } from '@portabletext/react';
 import { cn } from '@/lib/utils';
 import { PortableTextTypes } from '@/sanity.types';

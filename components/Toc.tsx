@@ -1,8 +1,5 @@
-'use client';
-
-import { useEffect } from 'react';
 import { cn, slugify } from '@/lib/utils';
-import css from './Toc.module.css';
+import TocHighlighter from './TocHighlighter';
 import Heading from './ui/heading';
 
 export default function Toc({
@@ -13,39 +10,6 @@ export default function Toc({
     style: string;
   }[];
 }) {
-  useEffect(() => {
-    if (typeof document === 'undefined') return;
-
-    const observers: IntersectionObserver[] = [];
-
-    headings?.forEach(({ text }) => {
-      const target = document.getElementById(slugify(text));
-
-      if (!target) return;
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          const tocItem = document.querySelector(
-            `[data-toc-item="${slugify(text)}"]`
-          );
-
-          if (entry.isIntersecting) {
-            tocItem?.classList.add(css.inView);
-          } else {
-            tocItem?.classList.remove(css.inView);
-          }
-        });
-      });
-
-      observer.observe(target);
-      observers.push(observer);
-    });
-
-    return () => {
-      observers.forEach((observer) => observer.disconnect());
-    };
-  }, [headings]);
-
   return (
     <nav className="hidden lg:block mb-6">
       <Heading as="h2" className="block text-lg">
@@ -75,6 +39,8 @@ export default function Toc({
           </li>
         ))}
       </ul>
+
+      {headings && <TocHighlighter headings={headings} />}
     </nav>
   );
 }

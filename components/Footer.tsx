@@ -8,7 +8,7 @@ export default function Footer() {
     <footer className="bg-jet-black text-white relative after:block after:w-full after:h-[0.18rem] after:bg-gradient-to-r after:from-red-800 after:via-yellow-400 after:to-cyan-600 after:absolute after:bottom-full after:border-t after:border-black after:left-0">
       <div className="flex flex-col max-w-7xl mx-auto pt-10">
         <div className="text-center px-4 mb-8 mx-auto">
-          <Heading as="h3" className="text-lg/7 mb-2">
+          <Heading as="h2" className="text-lg/7 mb-2">
             Sign up to the newsletter
           </Heading>
           <p className="text-sm mb-8">

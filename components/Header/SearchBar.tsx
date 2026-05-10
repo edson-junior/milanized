@@ -32,8 +32,8 @@ export default function SearchBar() {
         <DialogContent className="top-28 lg:top-32">
           <DialogHeader className="text-left">
             <DialogTitle>Search</DialogTitle>
-            <DialogDescription hidden>
-              Please enter your search on the form bellow
+            <DialogDescription className="sr-only">
+              Please enter your search on the form below
             </DialogDescription>
           </DialogHeader>
           <form
@@ -56,6 +56,7 @@ export default function SearchBar() {
               ref={searchString}
               type="text"
               placeholder="What are you looking for?"
+              aria-label="Search query"
             />
             <Button type="submit" aria-label="search">
               <LuSearch />

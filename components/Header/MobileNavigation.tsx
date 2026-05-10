@@ -39,13 +39,13 @@ export default function MobileNavigation() {
         <LuMenu size={24} />
       </DialogTrigger>
       <DialogContent className="bg-black/30 backdrop-blur-sm border-0 h-full w-full p-0 max-w-full [&>button]:hidden">
-        <DialogTitle className="hidden">Menu</DialogTitle>
-        <DialogDescription className="hidden">
+        <DialogTitle className="sr-only">Menu</DialogTitle>
+        <DialogDescription className="sr-only">
           Navigation menu
         </DialogDescription>
         <DialogHeader className="h-14 flex justify-between items-end p-4">
-          <DialogClose className="text-white">
-            <LuX size={24} />
+          <DialogClose className="text-white" aria-label="Close menu">
+            <LuX size={24} aria-hidden="true" />
           </DialogClose>
         </DialogHeader>
         <div className="overflow-auto">

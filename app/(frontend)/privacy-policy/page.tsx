@@ -49,7 +49,7 @@ export default async function PrivacyPolicy() {
   }
 
   return (
-    <>
+    <main id="main-content" className="scroll-m-20">
       {data.title && (
         <Hero
           mainTitle={data.title}
@@ -61,6 +61,6 @@ export default async function PrivacyPolicy() {
       <div className="max-w-7xl mx-auto px-4 py-4">
         {data.content && <BlockRendererClient value={data.content} />}
       </div>
-    </>
+    </main>
   );
 }

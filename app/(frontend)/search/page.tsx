@@ -49,7 +49,7 @@ export default async function Search({ searchParams }: SearchPageProps) {
   );
 
   return (
-    <>
+    <main id="main-content" className="scroll-m-20">
       <Hero
         mainTitle={`Search results for: ${searchString}`}
         subtitle={`Not what you're looking for? Give it another go! `}
@@ -63,7 +63,7 @@ export default async function Search({ searchParams }: SearchPageProps) {
             >
               There are no results for your search!
             </Heading>
-            <Heading as="strong" className="text-lg">
+            <Heading as="h2" className="text-lg">
               Tips for better search results:
             </Heading>
             <ul className="text-sm mb-8">
@@ -76,6 +76,6 @@ export default async function Search({ searchParams }: SearchPageProps) {
           <PostList posts={posts} />
         )}
       </div>
-    </>
+    </main>
   );
 }

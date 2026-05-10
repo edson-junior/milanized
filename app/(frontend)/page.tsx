@@ -68,7 +68,7 @@ export default async function Home() {
 
   return (
     <>
-      <main>
+      <main id="main-content" className="scroll-m-20">
         <HomeHero />
         <FeaturedPost />
         <script

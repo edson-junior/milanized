@@ -61,7 +61,7 @@ export const PortableComponents: PortableTextComponents = {
           height={1280}
           loading="lazy"
           src={urlFor(value).width(1280).url()}
-          alt={value.alt}
+          alt={value.alt || ''}
         />
       );
     },

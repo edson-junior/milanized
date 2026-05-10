@@ -59,7 +59,10 @@ export default function ContactForm({ success, errorType }: ContactFormProps) {
         <form action={sendContactEmail}>
           <div className="grid gap-4 mb-5">
             <Label htmlFor="name">
-              Name <span className="text-red-500 font-bold">*</span>
+              Name{' '}
+              <span className="text-red-500 font-bold" aria-hidden="true">
+                *
+              </span>
             </Label>
             <Input
               className="w-full text-base font-medium"
@@ -76,7 +79,10 @@ export default function ContactForm({ success, errorType }: ContactFormProps) {
 
           <div className="grid gap-4 mb-5">
             <Label htmlFor="email">
-              Email <span className="text-red-500 font-bold">*</span>
+              Email{' '}
+              <span className="text-red-500 font-bold" aria-hidden="true">
+                *
+              </span>
             </Label>
             <Input
               className="w-full text-base font-medium"
@@ -92,7 +98,10 @@ export default function ContactForm({ success, errorType }: ContactFormProps) {
 
           <div className="grid gap-4 mb-5">
             <Label htmlFor="message">
-              Your message <span className="text-red-500 font-bold">*</span>
+              Your message{' '}
+              <span className="text-red-500 font-bold" aria-hidden="true">
+                *
+              </span>
             </Label>
             <Textarea
               rows={4}

@@ -69,7 +69,10 @@ export default async function FeaturedPost() {
           <div className="space-y-4">
             <p className="text-sm text-stone-400">{categories[0].title}</p>
             <div className="leading-[2.4] lg:leading-[3.6]">
-              <Heading className="text-xl lg:text-3xl mb-4 text-black group-hover:text-blue-700 bg-white box-decoration-clone px-2 rounded-md">
+              <Heading
+                as="h2"
+                className="inline text-xl lg:text-3xl mb-4 text-black group-hover:text-blue-700 bg-white box-decoration-clone px-2 rounded-md"
+              >
                 {title}
               </Heading>
             </div>

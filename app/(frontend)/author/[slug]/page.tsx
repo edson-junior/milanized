@@ -63,7 +63,7 @@ export default async function Author({ params }: AuthorProps) {
   }
 
   return (
-    <>
+    <main id="main-content" className="scroll-m-20">
       <Hero
         mainTitle={
           <Heading
@@ -165,6 +165,6 @@ export default async function Author({ params }: AuthorProps) {
           </a>
         </Button>
       </div>
-    </>
+    </main>
   );
 }

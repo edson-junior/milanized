@@ -86,6 +86,7 @@ export default function PostList({
 
               <div className={cn(variant === 'row' && 'py-6')}>
                 <Heading
+                  as="h2"
                   className={cn(
                     'block group-hover:text-blue-700',
                     variant === 'row' && 'text-xl mb-4',

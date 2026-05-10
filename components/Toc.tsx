@@ -11,8 +11,8 @@ export default function Toc({
   }[];
 }) {
   return (
-    <nav className="hidden lg:block mb-6">
-      <Heading as="h2" className="block text-lg">
+    <nav className="hidden lg:block mb-6" aria-labelledby="toc-heading">
+      <Heading as="h2" id="toc-heading" className="block text-lg">
         In this article
       </Heading>
 

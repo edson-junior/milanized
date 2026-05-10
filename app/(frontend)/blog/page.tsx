@@ -69,7 +69,7 @@ export default async function Articles({ searchParams }: ArticlesProps) {
   }
 
   return (
-    <>
+    <main id="main-content" className="scroll-m-20">
       <div className="max-w-7xl mx-auto px-4 pt-10 pb-6">
         <Heading as="h1" className="text-3xl lg:text-5xl mb-4 lg:mb-6">
           {articles?.title}
@@ -96,6 +96,6 @@ export default async function Articles({ searchParams }: ArticlesProps) {
           />
         </div>
       )}
-    </>
+    </main>
   );
 }

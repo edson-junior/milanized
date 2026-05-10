@@ -56,10 +56,10 @@ export default async function Contact({ searchParams }: ContactProps) {
   }
 
   return (
-    <>
+    <main id="main-content" className="scroll-m-20">
       <Hero
         mainTitle={contact.title}
-        className="bg-[#119a91]"
+        className="bg-[#0d7870]"
         subtitle={
           <p className="max-w-5xl text-sm/7 lg:text-lg/7">
             We’re always happy to hear from our readers, contributors, and
@@ -94,6 +94,6 @@ export default async function Contact({ searchParams }: ContactProps) {
           </div>
         </div>
       </div>
-    </>
+    </main>
   );
 }

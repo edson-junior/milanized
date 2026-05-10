@@ -28,7 +28,10 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="max-w-7xl text-center mx-auto p-4 lg:pt-12">
+    <main
+      id="main-content"
+      className="max-w-7xl text-center mx-auto p-4 lg:pt-12 scroll-m-20"
+    >
       <Heading
         as="h1"
         className="text-3xl lg:text-5xl mb-6 lg:mb-4 lg:leading-[1.2]"
@@ -43,6 +46,6 @@ export default function NotFound() {
           Go to Homepage <LuArrowRight />
         </Link>
       </Button>
-    </div>
+    </main>
   );
 }

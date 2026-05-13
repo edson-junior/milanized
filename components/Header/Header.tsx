@@ -110,7 +110,7 @@ export default function Header() {
           <form
             role="search"
             onSubmit={handleSubmit}
-            className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3"
+            className="max-w-7xl mx-auto px-4 py-4 md:py-5 flex items-center gap-3"
           >
             <label htmlFor="search-input-header" className="sr-only">
               Search articles

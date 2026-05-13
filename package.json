@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "biome check --write --no-errors-on-unmatched",
     "lint:staged": "biome check --write --unsafe --staged --no-errors-on-unmatched",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@next/third-parties": "^14.2.4",
@@ -37,6 +39,9 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.4",
+    "@commitlint/cli": "^20.5.3",
+    "@commitlint/config-conventional": "^20.5.3",
+    "@playwright/test": "^1.59.1",
     "@types/node": "^20.12.7",
     "@types/nodemailer": "^8.0.0",
     "@types/react": "^18.2.79",
@@ -52,5 +57,6 @@
   "browserslist": [
     "defaults and fully supports es6-module",
     "maintained node versions"
-  ]
+  ],
+  "packageManager": "pnpm@10.32.1"
 }

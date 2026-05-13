@@ -17,9 +17,14 @@ type RootLayoutProps = Readonly<{
   children: React.ReactNode;
 }>;
 
-export default async function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en-GB" className="lg:scroll-smooth" suppressHydrationWarning>
+    <html
+      lang="en-GB"
+      className="lg:scroll-smooth"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <body
         className={`${openSans.variable} ${catamaran.variable} font-sans bg-soft-white`}
       >
@@ -34,10 +39,11 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 
         {children}
         <Footer />
+        {process.env.NODE_ENV === 'production' &&
+          process.env.NEXT_PUBLIC_GTM_ID && (
+            <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
+          )}
       </body>
-      {process.env.NODE_ENV === 'production' && (
-        <GoogleTagManager gtmId={`${process.env.NEXT_PUBLIC_GTM_ID}`} />
-      )}
     </html>
   );
 }

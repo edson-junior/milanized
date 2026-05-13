@@ -11,27 +11,35 @@ interface SearchPageProps {
 
 export async function generateMetadata({ searchParams }: SearchPageProps) {
   const { query: searchString } = await searchParams;
+  const safeQuery = typeof searchString === 'string' ? searchString : '';
+
+  const pageUrl = new URL('/search', process.env.CLIENT_URL);
+
+  if (safeQuery) {
+    pageUrl.searchParams.set('query', safeQuery);
+  }
+
+  const pageUrlString = pageUrl.toString();
 
   const metaData: Metadata = {
-    title: `Search results for ${searchString}`,
-    description: `Search results for ${searchString}`,
-    robots:
-      'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
+    title: safeQuery ? `Search results for ${safeQuery}` : 'Search',
+    description: safeQuery ? `Search results for ${safeQuery}` : 'Search',
+    robots: 'noindex, follow',
     alternates: {
-      canonical: `${process.env.CLIENT_URL}/search?query=${searchString}`,
+      canonical: pageUrlString,
       types: {
         'application/rss+xml': `${process.env.CLIENT_URL}/blog/rss.xml`
       }
     },
     openGraph: {
-      url: `${process.env.CLIENT_URL}/search?query=${searchString}`,
-      title: `Search results for ${searchString}`,
-      description: `Search results for ${searchString}`,
+      url: pageUrlString,
+      title: safeQuery ? `Search results for ${safeQuery}` : 'Search',
+      description: safeQuery ? `Search results for ${safeQuery}` : 'Search',
       type: 'website',
       images: {
         url: `${process.env.CLIENT_URL}/opengraph-logo.png`,
         secureUrl: `${process.env.CLIENT_URL}/opengraph-logo.png`,
-        alt: `Search results for ${searchString}`,
+        alt: safeQuery ? `Search results for ${safeQuery}` : 'Search results',
         width: 360,
         height: 360,
         type: 'image'
@@ -44,14 +52,13 @@ export async function generateMetadata({ searchParams }: SearchPageProps) {
 
 export default async function Search({ searchParams }: SearchPageProps) {
   const { query: searchString } = await searchParams;
-  const posts: Blog[] | undefined = await getSearchResults(
-    (searchString as string) ?? ''
-  );
+  const safeQuery = typeof searchString === 'string' ? searchString : '';
+  const posts: Blog[] | undefined = await getSearchResults(safeQuery);
 
   return (
     <main id="main-content" className="scroll-m-20">
       <Hero
-        mainTitle={`Search results for: ${searchString}`}
+        mainTitle={safeQuery ? `Search results for: ${safeQuery}` : 'Search'}
         subtitle={`Not what you're looking for? Give it another go! `}
       />
       <div className="max-w-7xl mx-auto px-4 py-4 mb-20">

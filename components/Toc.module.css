@@ -1,4 +1,6 @@
-@screen lg {
+@reference "../styles/globals.css";
+
+@media (min-width: 1024px) {
 	.inView:not(.inView ~ .inView) {
 		@apply border-l-2 border-l-black bg-slate-100;
 	}

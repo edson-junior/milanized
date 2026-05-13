@@ -75,6 +75,14 @@ export async function GET() {
       ? urlFor(post.featuredImage).width(1200).url()
       : undefined;
 
+    const mimeType = imageUrl
+      ? /\.png(\?|$)/i.test(imageUrl)
+        ? 'image/png'
+        : /\.webp(\?|$)/i.test(imageUrl)
+          ? 'image/webp'
+          : 'image/jpeg'
+      : undefined;
+
     return `
       <item>
         <title><![CDATA[${post.metadata?.title}]]></title>
@@ -82,11 +90,7 @@ export async function GET() {
         <guid>${url}</guid>
         <pubDate>${new Date(publishedAt).toUTCString()}</pubDate>
         <description><![CDATA[${post.metadata?.description}]]></description>
-        <enclosure length="500" type="image/jpg" url="${
-          imageUrl
-            ? `${imageUrl.split('?')[0]}?${encodeURIComponent(imageUrl.split('?')[1])}`
-            : ''
-        }"/>
+        ${imageUrl ? `<enclosure length="0" type="${mimeType}" url="${imageUrl}"/>` : ''}
       </item>
     `;
   });

@@ -101,8 +101,7 @@ export default function Header() {
       <div className="absolute overflow-hidden top-full left-0 w-full">
         <div
           aria-hidden={!searchOpen}
-          // @ts-expect-error: inert is a valid HTML attribute not yet in React types
-          inert={!searchOpen ? '' : undefined}
+          inert={!searchOpen}
           className={`bg-white shadow-md transition-all duration-300 ease-in-out ${
             searchOpen ? 'max-h-20 border-b border-black/10' : 'max-h-0'
           }`}

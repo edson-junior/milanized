@@ -38,8 +38,7 @@ export default function MobileNavigation({ open, onToggle, onClose }: Props) {
           id="mobile-menu"
           aria-label="Mobile navigation"
           aria-hidden={!open}
-          // @ts-expect-error: inert not yet in React types
-          inert={!open ? '' : undefined}
+          inert={!open}
           className={`bg-white shadow-md transition-all duration-300 ease-in-out ${
             open ? 'max-h-96 border-b border-black/10' : 'max-h-0'
           }`}

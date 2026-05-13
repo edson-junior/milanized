@@ -6,23 +6,9 @@ import { useRouter } from 'nextjs-toploader/app';
 import { useEffect, useRef, useState } from 'react';
 import { SiteNavigationElement, WithContext } from 'schema-dts';
 import DesktopNavigation from './DesktopNavigation';
+import { links } from './links';
 import MobileNavigation from './MobileNavigation';
 import SearchBar from './SearchBar';
-
-export const links = [
-  {
-    href: `${process.env.NEXT_PUBLIC_CLIENT_URL}/blog`,
-    text: 'Articles'
-  },
-  {
-    href: `${process.env.NEXT_PUBLIC_CLIENT_URL}/about`,
-    text: 'About'
-  },
-  {
-    href: `${process.env.NEXT_PUBLIC_CLIENT_URL}/contact`,
-    text: 'Contact'
-  }
-];
 
 const jsonLd: WithContext<SiteNavigationElement> = {
   '@context': 'https://schema.org',
@@ -35,10 +21,12 @@ export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
   const [searchOpen, setSearchOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setSearchOpen(false);
+    setMobileOpen(false);
     if (inputRef.current) inputRef.current.value = '';
   }, [pathname]);
 
@@ -92,11 +80,21 @@ export default function Header() {
         <div className="flex ml-auto">
           <SearchBar
             open={searchOpen}
-            onToggle={() => setSearchOpen((isOpen) => !isOpen)}
+            onToggle={() => {
+              setSearchOpen((isOpen) => !isOpen);
+              setMobileOpen(false);
+            }}
           />
           <DesktopNavigation />
         </div>
-        <MobileNavigation />
+        <MobileNavigation
+          open={mobileOpen}
+          onToggle={() => {
+            setMobileOpen((isOpen) => !isOpen);
+            setSearchOpen(false);
+          }}
+          onClose={() => setMobileOpen(false)}
+        />
       </div>
 
       {/* Slide-down search panel */}

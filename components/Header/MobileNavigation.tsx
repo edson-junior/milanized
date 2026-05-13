@@ -1,88 +1,64 @@
 'use client';
 
 import Link from 'next/link';
-import { useCallback, useState } from 'react';
 import { LuMenu, LuX } from 'react-icons/lu';
-import { socialLinks } from '@/lib/social-links';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger
-} from '../ui/dialog';
-import { links } from './Header';
+import { links } from './links';
 
-export default function MobileNavigation() {
-  const [open, setOpen] = useState(false);
-  const closeMobileMenu = useCallback(() => {
-    setOpen(false);
-  }, []);
+const mobileLinks = [
+  { href: `${process.env.NEXT_PUBLIC_CLIENT_URL}/`, text: 'Home' },
+  ...links
+];
 
-  const mobileLinks = [
-    {
-      href: `${process.env.NEXT_PUBLIC_CLIENT_URL}/`,
-      text: 'Home'
-    },
-    ...links
-  ];
+interface Props {
+  open: boolean;
+  onToggle: () => void;
+  onClose: () => void;
+}
 
+export default function MobileNavigation({ open, onToggle, onClose }: Props) {
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger
-        className="text-white lg:hidden w-7 h-7"
-        aria-label="open menu"
+    <div className="lg:hidden">
+      <button
+        type="button"
+        className="text-white w-7 h-7 flex items-center justify-center"
+        aria-label={open ? 'Close menu' : 'Open menu'}
+        aria-expanded={open}
+        aria-controls="mobile-menu"
+        onClick={onToggle}
       >
-        <LuMenu size={24} />
-      </DialogTrigger>
-      <DialogContent className="bg-black/30 backdrop-blur-sm border-0 h-full w-full p-0 max-w-full [&>button]:hidden">
-        <DialogTitle className="sr-only">Menu</DialogTitle>
-        <DialogDescription className="sr-only">
-          Navigation menu
-        </DialogDescription>
-        <DialogHeader className="h-14 flex justify-between items-end p-4">
-          <DialogClose className="text-white" aria-label="Close menu">
-            <LuX size={24} aria-hidden="true" />
-          </DialogClose>
-        </DialogHeader>
-        <div className="overflow-auto">
-          <ul className="px-4 mx-auto">
-            {mobileLinks.map(({ href, text }, index) => {
-              return (
-                <li key={index}>
-                  <Link
-                    className="text-lg text-white text-center font-bold uppercase block lg:text-2xl py-6 hover:underline [text-shadow:_0px_1px_1px_black] lg:[text-shadow:_0px_2px_2px_black]"
-                    href={href}
-                    onClick={closeMobileMenu}
-                  >
-                    {text}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        <DialogFooter className="sm:justify-center">
-          <div className="flex justify-center text-lg lg:justify-start items-center pb-8 gap-8 mt-4">
-            {socialLinks.map(({ href, text, icon }) => {
-              return (
+        {open ? (
+          <LuX size={24} aria-hidden="true" />
+        ) : (
+          <LuMenu size={24} aria-hidden="true" />
+        )}
+      </button>
+
+      <div className="absolute overflow-hidden top-full left-0 w-full z-40">
+        <nav
+          id="mobile-menu"
+          aria-label="Mobile navigation"
+          aria-hidden={!open}
+          // @ts-expect-error: inert not yet in React types
+          inert={!open ? '' : undefined}
+          className={`bg-white shadow-md transition-all duration-300 ease-in-out ${
+            open ? 'max-h-96 border-b border-black/10' : 'max-h-0'
+          }`}
+        >
+          <ul className="flex flex-col py-2">
+            {mobileLinks.map(({ href, text }) => (
+              <li key={href}>
                 <Link
-                  className="text-2xl text-white"
-                  key={text}
                   href={href}
-                  target="_blank"
-                  aria-label={text}
+                  className="block px-4 py-4 text-md font-semibold text-jet-black hover:bg-black/5 transition-colors"
+                  onClick={onClose}
                 >
-                  {icon}
+                  {text}
                 </Link>
-              );
-            })}
-          </div>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </div>
   );
 }

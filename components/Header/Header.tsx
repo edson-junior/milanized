@@ -14,7 +14,11 @@ const jsonLd: WithContext<SiteNavigationElement> = {
   '@context': 'https://schema.org',
   '@type': 'SiteNavigationElement',
   name: [...links.map((item) => item.text)],
-  url: [...links.map((item) => item.href)]
+  url: [
+    ...links.flatMap((item) =>
+      item.href ? [item.href] : (item.children?.map((c) => c.href) ?? [])
+    )
+  ]
 };
 
 export default function Header() {

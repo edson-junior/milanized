@@ -2,7 +2,9 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Organization, WithContext } from 'schema-dts';
 import FeaturedPost from '@/components/FeaturedPost';
+import ExploreByCategory from '@/components/homepage/ExploreByCategory';
 import HomeHero from '@/components/homepage/HomeHero';
+import PlanYourTrip from '@/components/homepage/PlanYourTrip';
 import PostList from '@/components/PostList';
 import Heading from '@/components/ui/heading';
 import { getHomePage } from '@/sanity/lib/client';
@@ -70,7 +72,9 @@ export default async function Home() {
     <>
       <main id="main-content" className="scroll-m-20">
         <HomeHero />
+        <PlanYourTrip />
         <FeaturedPost />
+        <ExploreByCategory />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

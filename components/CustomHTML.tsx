@@ -1,6 +1,5 @@
 'use client';
 
-import parse from 'html-react-parser';
 import { useEffect } from 'react';
 
 export default function CustomHTML({
@@ -13,6 +12,9 @@ export default function CustomHTML({
   }, []);
 
   return (
-    <div className="relative overflow-hidden">{parse(HTMLSnippet.code)}</div>
+    <div
+      className="relative overflow-hidden"
+      dangerouslySetInnerHTML={{ __html: HTMLSnippet.code }}
+    />
   );
 }

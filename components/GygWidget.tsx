@@ -1,4 +1,3 @@
-import parse from 'html-react-parser';
 import Script from 'next/script';
 import Heading from './ui/heading';
 
@@ -28,7 +27,10 @@ export default function GygWidget({ title, snippet }: GygWidgetProps) {
         {title}
       </Heading>
 
-      <div className={isTiqets ? '-mx-3 mb-8' : ''}>{parse(snippet.code)}</div>
+      <div
+        className={isTiqets ? '-mx-3 mb-8' : ''}
+        dangerouslySetInnerHTML={{ __html: snippet.code }}
+      />
 
       {isTiqets ? (
         <Script defer src="https://widgets.tiqets.com/loader.js" />

@@ -1,8 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useRouter } from 'nextjs-toploader/app';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { SiteNavigationElement, WithContext } from 'schema-dts';
 import DesktopNavigation from './DesktopNavigation';

@@ -2,7 +2,6 @@ import type { Viewport } from 'next';
 import { Catamaran, Open_Sans } from 'next/font/google';
 import './../styles/globals.css';
 import { GoogleTagManager } from '@next/third-parties/google';
-import NextTopLoader from 'nextjs-toploader';
 import Footer from './../components/Footer';
 import Header from './../components/Header/Header';
 
@@ -34,7 +33,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
         >
           Skip to main content
         </a>
-        <NextTopLoader color="#b91c1c" showSpinner={false} />
         <Header />
 
         {children}

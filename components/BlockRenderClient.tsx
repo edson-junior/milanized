@@ -8,7 +8,6 @@ import {
 } from '@portabletext/react';
 import { TypedObject } from '@portabletext/types';
 import { TableRow } from '@sanity/table';
-import parse from 'html-react-parser';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { slugify } from '@/lib/utils';
@@ -50,9 +49,10 @@ export const PortableComponents: PortableTextComponents = {
               className="object-cover transition duration-200 ease-in-out transform hover:scale-110"
             />
           </div>
-          <figcaption className="text-xs italic text-gray-600 [&>a]:text-blue-700 [&>a]:underline mb-4 place-items-start mx-4 lg:mx-0">
-            {parse(value.caption)}
-          </figcaption>
+          <figcaption
+            className="text-xs italic text-gray-600 [&>a]:text-blue-700 [&>a]:underline mb-4 place-items-start mx-4 lg:mx-0"
+            dangerouslySetInnerHTML={{ __html: value.caption ?? '' }}
+          />
         </figure>
       ) : (
         <Image
@@ -82,7 +82,9 @@ export const PortableComponents: PortableTextComponents = {
         return <CustomHTML {...value} suppressHydrationWarning />;
       }
 
-      return parse(value.HTMLSnippet.code);
+      return (
+        <div dangerouslySetInnerHTML={{ __html: value.HTMLSnippet.code }} />
+      );
     }
   },
 

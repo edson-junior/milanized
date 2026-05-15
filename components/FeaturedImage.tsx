@@ -1,4 +1,3 @@
-import parse from 'html-react-parser';
 import Image from 'next/image';
 import { HTMLAttributes } from 'react';
 import { urlFor } from '@/sanity/lib/image';
@@ -34,9 +33,10 @@ export function FeaturedImage({
             className="object-cover transition duration-200 ease-in-out transform hover:scale-110"
           />
         </div>
-        <figcaption className="text-xs italic text-gray-600 [&>a]:text-blue-700 [&>a]:underline mb-4 mx-4 lg:mx-0">
-          {parse(featuredImage?.caption)}
-        </figcaption>
+        <figcaption
+          className="text-xs italic text-gray-600 [&>a]:text-blue-700 [&>a]:underline mb-4 mx-4 lg:mx-0"
+          dangerouslySetInnerHTML={{ __html: featuredImage?.caption ?? '' }}
+        />
       </figure>
     );
   }

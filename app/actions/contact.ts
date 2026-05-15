@@ -4,23 +4,6 @@ import { redirect } from 'next/navigation';
 import nodemailer from 'nodemailer';
 import { ContactSchema } from '@/lib/contact-schema';
 
-const NODEMAILER_EMAIL = process.env.NODEMAILER_EMAIL;
-const NODEMAILER_PASSWORD = process.env.NODEMAILER_PASSWORD;
-
-if (!NODEMAILER_EMAIL || !NODEMAILER_PASSWORD) {
-  throw new Error(
-    'Missing required environment variables: NODEMAILER_EMAIL and NODEMAILER_PASSWORD must be set.'
-  );
-}
-
-const transport = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: NODEMAILER_EMAIL,
-    pass: NODEMAILER_PASSWORD
-  }
-});
-
 async function verifyTurnstile(token: string): Promise<boolean> {
   if (!token) return false;
 
@@ -66,6 +49,23 @@ export async function sendContactEmail(formData: FormData) {
   if (!isHuman) {
     redirect('/contact?error=captcha');
   }
+
+  const NODEMAILER_EMAIL = process.env.NODEMAILER_EMAIL;
+  const NODEMAILER_PASSWORD = process.env.NODEMAILER_PASSWORD;
+
+  if (!NODEMAILER_EMAIL || !NODEMAILER_PASSWORD) {
+    throw new Error(
+      'Missing required environment variables: NODEMAILER_EMAIL and NODEMAILER_PASSWORD must be set.'
+    );
+  }
+
+  const transport = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: NODEMAILER_EMAIL,
+      pass: NODEMAILER_PASSWORD
+    }
+  });
 
   try {
     await transport.sendMail({

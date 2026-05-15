@@ -1,43 +1,15 @@
-import groq from 'groq';
 import Image from 'next/image';
 import Link from 'next/link';
 import Heading from '@/components/ui/heading';
 import { formatDate } from '@/lib/utils';
-import { sanityFetch } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import { Blog } from '@/sanity.types';
 
-const query = groq`*[_type == 'blog' && !(_id in path('drafts.**')) && isFeatured]|order(_createdAt desc) [0...1] [0] {
-  _id,
-  _createdAt,
-  _publishedAt,
-  title,
-  summary,
-  categories[]->{
-    title,
-    slug
-  },
-  featuredImage {
-    ...,
-    ...asset-> {
-      ...metadata {
-        lqip
-      }
-    }
-  },
-  author-> {
-    name,
-  },
-  metadata {
-    'slug': slug.current
-  }
-}`;
+interface FeaturedPostProps {
+  data: Blog;
+}
 
-export default async function FeaturedPost() {
-  const data: Blog | undefined = await sanityFetch({
-    query
-  });
-
+export default function FeaturedPost({ data }: FeaturedPostProps) {
   if (!data) {
     return null;
   }
@@ -83,7 +55,7 @@ export default async function FeaturedPost() {
           </div>
 
           {featuredImage && (
-            <figure className="max-md:full-bleed relative aspect-video overflow-hidden rounded-md -order-1 lg:order-none border border-gray-800 shadow-xl shadow-black/50">
+            <figure className="max-md:full-bleed relative aspect-video overflow-hidden rounded-md -order-1 lg:order-0 border border-gray-800 shadow-xl shadow-black/50">
               <Image
                 fill
                 sizes="(min-width: 1360px) 608px, (min-width: 780px) 44.64vw, calc(100vw - 32px)"

@@ -18,6 +18,7 @@ import {
   getSearchResultsQuery
 } from './queries';
 
+// Authenticated client — used only when a token is required (e.g. draft mode).
 const client = createClient({
   projectId,
   dataset,
@@ -25,6 +26,14 @@ const client = createClient({
   token: process.env.SANITY_API_TOKEN,
   useCdn: false,
   ignoreBrowserTokenWarning: true
+});
+
+// Public client — no token, CDN-backed. Use this for all public read-only queries.
+const publicClient = createClient({
+  projectId,
+  dataset,
+  apiVersion,
+  useCdn: true
 });
 
 export async function sanityFetch<const QueryString extends string>({
@@ -38,7 +47,7 @@ export async function sanityFetch<const QueryString extends string>({
   revalidate?: number | false;
   tags?: string[];
 }) {
-  return client.fetch(query, params, {
+  return publicClient.fetch(query, params, {
     next: {
       revalidate: tags.length ? false : revalidate,
       tags

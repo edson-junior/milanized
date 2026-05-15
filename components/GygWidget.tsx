@@ -15,8 +15,21 @@ interface Snippet {
   language: string;
 }
 
+// snippet.code must only ever be populated by vetted widget embed codes from
+// GetYourGuide or Tiqets via the Sanity CMS. CMS write access must be restricted
+// to trusted editors. No user-supplied content should reach this component.
+const ALLOWED_WIDGET_ORIGINS = ['getyourguide.com', 'tiqets.com'];
+
+function isAllowedWidgetCode(code: string): boolean {
+  return ALLOWED_WIDGET_ORIGINS.some((origin) => code.includes(origin));
+}
+
 export default function GygWidget({ title, snippet }: GygWidgetProps) {
-  const isTiqets = /tiqets/gm.test(snippet.code);
+  const isTiqets = /tiqets/.test(snippet.code);
+
+  if (!isAllowedWidgetCode(snippet.code)) {
+    return null;
+  }
 
   return (
     <>

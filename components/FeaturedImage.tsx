@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { HTMLAttributes } from 'react';
+import { sanitizeCaption } from '@/lib/sanitize';
 import { urlFor } from '@/sanity/lib/image';
 import { Blog } from '@/sanity.types';
 
@@ -35,7 +36,9 @@ export function FeaturedImage({
         </div>
         <figcaption
           className="text-xs italic text-gray-600 [&>a]:text-blue-700 [&>a]:underline mb-4 mx-4 lg:mx-0"
-          dangerouslySetInnerHTML={{ __html: featuredImage?.caption ?? '' }}
+          dangerouslySetInnerHTML={{
+            __html: sanitizeCaption(featuredImage?.caption ?? '')
+          }}
         />
       </figure>
     );

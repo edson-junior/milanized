@@ -10,6 +10,7 @@ import { TypedObject } from '@portabletext/types';
 import { TableRow } from '@sanity/table';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import { sanitizeCaption, sanitizeCustomHTML } from '@/lib/sanitize';
 import { slugify } from '@/lib/utils';
 import { urlFor } from '@/sanity/lib/image';
 import CallOutMessage from './CallOutMessage';
@@ -51,7 +52,9 @@ export const PortableComponents: PortableTextComponents = {
           </div>
           <figcaption
             className="text-xs italic text-gray-600 [&>a]:text-blue-700 [&>a]:underline mb-4 place-items-start mx-4 lg:mx-0"
-            dangerouslySetInnerHTML={{ __html: value.caption ?? '' }}
+            dangerouslySetInnerHTML={{
+              __html: sanitizeCaption(value.caption ?? '')
+            }}
           />
         </figure>
       ) : (
@@ -78,19 +81,23 @@ export const PortableComponents: PortableTextComponents = {
       return <GygWidget {...value} />;
     },
     customHTML: ({ value }) => {
-      if (/instagram.com\/embed.js/gm.test(value.HTMLSnippet.code)) {
+      if (/instagram\.com\/embed\.js/.test(value.HTMLSnippet.code)) {
         return <CustomHTML {...value} suppressHydrationWarning />;
       }
 
       return (
-        <div dangerouslySetInnerHTML={{ __html: value.HTMLSnippet.code }} />
+        <div
+          dangerouslySetInnerHTML={{
+            __html: sanitizeCustomHTML(value.HTMLSnippet.code)
+          }}
+        />
       );
     }
   },
 
   list: {
     bullet: ({ children }) => (
-      <ul className="flex flex-col list-disc gap-2 list-outside ms-4 [&:not(:last-child)]:mb-6">
+      <ul className="flex flex-col list-disc gap-2 list-outside ms-4 not-last:mb-6">
         {children}
       </ul>
     ),
@@ -137,11 +144,7 @@ export const PortableComponents: PortableTextComponents = {
 
   block: {
     normal: ({ children }) => {
-      // if (value.children[0].marks.includes('code')) {
-      //   return <>{parse(value.children[0].text)}</>;
-      // }
-
-      return <p className="leading-7 [&:not(:last-child)]:mb-6">{children}</p>;
+      return <p className="leading-7 not-last:mb-6">{children}</p>;
     },
     h1: ({ children }) => {
       return (

@@ -28,6 +28,31 @@ export const getHomePageQuery = groq`*[_type == 'page' && metadata.slug.current 
     image,
     description
   },
+  "featuredPost": *[_type == "blog" && !(_id in path('drafts.**')) && isFeatured == true] | order(_createdAt desc) [0] {
+    _id,
+    _createdAt,
+    publishDate,
+    title,
+    summary,
+    categories[]-> {
+      title,
+      slug
+    },
+    featuredImage {
+      ...,
+      ...asset-> {
+        ...metadata {
+          lqip
+        }
+      }
+    },
+    author-> {
+      name,
+    },
+    metadata {
+      'slug': slug.current
+    }
+  },
   "posts": *[_type == "blog" && !(_id in path('drafts.**')) && !(isFeatured == true)] | order(_createdAt desc) [0...6] {
     _id,
     _createdAt,

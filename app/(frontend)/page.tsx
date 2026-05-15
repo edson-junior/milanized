@@ -73,7 +73,8 @@ export default async function Home() {
       <main id="main-content" className="scroll-m-20">
         <HomeHero />
         <PlanYourTrip />
-        <FeaturedPost />
+        {/* @ts-expect-error: sanity's typegen doesn't create expanded reference types */}
+        {homepage.featuredPost && <FeaturedPost data={homepage.featuredPost} />}
         <ExploreByCategory />
         <script
           type="application/ld+json"

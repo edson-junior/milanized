@@ -65,7 +65,11 @@ export default function PostList({
                     width={250}
                     height={250}
                     loading="lazy"
-                    src={urlFor(featuredImage).width(600).url()}
+                    src={
+                      variant === 'col'
+                        ? urlFor(featuredImage).width(300).url()
+                        : urlFor(featuredImage).width(600).url()
+                    }
                     alt={featuredImage.alt || ''}
                     blurDataURL={featuredImage.lqip}
                     placeholder="blur"

@@ -209,13 +209,11 @@ Three workflows run automatically on GitHub Actions:
 - **Required secrets:** `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`
 
 ### Lighthouse CI (`lighthouse.yml`)
-- **Triggers:** pull requests targeting `main` only — does **not** run on direct pushes to `main`
-- **Steps:** `pnpm build` → `lhci autorun` against `http://localhost:3000/` and `/blog`
-- **Budgets:** performance ≥ 0.7, accessibility ≥ 0.9, best-practices ≥ 0.9, SEO ≥ 0.9 (configured in `.lighthouserc.json`)
+- **Triggers:** push to `main` and pull requests targeting `main`
+- **Steps:** `pnpm build` → `lhci collect` → `lhci assert` → artifact upload → `lhci upload` (temporary public storage)
+- **Budgets:** performance ≥ 0.7, accessibility ≥ 0.9, best-practices ≥ 0.9, SEO ≥ 0.9 — except `/search` where SEO is a warning at ≥ 0.6 (configured in `.lighthouserc.json`)
 - **Artifacts:** `.lighthouseci/` results uploaded for 14 days
 - **Required secrets:** `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`
-
-> **Note:** Lighthouse only runs on PRs. Push to a branch and open a pull request to `main` to trigger it.
 
 ---
 

@@ -5,7 +5,6 @@ import { Author, Blog, Homepage, Page, Slug } from '@/sanity.types';
 import { apiVersion, dataset, projectId } from '../env';
 import {
   getAboutPageQuery,
-  getAllPostsQuery,
   getArticlesPageQuery,
   getAuthorQuery,
   getContactPageQuery,
@@ -58,25 +57,6 @@ export async function sanityFetch<const QueryString extends string>({
 export const getHomePage = cache(async (): Promise<Homepage | undefined> => {
   return sanityFetch({ query: getHomePageQuery });
 });
-
-interface AllPostsProps {
-  limit?: number;
-  removeSlug?: string;
-  removeFeatured?: string | boolean;
-}
-
-export const getAllPosts = cache(
-  async ({
-    limit = 99999,
-    removeSlug = '',
-    removeFeatured = ''
-  }: AllPostsProps = {}): Promise<Blog[] | undefined> => {
-    return sanityFetch({
-      query: getAllPostsQuery,
-      params: { limit, removeSlug, removeFeatured }
-    });
-  }
-);
 
 export const getPagedPosts = cache(
   async (page: number, pageSize: number): Promise<Blog[] | undefined> => {

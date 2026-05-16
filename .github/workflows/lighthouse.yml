@@ -10,11 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
       NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
       CLIENT_URL: http://localhost:3000
       NEXT_PUBLIC_CLIENT_URL: http://localhost:3000
+      # Allows LHCI to post status checks back to GitHub pull requests
+      LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - uses: actions/checkout@v4
@@ -34,13 +35,19 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Install LHCI
-        run: npm install -g @lhci/cli
+      # Collect runs first and always writes results to .lighthouseci/
+      - name: Collect Lighthouse results
+        run: pnpm exec lhci collect
 
-      - name: Run Lighthouse CI
-        run: lhci autorun
+      # Assert separately so a budget failure doesn't skip the upload/artifact steps
+      - name: Assert Lighthouse budgets
+        run: pnpm exec lhci assert
+        continue-on-error: true
 
-      - name: Upload Lighthouse results
+      - name: Upload to temporary public storage
+        run: pnpm exec lhci upload
+
+      - name: Upload Lighthouse results as artifact
         uses: actions/upload-artifact@v4
         if: always()
         with:

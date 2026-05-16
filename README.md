@@ -6,6 +6,25 @@ A production-grade content platform for internationals navigating life in Italy.
 
 ---
 
+## Performance Scores
+
+Measured with Lighthouse desktop preset, no throttling (local production build). All URLs audited in CI are listed:
+
+| Page | Performance | Accessibility | Best Practices | SEO |
+|------|:-----------:|:-------------:|:--------------:|:---:|
+| `/` (homepage) | 100 | 100 | 100 | 100 |
+| `/blog` (listing) | 100 | 100 | 100 | 100 |
+| `/blog/2-weeks-in-italy` (post) | 100 | 100 | 100 | 100 |
+| `/about` | 100 | 100 | 100 | 100 |
+| `/contact` | 100 | 100 | 100 | 100 |
+| `/search` | 100 | 100 | 100 | 69 |
+
+> **Note:** `/search` scores 69 on SEO — the page renders no indexable content without a query parameter, so Lighthouse flags it for missing meta description and low text ratio. This is expected behaviour for a search results page.
+
+Scores are enforced in CI via `.lighthouserc.json` budgets. See [CI / GitHub Actions](#ci--github-actions).
+
+---
+
 ## Features
 
 - **Server-side rendering with ISR** — pages revalidate every 60 seconds; no stale content without sacrificing performance
@@ -228,3 +247,16 @@ For CI to run correctly, add these secrets under **Settings → Secrets and vari
 | Cloudflare Turnstile over reCAPTCHA | Privacy-friendly, no user friction on most devices, free tier |
 | Biome over ESLint + Prettier | Single tool, ~10× faster, zero config drift between linting and formatting |
 | Conventional Commits enforced via commitlint + Husky | Enables automated changelog generation and makes `git log` meaningful |
+
+[![CI](https://github.com/edson-junior/milanized-client/actions/workflows/unit.yml/badge.svg)](https://github.com/edson-junior/milanized-client/actions)
+[![E2E](https://github.com/edson-junior/milanized-client/actions/workflows/e2e.yml/badge.svg)](https://github.com/edson-junior/milanized-client/actions)
+[![Lighthouse](https://github.com/edson-junior/milanized-client/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/edson-junior/milanized-client/actions)
+[![Vercel](https://vercelbadge.vercel.app/api/milanized/milanized-client)](https://milanized.com)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.x-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![pnpm](https://img.shields.io/badge/pnpm-10.x-f69220?logo=pnpm)](https://pnpm.io/)
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines and best practices.

@@ -16,6 +16,8 @@ jobs:
       NEXT_PUBLIC_CLIENT_URL: http://localhost:3000
       # Allows LHCI to post status checks back to GitHub pull requests
       LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Force actions built for Node.js 20 to run on Node.js 24 (required until June 2026)
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - uses: actions/checkout@v4
@@ -44,9 +46,7 @@ jobs:
         run: pnpm exec lhci assert
         continue-on-error: true
 
-      - name: Upload to temporary public storage
-        run: pnpm exec lhci upload
-
+      # Artifact upload runs before lhci upload — lhci upload clears .lighthouseci/ after pushing to temporary storage
       - name: Upload Lighthouse results as artifact
         uses: actions/upload-artifact@v4
         if: always()
@@ -54,3 +54,6 @@ jobs:
           name: lighthouse-results
           path: .lighthouseci/
           retention-days: 14
+
+      - name: Upload to temporary public storage
+        run: pnpm exec lhci upload

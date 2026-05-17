@@ -33,12 +33,12 @@ export default function DesktopNavigation() {
                   type="button"
                   aria-haspopup="true"
                   aria-expanded={dropdownOpen}
-                  className="flex items-center gap-1 py-2 hover:underline"
+                  className="flex items-center gap-1 py-2"
                   onClick={() => setDropdownOpen((o) => !o)}
                 >
                   {text}
                   <svg
-                    className={`w-3 h-3 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`}
+                    className={`w-3 h-3`}
                     viewBox="0 0 10 6"
                     fill="none"
                     aria-hidden="true"

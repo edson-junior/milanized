@@ -14,7 +14,7 @@ Measured with Lighthouse desktop preset, no throttling (local production build).
 |------|:-----------:|:-------------:|:--------------:|:---:|
 | `/` (homepage) | 100 | 100 | 100 | 100 |
 | `/blog` (listing) | 100 | 100 | 100 | 100 |
-| `/blog/2-weeks-in-italy` (post) | 100 | 100 | 100 | 100 |
+| `/blog/2-days-in-lugano` (post) | 100 | 100 | 100 | 100 |
 | `/about` | 100 | 100 | 100 | 100 |
 | `/contact` | 100 | 100 | 100 | 100 |
 | `/search` | 100 | 100 | 100 | 69 |

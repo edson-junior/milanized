@@ -26,6 +26,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # On ubuntu-latest (24.04), apt-get triggers needrestart's interactive
+      # "which services to restart?" prompt, which hangs CI forever. Playwright's
+      # `--with-deps` runs apt-get via sudo, and sudo's env_reset strips the
+      # NEEDRESTART_MODE/DEBIAN_FRONTEND env vars set above — so we disable the
+      # prompt via needrestart's config file, which is read regardless of env.
+      - name: Disable needrestart prompts
+        run: |
+          sudo mkdir -p /etc/needrestart/conf.d
+          printf "\$nrconf{restart} = 'a';\n" | sudo tee /etc/needrestart/conf.d/99-no-prompt.conf >/dev/null
+
       - uses: pnpm/action-setup@v4
         with:
           version: 10.32.1

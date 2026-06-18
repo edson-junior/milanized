@@ -10,9 +10,14 @@ jobs:
   e2e:
     name: Playwright (Chromium)
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      # Prevent `playwright install --with-deps` (which runs apt-get) from
+      # hanging on interactive needrestart/debconf prompts on ubuntu-latest.
+      DEBIAN_FRONTEND: noninteractive
+      NEEDRESTART_MODE: a
       NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
       NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
       CLIENT_URL: http://localhost:3000

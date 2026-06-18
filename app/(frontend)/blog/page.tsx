@@ -68,6 +68,13 @@ export default async function Articles({ searchParams }: ArticlesProps) {
     return notFound();
   }
 
+  // Guard against out-of-range pages (e.g. stale/bookmarked links after posts
+  // were removed). Without this, the query returns an empty slice and we'd
+  // render a blank page with pagination instead of a proper 404.
+  if (currentPage > totalPages && totalPages > 0) {
+    return notFound();
+  }
+
   return (
     <main id="main-content" className="scroll-m-20">
       <div className="max-w-7xl mx-auto px-4 pt-10 pb-6">
@@ -84,7 +91,7 @@ export default async function Articles({ searchParams }: ArticlesProps) {
         {/* <FilterList /> */}
       </div>
 
-      {!posts ? (
+      {!posts?.length ? (
         <p>there are no blogposts</p>
       ) : (
         <div className="max-w-7xl mx-auto px-4 mb-20">

@@ -41,7 +41,10 @@ export default function Footer() {
         <div className="flex p-4 border-t justify-center border-white/30 text-sm gap-4">
           <span>© {new Date().getFullYear()} Milanized!</span>
           <Link className="hover:underline" href="/privacy-policy">
-            privacy policy
+            Privacy Policy
+          </Link>
+          <Link className="hover:underline" href="/disclaimer">
+            Disclaimer
           </Link>
         </div>
       </div>

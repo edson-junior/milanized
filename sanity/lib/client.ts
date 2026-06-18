@@ -17,23 +17,39 @@ import {
   getSearchResultsQuery
 } from './queries';
 
+// Lazy-initialized clients — deferred until first use so that missing env vars
+// do not crash the module at evaluation time (e.g. during `next build`).
+
+let _client: ReturnType<typeof createClient> | undefined;
+let _publicClient: ReturnType<typeof createClient> | undefined;
+
 // Authenticated client — used only when a token is required (e.g. draft mode).
-const client = createClient({
-  projectId,
-  dataset,
-  apiVersion,
-  token: process.env.SANITY_API_TOKEN,
-  useCdn: false,
-  ignoreBrowserTokenWarning: true
-});
+function getAuthenticatedClient() {
+  if (!_client) {
+    _client = createClient({
+      projectId,
+      dataset,
+      apiVersion,
+      token: process.env.SANITY_API_TOKEN,
+      useCdn: false,
+      ignoreBrowserTokenWarning: true
+    });
+  }
+  return _client;
+}
 
 // Public client — no token, CDN-backed. Use this for all public read-only queries.
-const publicClient = createClient({
-  projectId,
-  dataset,
-  apiVersion,
-  useCdn: true
-});
+function getPublicClient() {
+  if (!_publicClient) {
+    _publicClient = createClient({
+      projectId,
+      dataset,
+      apiVersion,
+      useCdn: true
+    });
+  }
+  return _publicClient;
+}
 
 export async function sanityFetch<const QueryString extends string>({
   query,
@@ -46,7 +62,7 @@ export async function sanityFetch<const QueryString extends string>({
   revalidate?: number | false;
   tags?: string[];
 }) {
-  return publicClient.fetch(query, params, {
+  return getPublicClient().fetch(query, params, {
     next: {
       revalidate: tags.length ? false : revalidate,
       tags
@@ -115,4 +131,4 @@ export const getSearchResults = cache(
   }
 );
 
-export default client;
+export default getAuthenticatedClient;

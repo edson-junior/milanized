@@ -82,10 +82,6 @@ export const travelTipsGroups: { heading: string; links: NavChild[] }[] = [
 ];
 
 export const links: NavLink[] = [
-  {
-    text: 'Travel Tips',
-    children: travelTipsGroups.flatMap((g) => g.links)
-  },
   { href: `${BASE_URL}/blog`, text: 'Articles' },
   { href: `${BASE_URL}/about`, text: 'About' },
   { href: `${BASE_URL}/contact`, text: 'Contact' }

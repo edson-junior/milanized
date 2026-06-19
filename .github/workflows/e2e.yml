@@ -1,7 +1,10 @@
 name: E2E Tests
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   e2e:
@@ -9,12 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
+    # Run inside the official Playwright image: browsers and all system deps
+    # are preinstalled, so there is no `playwright install --with-deps` step to
+    # hang on apt/needrestart prompts. Keep this tag in sync with the
+    # @playwright/test version in package.json.
+    container:
+      image: mcr.microsoft.com/playwright:v1.59.1-noble
+
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-      # Prevent `playwright install --with-deps` (which runs apt-get) from
-      # hanging on interactive needrestart/debconf prompts on ubuntu-latest.
-      DEBIAN_FRONTEND: noninteractive
-      NEEDRESTART_MODE: a
       NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
       NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
       CLIENT_URL: http://localhost:3000
@@ -22,16 +28,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      # On ubuntu-latest (24.04), apt-get triggers needrestart's interactive
-      # "which services to restart?" prompt, which hangs CI forever. Playwright's
-      # `--with-deps` runs apt-get via sudo, and sudo's env_reset strips the
-      # NEEDRESTART_MODE/DEBIAN_FRONTEND env vars set above — so we disable the
-      # prompt via needrestart's config file, which is read regardless of env.
-      - name: Disable needrestart prompts
-        run: |
-          sudo mkdir -p /etc/needrestart/conf.d
-          printf "\$nrconf{restart} = 'a';\n" | sudo tee /etc/needrestart/conf.d/99-no-prompt.conf >/dev/null
 
       - uses: pnpm/action-setup@v4
         with:
@@ -44,24 +40,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
-      # Cache Playwright browser binaries keyed on the lockfile so the ~100 MB
-      # Chromium download is skipped when dependencies have not changed.
-      - name: Cache Playwright browsers
-        uses: actions/cache@v4
-        id: playwright-cache
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-
-      - name: Install Playwright browser + system deps
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: pnpm exec playwright install --with-deps chromium
-
-      # When the browser is cached the system libraries still need installing.
-      - name: Install Playwright system deps (cached browser)
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: pnpm exec playwright install-deps chromium
 
       - name: Build
         run: pnpm build
